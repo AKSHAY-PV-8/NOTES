@@ -632,7 +632,10 @@ Evrything inside js happen inside the execution context
 
                 2.promise.allSettled() => this will return the set of promsies that are completed even though some of them are failed it will returned all the fulfilled promise result
                     the resulting array has same length as that of the passed promise array it will wait for all the promises to settle and return the result even if it is rejected then it return error corresponding to that promise
-                    returns a promise it is also execute as parallel execution           
+                    returns a promise it is also execute as parallel execution 
+
+
+                    fkhjdskfjhsdkfj          
        
                 3.promise.race() => it is actually kind a race between the promsies like in the array of passed promises the race() method will return the value of the first settled promise
                 promise.race() will return the value of the first resolved result only whether it fulfilled or rejected it just return the first resolved promise
