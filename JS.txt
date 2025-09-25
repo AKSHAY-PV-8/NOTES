@@ -642,6 +642,7 @@ Evrything inside js happen inside the execution context
                 returns a promise faciliatate parallel execution. 
               
 
+
                 4.promise.any() => this will return the first promise that get fulfilled unlike race() method this one will return the firstly resolved or fulfilled promise 
                 in promise.any() method if all the passed promsies fails then the result will be an aggregated error which combined of all the error from the promises array like a list of error corersponding each promise
                 called as success seeking api
@@ -651,6 +652,57 @@ Evrything inside js happen inside the execution context
 
                 a special error object used when all promises fails in methods like promise.any()
                 to access individual error using error.errors
+
+            what is the difference between settled, resolved, rejected in promises?
+
+                 setteled means got th result, if the promise is setteled the promise can either resolved or rejected.
+
+                 resolved means fulfilled
+
+                 rejected means failure and rejected.
+
+            what is async?
+              async is a keyword that used before a function to create a async function.
+
+
+              notes
+                when we use a async key word it always return a promise
+
+                if the function is retrun the a non promise function but if the function use async key word the value will wrap with priomise and return it.
+
+                if function returns  a promise then it will it will return only that promise.
+
+
+                example:
+
+                async function getData(){
+                  retrun "Hello";
+                };
+
+                const dataPromise = getData();
+
+
+                when we write a code like above the value Hello is wrapped with promise and in console show like 
+
+                -> Promise{<fullfilled> : "Hello"};
+
+                we can access the value by using .then
+
+                ->dataPromise.then(res => console.log(res))
+
+                =>"Hello";
+
+
+          notes
+
+              async and awaits are used for handle promises
+
+              await is keyword that can only be used inside a async function.
+
+
+              insted of .then we can use await
+
+              make lote of difference
 
             async functions ?
                 async func are declared using async keyword
@@ -672,7 +724,106 @@ Evrything inside js happen inside the execution context
                 Both Promises and async/await are used to handle asynchronous operations in JavaScript, but they differ mainly in syntax and readability. Promises use .then() and .catch() chaining to handle success and error cases, which can become hard to follow when multiple asynchronous tasks are chained together, especially in deeply nested situations. Async/await, on the other hand, is syntactic sugar built on top of Promises that allows you to write asynchronous code in a style that looks and behaves more like synchronous code. This makes it easier to read, maintain, and reason about. With async/await, you can use regular try...catch blocks for error handling, making it feel more natural and structured. However, both approaches return Promises and work under the same non-blocking model. In short, Promises are more flexible in certain use cases like parallel execution with Promise.all(), while async/await makes your code cleaner and easier to follow when you have sequential asynchronous logic.
 
 
+
+
+      example: for the results after using await
+
+    1)  const p1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("print p1");
+        }, 5000);
+      })
+
+      const p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("print p2")
+        }, 10000);
+      }) 
+
+
+      async function handele() => {
+
+        const valu1 = await p1;
+        console.log("hy");
+
+        const valu2 = await p2;
+        console.log("by");
+      }
+
+      handle();
+
+////console
+
+      => in above example output come like
+
+      after 5 seconds 
+
+          "print p1"
+          "hy"
+
+      then after 5 more seconds;
+
+          "print p2"
+          "by"
+
+      2) exmaple we revers the time like 
+
+          const p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve("print p1");
+            }, 10000);
+          })
+
+          const p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve("print p2")
+            }, 5000);
+          }) 
+
+
+          async function handele() => {
+
+              const valu1 = await p1;
+              console.log("hy");
+
+              const valu2 = await p2;
+              console.log("by");
+            }
+
+            handle();
+
+
+
+            => in above example 
+
+                after 10 seconds;
+
+                it prints all data
+
+                "print p1"
+                "hy"
+                "print p2"
+                "by"
+
+
+
         how async/await actually works ?
+
+        when js reaches an await it,
+
+        pauses the execution of the async function.
+
+        returns control back to the event loop.
+
+        the async function itsel return a pending promise at that moment
+
+        ones the awaited promise settles 
+
+        if it resolves, execution continues with the resolved value.
+
+        if it rejected, exectuion continoues by throwing an error at that line
+
+        ////////////
                 When await is encountered:
 
                 JS engine pauses the async function.
@@ -689,6 +840,7 @@ Evrything inside js happen inside the execution context
                 In the meantime, the rest of your program continues (non-blocking).
 
                 Once the awaited promise resolves, JS resumes the async function from where it paused.
+
         what are the differnt execution patterns while executing multiple promises ?
 
             There are 3 diff execution pattern for the execution of promises in js
@@ -718,12 +870,69 @@ Evrything inside js happen inside the execution context
             after resolving the fetch() we get a response and inorde to get actual data from the response we need to convert the rsult into readable foramt like json or something so to do that we got a method called res.json()
             which is also a async funftion that convert the response of the fetch api result into a json object
 
+          ->  response object represents the HTTP response 
+                it contains things like
+
+                  .status - HTTP status code (200, 404, 500 etc).
+                  .ok - boolean.
+                  .header - final URL.
+                  .body - the actual response data stream.
+
+        example:
+
+        const data = await fetch("URL")  => this return a response data
+        const jsonValur = await data.json() => await is used for resolve
+
+
+      what is HTTP?
+
+      HTTP is hyper text transfer protocol
+
+      it is the protocol that defines how clinets and servers talk each other over a web
+
+      .when a fetch calls 
+
+      .the client(browser/JS) sends an HTTP request  to server.
+      .server processes the request and sends an HTTP response back.
+
+      HTTP request has 3 main parts:
+
+      .method -> defines what action you want to do.
+      .Headers -> Metadata about the request 
+      .body(optional) -> Date you're sending (like from inputs, JSON)
+
+      methods:
+              GET, POST, PUT,PATCH, DELETE
+
+      HTTP Response
+
+        When the server replies, the response has:
+
+        .Status Code → Did it succeed or fail?
+
+        .Headers → Info about the response (content type, caching, etc.)
+
+        .Body → Actual data (JSON, HTML, text, image, etc.)
+
+      
+      server
+
+      .Run your server-side code 
+      .server is just a computer
+      .process the request
+      send back an HTTP
+
+
+
         this keyword in js
 
 
                 the value of this keyword is entire depends up on the way we call the functions
                 in nonstrict mode whenever the value of the 'this' keyword becomes null or undefined js will replace its value with the global object 
                 in nonstrict mode by default  the value of 'this' keyword will be undefined
+
+
+                this keyword in global space represent the global object 
 
 
         how to determine the value of this keyword ?
