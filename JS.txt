@@ -1,4 +1,43 @@
+what are function?
+    functions are like reusable code of block that does a special task;
+    it can define if onces and then call it any times
 
+what are objects?
+    object is like a container that store date in form of key value pairs.
+
+what are prototype?
+
+    in js every object has hidden property called prototype.
+    this prototype is just another object, which the current object can use to inherit properties and methods.
+
+    in simle words
+    
+    Imagine every object in JS has a secret parent.
+    If the object doesn’t know something, it will ask its parent.
+    That parent is called its prototype.
+
+
+    function Person(name) {
+    this.name = name;
+    }
+
+    // Add a shared method to prototype
+    Person.prototype.sayHi = function() {
+    console.log("Hi, I am " + this.name);
+    };
+
+    const p1 = new Person("Rahul");
+
+    p1.sayHi();  // Not inside p1 → found in Person.prototype
+
+prototype chain?
+
+    If JS doesn’t find a property/method on the object itself,
+    It looks into its prototype,
+    If still not found, it goes up the chain (prototype of prototype) — this is called the prototype chain.
+
+
+execution context?
 
 Evrything inside js happen inside the execution context 
  
@@ -9,11 +48,11 @@ Evrything inside js happen inside the execution context
         js is a single threaded synchronous programing language , means it executes only one line of code at a time
 
                       
-    how js runs ?
+how js runs ?
 
-        each time we create a program a execution context is created 
+    each time we create a program a execution context is created 
 
-        in creating the execution context  ,
+    in creating the execution context  ,
                         the first step is the memory creation phase in which js allocate memory to each and every variables in js
                         initially each variable is stored with a value of undefined and for funvtions there entire definition will be stored or copied there 
                         
@@ -44,13 +83,49 @@ Evrything inside js happen inside the execution context
             see the code
                 
                 function getProp(item,value){
-                    console.log('value',item[value]);
+                    console.log('value', item[value]);
                     
-                    return item[value]?item.value:-1
+                    return item[value]? item.value:-1
                 }
+
                 console.log(getProp({a:42},'a')); here  by logic this will also need to print 42 but instead it prints undefined 
                     beacuse for dot notaion js expect static value like while using dot notaion we must need to call the object with its exact name like here item.a will work but using that dynamic variable wont works
                     but while using that bracket notation we can call that property of the object using static variable but in that case we need to pass it as string like this item['a'] or we can store that value in some variable  and pass that variable instead that will also works like this item[atext]
+
+                notes:-help clear doubt
+
+               An object is like a cupboard with drawers.
+
+                    Each drawer has a label (the property name).
+
+                    Inside each drawer is the thing you store (the property value).
+
+                    Example:const obj = { a: 42 };
+                            Cupboard = obj
+                            Drawer label = "a"
+                            Thing inside drawer = 42
+
+                    =>Dot notation → fixed drawer label
+
+                        ->obj.a
+                    👉 Means: “open the drawer with the label a.”
+                    (You type the label directly.)
+
+                    Bracket notation → use a variable to decide which drawer
+                    const key = "a";
+                    obj[key]
+
+
+                    👉 Means: “look at the variable key, see it has "a", then open the drawer labeled a.”
+
+                    Why your code broke
+                    item[value]   // ✅ uses the drawer label from the variable
+                    item.value    // ❌ looks for a drawer literally labeled "value"
+
+                    If your cupboard has a drawer "a", but you ask for "value", it will return undefined (empty).
+
+                ->when we use dot , it look for the label name 
+
         
         what is window object and this keyword in js ?
 
@@ -841,7 +916,7 @@ Evrything inside js happen inside the execution context
 
                 Once the awaited promise resolves, JS resumes the async function from where it paused.
 
-        what are the differnt execution patterns while executing multiple promises ?
+        what are the different execution patterns while executing multiple promises ?
 
             There are 3 diff execution pattern for the execution of promises in js
                 1.sequential : here each promise waits for the previous one to complete before starting .this is useful when operation depend on each others or must happens in order
@@ -924,15 +999,145 @@ Evrything inside js happen inside the execution context
 
 
 
-        this keyword in js
-
+        this keyword in js?
 
                 the value of this keyword is entire depends up on the way we call the functions
                 in nonstrict mode whenever the value of the 'this' keyword becomes null or undefined js will replace its value with the global object 
                 in nonstrict mode by default  the value of 'this' keyword will be undefined
 
+        -> this keyword in global space represent the global object.
 
-                this keyword in global space represent the global object 
+        why it happend?
+
+        this is beacuse of this substitution
+
+        if the value of this keyword is undefined or null.
+        this keyword will be replaced with globel object.
+        only in strict mode.
+
+        what is the value of this in a function?
+
+        it is undefined, in strict mode but , but it is not in strict mode this substitution take place.
+
+        => if in strict mode 
+            function x(){
+                console.log(this);
+            }
+
+            x();
+            window.x()
+
+            are same?
+
+        no => x() returns undifined and 
+              window.x() retruns global object
+
+        imp**
+
+            const obj = {
+                a: 10,
+                x: function() {
+                    console.log(this)
+                }
+            }
+
+            obj.x();
+
+            what it returns ?
+
+            in this this keyword returns the object
+            means in console {a: 10, x:f}
+
+            if it console.log(this.a)
+
+            it returns value of a => 10;
+            because 
+
+            this return object and object.a returns the value of a
+
+            ->in case of arrow function 
+            const obj2 = {
+                a:20,
+                x: function () {
+                    const y = () => {
+                        console.log(this)
+                    }
+                    y();
+                }
+            }
+            obj2.x();
+
+            it also returns object
+            means in console {a: 10, x:f}
+
+        what are call() and apply()?
+        -> 
+
+
+        🔹 call() and apply()
+
+        Both are methods of functions in JavaScript.
+        They are used to call a function, but also control what this means inside that function.
+
+        👉 So basically:
+
+        Normal call → function runs with its default this.
+
+        call/apply → you can decide what this should be.
+
+        🔹 Example 1: Without call or apply
+        function greet() {
+        console.log("Hello, I am " + this.name);
+        }
+
+        const person = { name: "Aswin" };
+
+        // Normal call
+        greet(); // "Hello, I am undefined" (because `this` is not person here)
+
+        🔹 Example 2: With call()
+        function greet(city) {
+        console.log("Hello, I am " + this.name + " from " + city);
+        }
+
+        const person = { name: "Aswin" };
+
+        // Using call: first argument = what `this` should be
+        greet.call(person, "Kozhikode");
+        // Output: Hello, I am Aswin from Kozhikode
+
+        🔹 Example 3: With apply()
+        function greet(city, country) {
+        console.log("Hello, I am " + this.name + " from " + city + ", " + country);
+        }
+
+        const person = { name: "Rahul" };
+
+        // apply is same as call, but arguments are passed as an ARRAY
+        greet.apply(person, ["Delhi", "India"]);
+        // Output: Hello, I am Rahul from Delhi, India
+
+        🔹 Key Difference
+
+        call(thisArg, arg1, arg2, ...) → arguments listed one by one.
+
+        apply(thisArg, [arg1, arg2, ...]) → arguments given as an array.
+
+        🔹 Real-world analogy
+
+        Imagine a function is like a tool (like a hammer).
+
+        Normally, it belongs to someone (default this).
+
+        With call/apply, you can borrow that tool and say:
+
+        “Hey function, pretend you belong to THIS person.”
+
+        ✅ So in short:
+
+        call → call function with a given this, pass arguments normally.
+
+        apply → same thing, but pass arguments as an array.
 
 
         how to determine the value of this keyword ?
@@ -1009,15 +1214,15 @@ Evrything inside js happen inside the execution context
             
             classes are the syntatical sugars over prototypes
               classes are more easier to understand than prototypes   
-              we can do inheritance with class using the extends keywords and super keyword which calls the constructor of the parent class 
-              constructor function classes etec all uses prototypes behins the scene
+              we can do inheritance with class using the extends keywords and super keyword which calls the constructor of the parent class.
+              constructor function classes etec all uses prototypes behins the scene.
 
             what are constructor functions
-                constructor functions are regular functions , but when you call it with the new keyword it create and return a new object 
+                constructor functions are regular functions , but when you call it with the new keyword it create and return a new object.
             prototype in js ?
 
-                    every object ins js  has some hidden internal properties cqlled [[prototype]] which can be accessible by (.__proto__) .
-                    this [[prototype]] points to another object , this another object is called as prototype
+                    every object ins js  has some hidden internal properties cqlled [[prototype]] which can be accessible by (.__proto__).
+                    this [[prototype]] points to another object , this another object is called as prototype.
 
 
                     Imagine you're building robots. Each robot can do certain actions (like speak, walk, etc.). But instead of writing the instructions inside every robot, you write them in a blueprint.
@@ -1220,4 +1425,52 @@ some array oprations
                 eg:array.splice(2,0,[12,1])
                 this will insert the array [12,1] at index 2 of that original array
         6.
+
+
+what is function curring?
+
+    breaking a function that takes multiple arguments into series of functions that each take one argument.
+
+    instead of:
+    add(1,2,3)
+
+    write add(1)(2)(3);
+
+    Example
+
+     normal function 
+
+     function add(a,b) {
+        retrun a + b;
+     }
+
+     console.log(add(1,4))
+
+    curried ////
+
+    function addCurry(a){
+        return function(b){
+            retrun a + b;
+        }
+    }
+
+    console.log(addCurry(2)(3))
+
+    use?
+
+    we can create specialozed functions.
+
+    funcction multiply(a) {
+        return function(b){
+            return a * b;
+        }
+    }
+
+    const double = multipy(2);
+
+    console.log(double(5)) => retuns 10;
+
+    real word application add tax to the bill
+
+    we can set the tax amount as fixed.
 
