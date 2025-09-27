@@ -1,4 +1,3 @@
-/*
 
 =>tab help to auto complete
 
@@ -43,3 +42,10 @@ mv filname name -> mv also used to rename
 
 cat filename -> used to show the content in the file 
                 example -> cat notes/t.js
+
+set-content -> used to set content in the file 
+
+add-content -> used to add content 
+
+get-content fileName -totalcount number  -> returns the number of lines
+get-content fileName -tail number  -> return the last n lines
