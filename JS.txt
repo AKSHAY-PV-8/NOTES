@@ -5,6 +5,40 @@ what are function?
 what are objects?
     object is like a container that store date in form of key value pairs.
 
+why we use object instead of noraml variables?
+    in obejct we can store multiple values together as a single unit.
+
+what are methods?
+    methods are functions that belongs to object.
+
+    means the function is standalone
+          the method is function that store as a property of Object
+
+          A normal function
+            function greet() {
+            console.log("Hello!");
+            }
+
+            greet(); // "Hello!"
+
+
+            👉 greet is just a function — it doesn’t belong to any object.
+
+            A method inside an object
+            let person = {
+            name: "Alice",
+            sayHello: function() {
+                console.log("Hello, my name is " + this.name);
+            }
+            };
+
+            person.sayHello(); 
+            // "Hello, my name is Alice"
+
+
+            👉 sayHello is a method because it belongs to the person object.
+
+
 what are prototype?
 
     in js every object has hidden property called prototype.
@@ -135,7 +169,10 @@ how js runs ?
             and during the creation of the window object variable js automatically create a 'this' variable and at global level it will point to the window object . 
      
             these global object and execution context will be created by all the js engines in browser that global object is window and in node js it is called "global"  
-            the global variable that are declared using var will be attached to the window object by js and the global variable that are decalred using let or const wont be added  
+            the global variable that are declared using var will be attached to the window object by js and the global variable that are decalred using let or const wont be added
+
+        what is global object? 
+            it is a top level object that provide all inbuilt functions, consstanst and also hold global variables  
 
         undefined vs not defined
 
@@ -182,6 +219,34 @@ how js runs ?
             fake shadowing : is when we try to redeclare a block variable using a var keyword within the block elemenet scope
             happens when we try to declare the a block variable and redeclare them using var keyword in the same or inner scope 
 
+            example
+
+            ✅ Real Shadowing
+            let a = 100;
+
+            {
+            let a = 200;      // new variable in this block
+            console.log(a);   // 200 → inner one shadows outer
+            }
+
+            console.log(a);     // 100 → outer one is still there
+
+
+            👉 Inner a really hides the outer one inside the block.
+
+            ❌ Fake Shadowing
+            let a = 100;
+
+            {
+            // no new declaration
+            a = 200;          // this just changes the outer one
+            console.log(a);   // 200
+            }
+
+            console.log(a);     // 200 → outer was modified
+
+
+
         what is closure ?
 
             closure means a function bundles with it lexical parent or lexicals scope 
@@ -204,8 +269,25 @@ how js runs ?
         some use cases of closure 
             closure are used in
                 module design pattern
+                    The Module Pattern is a way to organize code by keeping some parts private and exposing only what is necessary.
 
-                currying => used to break function with n arguments into n  unitary funtion or n  functions that takes single arguments each
+                    const text = (function(){
+                        let count = 0;
+
+                        return {
+                            inc : function(){
+                                count++
+                                console.log(count)
+                            }
+                        }
+
+                    })()
+
+                    text.inc() -> returns result 
+                    console.log(text.count) -> undifined → cannot access private variable
+
+
+                currying => used to break function multiple arguments into sequence funtion each take one argument at a time.
                     eg: function sum1(a){
                         function sum2(b){
                             return a+b; 
@@ -214,6 +296,8 @@ how js runs ?
                         }
                         let res=sum1(10)(21)
                         console.log(res);
+
+                        curring function remember the argument of earlier function with help closures
 
                         
                 function like once => those are function that are desiged to run only once       
@@ -226,7 +310,8 @@ how js runs ?
 
                                                 This is more powerful than block scope, because closures let you:
 
-                                                Keep data alive across function calls (unlike block scope).
+                                                //Keep data alive across function calls (unlike block scope).
+                                                means variable inside is still remember by inner function , even after the outer function finished runnig
     
                                                 Make variables inaccessible from outside, but still usable internally. 
 
@@ -253,8 +338,9 @@ how js runs ?
                                                             console.log(c.count); // ❌ undefined — can't access private variable
 
         disadvantage of closure
-                every time a closure is formed it consumes a lot of memory and some time the closed variables are not garbage collected
-                closure consume memory since it retain the refernce of the outer variables
+                every time a closure is formed it consumes a lot of memory and some time the closed variables are not garbage collected.
+                - closed variables are veriable that are remember by inner function , even after outerfunction is finished or closed.
+                closure consume memory since it retain the refernce of the outer variables.
 
         how setTimeout Works ?
             in setTimeout the callback is taken out and get attched that timer and it will be placed somehere other than callstack ( placed in web API or timer queue) and rest of the code will continue execution and when this timer exceeds, the setTimeout will take that callback function and append it to the call stack
@@ -278,6 +364,12 @@ how js runs ?
                     console.log(i)
                 },i*1000)
             }
+
+            in above code 
+
+            var is function-scoped, not block-scoped.
+            All 5 timeouts would print 5 after 0,1,2,3,4 seconds, because there’s only one i shared.
+            use let instead of var to get corret answer
 
             this one work as we expected and it does beacuse now i is block scoped variable and for each iteration we get a unique variable i with its own memory and refernce so each setTimeout function is getting its own variable and will be able to Print diff values or like it has to work
 
@@ -394,9 +486,9 @@ how js runs ?
                                 returned from a functions 
 
 
-        what are callbacks ?
+        what are callbacks ?  
 
-            callbacks are first order functions that are passed as an argument to another function and callback functions are the ones that enables us to do async operations inside js   
+            callbacks are functions that are passed as an argument to another function and callback functions are the ones that enables us to do async operations inside js   
 
             callback functions are functions that are passed as an arguments to another function and the recieving function calls it later so it is called callback function
 
@@ -1277,21 +1369,20 @@ how js runs ?
 
                                         If the property is never found, undefined is returned (and errors if you try to call it as a function).
 
-            what is iterables and iterator ?
+            what is iterables and iterator ?    
 
                 an object which implement iterable protocals is cqlled iterable
 
                 for an object to be an iterable it musyt implemtnt a method at the key [sybol.iterator]
                 that method should not accpet any arguents and should return a object which conforms to iterator protocol
-                the iterator protocol decide whether a object is an iterator
+                the iterator protocol decide whether a object is an iterator  
                 iterator protocol : the object must have a next method, that retuns an object with 2 property
                     1.value : current elemenet
                     2.done : boolesn vlue to indicate the end of elements
                 
                 string , array ,map , set are built in iterable 
-
-
-            what are generator function in js
+        =               
+            what are generator function in js? 
 
                 these are more simplified way to create iterables in js.
                 A generator function is a function you can pause and resume, using yield and .next(). It returns an iterator object, and gives you fine control over function execution — perfect for things like lazy data generation and custom iterators.
