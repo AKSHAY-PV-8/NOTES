@@ -299,6 +299,18 @@ how js runs ?
 
                         curring function remember the argument of earlier function with help closures
 
+                example of gst calculation(curring):
+                    
+                    const function calculatTax(taxRate){
+                        return function(amount){
+                            return taxRates * amount;
+                        }
+                    }
+
+                    cosnt gst = calculatTax(0.18);
+                    console.log(gst(1000));
+
+
                         
                 function like once => those are function that are desiged to run only once       
                 memoization => to imporve performance by caching the result 
@@ -644,15 +656,6 @@ how js runs ?
                 
                 here we are creating a callback func to run after 0 seconds and we are doing this so that this task wont block the main thread like if the callback funcction is actually not that important then we use this so that all the main thread execution will be completed first and only after then this callback will be called 
 
-            what are higher order functions in js ?
-
-                higher order functions are functions that takes another function as their argument or return a functions as their result
-
-                eg : array methods like sort(),map(),filter(),forEach() etc  
-
-            what are callbacks in js ?
-                
-                callbacks are functions that are passed as an argument to another functions and are executed after the completion of the certain task .
 
             what are the issues with the callbacks ?
  
@@ -799,10 +802,7 @@ how js runs ?
 
                 2.promise.allSettled() => this will return the set of promsies that are completed even though some of them are failed it will returned all the fulfilled promise result
                     the resulting array has same length as that of the passed promise array it will wait for all the promises to settle and return the result even if it is rejected then it return error corresponding to that promise
-                    returns a promise it is also execute as parallel execution 
-
-
-                    fkhjdskfjhsdkfj          
+                    returns a promise it is also execute as parallel execution        
        
                 3.promise.race() => it is actually kind a race between the promsies like in the array of passed promises the race() method will return the value of the first settled promise
                 promise.race() will return the value of the first resolved result only whether it fulfilled or rejected it just return the first resolved promise
@@ -827,9 +827,6 @@ how js runs ?
                  resolved means fulfilled
 
                  rejected means failure and rejected.
-
-            what is async?
-              async is a keyword that used before a function to create a async function.
 
 
               notes
@@ -908,7 +905,7 @@ how js runs ?
       }) 
 
 
-      async function handele() => {
+      async function handele() {
 
         const valu1 = await p1;
         console.log("hy");
