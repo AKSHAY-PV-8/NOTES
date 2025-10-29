@@ -1062,7 +1062,7 @@ how js runs ?
       .server processes the request and sends an HTTP response back.
 
       HTTP request has 3 main parts:
-
+  
       .method -> defines what action you want to do.
       .Headers -> Metadata about the request 
       .body(optional) -> Date you're sending (like from inputs, JSON)
