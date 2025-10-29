@@ -70,16 +70,66 @@ const firstNonRepeatingletter = (String) => {
     return null
 }
 
+const twoSum = (array, k) => {
+    const seen = new Set();
+
+    for(let i of array){
+        const check = k - i;
+        
+        if(seen.has(check)){
+            return [check, i]
+        }
+        seen.add(i)
+    }
+}
+
+const sortByFrequency = (array) => {
+    let checkMap = {}
+
+    for(let number of array){
+        checkMap[number] = (checkMap[number] || 0) + 1
+    }
+    
+    array.sort((a,b) => {
+        if(checkMap[b] !== checkMap[a]){
+            return checkMap[b] - checkMap[a]
+        }
+        return a-b
+    })
+
+    return array
+}
+
+const sortByFrequencyWithoutInbulitfunction = (array) => {
+    let checkMap = {}
+
+    for(let number of array){
+        checkMap[number] = (checkMap[number] || 0) + 1;
+    }
+
+    for(let key in checkMap){
+        console.log(checkMap[key])
+    }
+    return checkMap
+}
+                                                                                                                
+                   
+
+
+
 
 const string = "abcd";
 const array = [1,[2,3,[3]]];
 const array1 = [1,2,3,4,5]
 const array2 = [1,2,3,4,6];
-const string1 = "swiss"
+const string1 = "swiss";
+const array3 = [1,1,4,3,3,3,3]
 
 // console.log(stringReverse(string))
 // console.log(arrayFlattening(array))
 // console.log(removeDuplicates(array1))
 // console.log(arrayRotation(array1))
 // console.log(findMissingNUmber(array2));
-console.log(firstNonRepeatingletter(string1))
+// console.log(firstNonRepeatingletter(string1))
+// console.log(twoSum(array1, 5))
+console.log(sortByFrequencyWithoutInbulitfunction(array3))

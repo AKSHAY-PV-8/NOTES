@@ -3,7 +3,7 @@ what are function?
     it can define if onces and then call it any times
 
 what are objects?
-    object is like a container that store date in form of key value pairs.
+    object is like a container that store date in form of key value pairs.                
 
 why we use object instead of noraml variables?
     in obejct we can store multiple values together as a single unit.
@@ -105,7 +105,7 @@ how js runs ?
                      but for variable , name is only hoisted , means it value cannot be obtained it will be undefined , 
                      the variable that are declared using let and const are also hoisted but there are in temporal dead zone and accessing them before initialisation throws the refernece error
                 like for function we can invoke the funtion way before it definition but it only work with proper function using normal synatax like this function <name>(){}
-                for arrow function it initially create a variable in the memory context and its value will be undefined , so if i try to call the function before definition and it  is stored in a variable  it will throw an error saying that variable can't be called 
+                for arrow function it initially create  variable in the memory context and its value will be undefined , so if i try to call the function before definition and it  is stored in a variable  it will throw an error saying that variable can't be called 
 
         how function works in js ?
 
@@ -138,7 +138,7 @@ how js runs ?
                             Cupboard = obj
                             Drawer label = "a"
                             Thing inside drawer = 42
-
+                       
                     =>Dot notation → fixed drawer label
 
                         ->obj.a
@@ -305,10 +305,11 @@ how js runs ?
                         return function(amount){
                             return taxRates * amount;
                         }
-                    }
+                    }                                                                         
 
                     cosnt gst = calculatTax(0.18);
                     console.log(gst(1000));
+
 
 
                         
@@ -378,7 +379,7 @@ how js runs ?
             }
 
             in above code 
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             var is function-scoped, not block-scoped.
             All 5 timeouts would print 5 after 0,1,2,3,4 seconds, because there’s only one i shared.
             use let instead of var to get corret answer
@@ -637,7 +638,8 @@ how js runs ?
 
             in V8 js Engine 
                 the Interpreter is called as Ignition
-                the compiler is called as TurboFan
+                the compiler is called a
+                s TurboFan
                 the grabage collector used to relieve the memory heap is known as  Orinoco and oil pan(used only for managing dom related objects) which uses the algorithm "mark and sweep"
 
             mark and sweep algorithm
@@ -648,7 +650,7 @@ how js runs ?
 
             Importanat  things :
                    
-                    The callback function only get a chamce to execute in the call stack queue only when the callstack and the microtask queue is empty
+                    The     callback function only get a chamce to execute in the call stack queue only when the callstack and the microtask queue is empty
 
                     if a setTimeout method is used and setup a callback that run after 5s but it wont be sure that it will run exactly after the 5s beacuse if the main thread has some other code to run some synchronous operation like some other activity the main thread will be busy doing that and in that case the callstack wont be empty and callback function of the setTimeout can't run in callstack
   
@@ -808,7 +810,7 @@ how js runs ?
                 promise.race() will return the value of the first resolved result only whether it fulfilled or rejected it just return the first resolved promise
                 returns a promise faciliatate parallel execution. 
               
-
+                                                                          
 
                 4.promise.any() => this will return the first promise that get fulfilled unlike race() method this one will return the firstly resolved or fulfilled promise 
                 in promise.any() method if all the passed promsies fails then the result will be an aggregated error which combined of all the error from the promises array like a list of error corersponding each promise
@@ -1561,4 +1563,51 @@ what is function curring?
     real word application add tax to the bill
 
     we can set the tax amount as fixed.
+
+
+
+shallow clone vs deep clone?
+
+🧠 2️⃣ Shallow Clone vs Deep Clone
+🔹 Shallow Clone:
+
+Makes a copy of the top level only, not nested objects.
+
+Example:
+
+const obj = { a: 1, b: { c: 2 } };
+const shallowCopy = { ...obj };
+
+
+Now:
+
+shallowCopy.b.c = 99;
+console.log(obj.b.c); // 99 😱
+
+
+Even though you used {...obj}, the nested object (b) is still shared between both.
+So both obj.b and shallowCopy.b point to the same inner object.
+
+That’s why we call it shallow — it copies only one level deep.
+
+
+🔹 Deep Clone:
+
+Makes a copy of everything, including nested objects — so the new copy is completely independent.
+
+Example:
+
+const obj = { a: 1, b: { c: 2 } };
+
+// deep clone
+const deepCopy = JSON.parse(JSON.stringify(obj));
+
+deepCopy.b.c = 99;
+
+console.log(obj.b.c);  // 2 ✅ original unchanged
+console.log(deepCopy.b.c); // 99
+
+
+Now they are truly separate objects in memory.
+
 

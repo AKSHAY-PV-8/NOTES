@@ -1,3 +1,0 @@
-hellow
-iam her
-akshay

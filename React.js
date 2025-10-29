@@ -331,4 +331,782 @@ what is use of context?
 
 
     
- 
+   HOOKS
+   ------
+
+whar are states?
+
+    states  in react is a special variable that store data inside a component.
+    when the state change, react automatoicalyy update the UI.
+   
+what are hooks?
+    it help as to use react feature without write a class.
+
+
+NOTE
+
+    when we use useState using object, carefull about one thing
+    that 
+
+    useSatate hooks does not automatocaly merge and update
+    we should manualy do that
+
+    like ...item
+
+    example in :...... useState using object
+
+
+what is useState hook?
+
+    .useState is used for add state to functional components,
+    .It returns an array with 2 elements.
+    .first element is the current value of the state,& second element is a state setter function.
+
+useEffect hook?
+    requesting react that execuit this function at evert rendering.
+    useEffect runs every rendering
+
+    it receives a function which have been executed.
+
+    useEffect(() => {
+        }, [dependency]);
+
+        dependency giving for only render the function on depedency change otherwise it runes in every rendering.
+
+what is cleanup function ?
+
+    is special function return from useEffect to stop, cancel, or clean up things , when the component is removed or before the effects runs again
+
+    example :
+
+    useEffect(() => {
+
+        window.addEventListener('mousemove', logMousePosition)
+
+        return () => {  //cleanup code it should return 
+            window.removeEventListener('mousemove', logMousePosition) 
+            }
+        }, [])
+
+       
+notes => axios is used for fetch data from the url.
+
+const [post, setPost] = useState([])
+
+useEffect(() => {
+    axios
+    .get("url.")
+    .then(res => {
+        console.log(res)
+        setPosts(res.data)})
+        })
+        .catch(err => {
+            console.log(err)
+            }) 
+)}
+                                                                        
+fetch data using useEffect from id?
+
+    =>"url/klfghdl/fldklf/dlkj/${id}""
+    
+
+
+what is useContext Hooks?
+    example:
+     componentA, componentB, componentC
+
+what are useReducer?
+
+    .useReducer is a hook that id used for state managemnet
+    .it is an alternative to useState
+    .useState is bulit using useReducer
+                                                                                                                                                                                                                        useState vs useReducer?
+useMemo vs useCallback hooks?
+useRef?
+
+           
+RENDERING
+----------
+
+    when we run react application the code in components is transilated into elements get mounted into DOM
+
+    works splits into 2 phases 
+    .render phase
+    .commit phase
+
+    in render phase (smiple rendering)
+        1- react starts from root component to leaf componets
+        2- when traversing for each element react invokes createElment()
+        and converts components jsx to react elements and stores render outputs.
+
+        =>react elememts are js objects that discribe the structure of your UI
+
+       3- if the convertion of jsx componets to react element of entirer
+       conponentry it transfer to next phase call commit phase. 
+
+       4- in commit phase react elements is applied on DOM using react DOM packege.
+
+      
+
+RERENDERING
+-----------
+
+1. when the render start react moves from root componets to leaf components, and finding all components flaged as needing updates.
+
+->a component can flag itself for an update by calling useSate setter functions or by useReducer dispach function.
+
+2. for each of the flaged components react invokes createElments() and converts jsx elements into react elements and stores render outputs.
+
+3. ones the conversion of all the componets are completed., react will compare new set of react elements from ones that produce from last render(perform reconciliation)
+
+4. list is created with all the changes made to the DOM and hand over to the commit phase
+
+5. in commit phase all changes are applied to DOM.
+
+
+
+
+e.targrt.value
+--------------
+
+e => when an event occures broweser automaticaly create a obejct that with all detalil.
+e.target => the HTML that trigger event.
+e.target.value => value of the event.
+
+
+note
+
+when we trying to sort a array passed by parent , recevied using props
+we can't directly sort the array passed 
+=> because the prop is readOnly so react don't identify it to sort
+    so we maintain a local state.
+
+
+
+
+
+
+
+///////////////////////////////////////////////
+ FROM PROJECTS
+
+
+ You are importing three important components from the React Router DOM library:
+
+BrowserRouter → The main routing provider.
+
+Routes → The container that holds all route definitions.
+
+Route → Defines one specific route (path → component mapping).
+
+⚙️ 2. Why we need React Router?
+
+By default, React is a single-page application (SPA).
+That means — even if you have multiple "pages" (like Home, About, Contact), React only loads one HTML file (index.html).
+
+To make users feel like they are navigating between pages, React Router manages URL changes and renders components dynamically — without reloading the page.
+
+🧩 3. The basic structure
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />         {/* / → Home component */}
+        <Route path="/about" element={<About />} />   {/* /about → About component */}
+      </Routes>
+    </Router>
+  );
+}
+
+
+
+
+what is the use of useParams?
+
+    it is a react router hook that give access to the dynamic part of url
+
+    <Route path="/user/:username" element={<UserDetails />} />
+
+    navigate("/user/akshay")
+    const { username } = useParams();
+            
+
+
+what are the difference between fetch and axios?
+
+🧠 1. Basic Idea
+Feature	fetch()	axios
+Type	Built-in browser API	External library (you install it)
+Usage	Simple and native	Feature-rich and easier to use
+Needs installation?	❌ No	✅ Yes (npm install axios)
+⚙️ 2. Syntax Difference (Example)
+✅ Using fetch():
+fetch("https://api.github.com/users/octocat")
+  .then(res => res.json())       // must manually convert to JSON
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
+✅ Using axios:
+import axios from "axios";
+
+axios.get("https://api.github.com/users/octocat")
+  .then(res => console.log(res.data)) // data already parsed
+  .catch(error => console.error(error));
+
+⚖️ 3. Key Differences (Side-by-Side)
+Feature	fetch()	axios
+Installation	Built-in to browsers	Needs npm install axios
+Data Parsing	Must call .json() manually	Automatically converts response to JSON
+Error Handling	Only rejects for network errors, not for HTTP errors (like 404, 500)	Rejects on any bad response (network or HTTP)
+Default Headers	Must set manually	Automatically sets headers like Accept: application/json
+Request Timeout	Must implement manually with AbortController	Has built-in timeout support
+Interceptors	❌ Not supported	✅ Supported (very useful for adding tokens/logging)
+Progress Tracking	❌ Harder	✅ Easy (onUploadProgress, onDownloadProgress)
+Request Cancellation	✅ Using AbortController	✅ Built-in cancellation support
+Node.js Compatibility	❌ Browser only (needs node-fetch for Node)	✅ Works both in browser and Node.js
+Ease of Use	Simple but verbose	Cleaner and more convenient
+📦 4. Example — Error Handling Difference
+⚠️ fetch() (does not reject 404 automatically)
+fetch("https://api.github.com/users/wronguser")
+  .then(res => {
+    if (!res.ok) {
+      throw new Error("User not found");
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(err => console.error("Error:", err));
+
+✅ axios (automatically rejects 404)
+axios.get("https://api.github.com/users/wronguser")
+  .then(res => console.log(res.data))
+  .catch(err => console.error("Error:", err.response.status));
+
+
+👉 Axios saves you extra steps when handling failed responses.
+
+🔄 5. Example — Sending Data (POST request)
+Using fetch():
+fetch("https://example.com/api", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name: "Akshay" })
+})
+.then(res => res.json())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+
+Using axios:
+axios.post("https://example.com/api", { name: "Akshay" })
+  .then(res => console.log(res.data))
+  .catch(err => console.error(err));
+
+
+👉 Axios automatically converts objects to JSON, so it’s cleaner.
+
+🧩 6. Example — Adding Interceptors (Axios only)
+
+Axios has a very useful feature called interceptors (fetch does not).
+
+You can automatically attach tokens or log requests:
+
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+  return config;
+});
+
+
+This runs before every API call — super handy in real projects.
+
+🧠 7. When to Use What
+Use Case	Recommended
+Small projects or simple GET/POST	fetch() (native, no dependency)
+Large apps with auth, tokens, APIs	axios (interceptors, auto-JSON, cleaner syntax)
+Node.js or server-side calls	axios
+Uploading files / tracking progress	axios
+Learning basics	fetch() (teaches raw API handling)
+
+
+👇
+
+🌐 1. What Happens When You Make an API Call
+
+When your code runs something like:
+
+fetch("https://api.github.com/users/octocat")
+
+
+or
+
+axios.get("https://api.github.com/users/octocat")
+
+
+Two main things can go wrong when connecting to the server:
+
+Network errors — the request never reaches the server.
+
+HTTP errors — the request reaches the server, but the server responds with an error status (like 404, 500, etc).
+
+⚠️ 2. Network Errors
+🔹 What It Means
+
+A network error happens when the browser can’t even connect to the server —
+there’s no response at all.
+
+In simple terms:
+
+❌ “The request didn’t reach the destination or no response came back.”
+
+🔹 Common Causes
+
+No internet connection 💔
+
+Wrong API URL (like a typo or non-existing domain)
+
+Server is down or unreachable
+
+CORS error (cross-origin restriction)
+
+DNS issues (domain not resolving)
+
+🔹 Example
+axios.get("https://api.github.dummy/users/octocat")
+  .catch(error => {
+    console.error("Network Error:", error.message);
+  });
+
+
+👉 Here, since github.dummy is not a real domain, you’ll get:
+
+Network Error: Network Error
+
+
+Axios will reject the promise with a “Network Error”.
+
+⚙️ 3. HTTP Errors
+🔹 What It Means
+
+An HTTP error happens when:
+
+✅ The server receives your request,
+❌ but responds with an error status code.
+
+These are not connection problems — they are server-side responses telling you something went wrong.
+
+🔹 Common HTTP Status Codes
+Code	Meaning	Who’s Responsible
+400	Bad Request (client sent invalid data)	Client
+401	Unauthorized (no/invalid token)	Client
+403	Forbidden (not allowed to access)	Server
+404	Not Found (endpoint missing)	Client or Server
+500	Internal Server Error	Server
+503	Service Unavailable	Server
+🔹 Example
+axios.get("https://api.github.com/users/non_existing_user")
+  .catch(error => {
+    console.error("HTTP Error:", error.response.status);
+  });
+
+
+Here:
+
+The server responds successfully, but with a 404 Not Found.
+
+Axios knows this is an HTTP error, so it throws it.
+
+You’ll get:
+
+HTTP Error: 404
+
+🧩 4. How fetch vs axios Handle These
+Case	fetch()	axios
+Network error	❌ Rejects the promise	❌ Rejects the promise
+HTTP error (404, 500)	✅ Does NOT reject the promise	❌ Rejects the promise automatically
+Example with fetch
+fetch("https://api.github.com/users/non_existing_user")
+  .then(res => {
+    // ✅ This runs even for 404
+    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+    return res.json();
+  })
+  .catch(err => console.error(err));
+
+Example with axios
+axios.get("https://api.github.com/users/non_existing_user")
+  .catch(err => {
+    // Axios automatically treats 404 as an error
+    console.error("HTTP Error:", err.response.status);
+  });
+
+🧠 5. Visual Summary
+           ┌──────────────────────────┐
+           │ Your Code (Axios/Fetch)  │
+           └────────────┬─────────────┘
+                        │
+                        ▼
+             🌐 Network Request
+                        │
+         ┌──────────────┴───────────────┐
+         │                              │
+   ❌ Network Error               ✅ Connected to Server
+(no internet, CORS, etc.)          │
+         │                          ▼
+         │                🔁 Server Response
+         │                          │
+         │              ┌───────────┴────────────┐
+         │              │                        │
+         │        ✅ 200 OK               ❌ HTTP Error (404, 500...)
+
+
+
+🌐 What Are HTTP Errors?
+
+When you make a request to a web server (for example using fetch() or axios),
+the server always sends back an HTTP response.
+
+That response has:
+
+Headers — info about the response (content type, etc.)
+
+Body — the actual data or message
+
+Status code — a 3-digit number that tells you whether the request was successful or not
+
+👉 If the status code is between 400 and 599, it’s called an HTTP error.
+
+🧠 In Simple Words
+
+🧾 Your browser or app successfully reached the server,
+but the server replied: “Something went wrong.”
+
+So the request didn’t fail to connect (that would be a network error),
+but the server rejected or failed to process it correctly.
+
+💡 HTTP Status Code Categories
+Code Range	Meaning	Example
+1xx	Informational (rarely used directly)	100 Continue
+2xx	✅ Success	200 OK, 201 Created
+3xx	🔁 Redirection	301 Moved Permanently
+4xx	❌ Client Error	400 Bad Request, 404 Not Found
+5xx	💥 Server Error	500 Internal Server Error
+
+We’ll focus on 4xx and 5xx, because those are HTTP errors.
+
+🚫 4xx Errors — Client Mistakes
+
+These mean your request was wrong in some way.
+
+Code	Name	Meaning	Example
+400	Bad Request	The server can’t understand your request (maybe missing or invalid data).	You sent wrong JSON format.
+401	Unauthorized	You’re not logged in or didn’t send valid credentials.	Missing access token.
+403	Forbidden	You’re logged in, but not allowed to access this resource.	Normal user trying admin route.
+404	Not Found	The URL doesn’t exist on the server.	Typo in /api/userss instead of /api/users.
+409	Conflict	The request conflicts with server state.	Trying to register an already existing username.
+💣 5xx Errors — Server Mistakes
+
+These mean the server received your request correctly,
+but something broke while processing it.
+
+Code	Name	Meaning	Example
+500	Internal Server Error	Server crashed or threw an exception.	Code bug in backend.
+502	Bad Gateway	Server got invalid response from another service.	Proxy/server chain issue.
+503	Service Unavailable	Server is temporarily down or overloaded.	High traffic or maintenance.
+504	Gateway Timeout	The server waited too long for a response.	Slow database or API timeout.
+⚙️ Example in React (Axios)
+try {
+  const res = await axios.get("https://api.github.com/users/non_existing_user");
+  console.log(res.data);
+} catch (error) {
+  if (error.response) {
+    console.log("HTTP Error:", error.response.status); // e.g. 404
+    console.log("Message:", error.response.statusText); // e.g. Not Found
+  } else {
+    console.log("Network Error:", error.message);
+  }
+}
+
+
+✅ Here, you’ll get:
+
+HTTP Error: 404
+Message: Not Found
+
+
+That means — the request reached GitHub, but GitHub said:
+
+“I don’t have a user with that name.”
+
+🧩 Real-Life Analogy
+
+Imagine you’re visiting a restaurant (the server):
+
+Situation	Type of Error	Meaning
+You go to the wrong address	Network Error	Can’t reach the restaurant
+You reach restaurant but order a dish not on the menu	HTTP 404	“Not Found”
+You order but forget your wallet	HTTP 401	“Unauthorized”
+The chef burns your food	HTTP 500	“Server Error”
+The restaurant is under maintenance	HTTP 503	“Service Unavailable”
+
+
+
+what are react Query?
+
+    react is just a UI library , it doesn't know about sever dat. its job 
+    is to render components based on state or props 
+
+    when we fetch data from a API, you are interacing with an external server 
+    wjich is outside react knowledge. So react cant't automatically
+
+        Show a “Loading…” message
+
+        Retry if the fetch fails
+
+        Cache the data for later
+
+        Update the component when the data changes on the server 
+                                                                        
+                                                                                  
+        const [data, setData] = useState(null);
+        const [loading, setLoading] = useState(false);
+        const [error, setError] = useState(null);
+
+        useEffect(() => {
+        setLoading(true);
+        fetch("https://api.example.com/users")
+            .then(res => res.json())
+            .then(data => setData(data))
+            .catch(err => setError(err))
+            .finally(() => setLoading(false));
+        }, []);    
+
+
+        => here we us REACT QUERY 
+
+            REACT QUERT automaticaly do all this tasks
+
+            like :
+                Tracks isLoading, isError, and data for you
+
+                Caches the data to avoid duplicate requests
+
+                Refetches in the background if the data becomes stale
+
+                Updates the component automatically when the data changes
+
+
+        install
+            npm install @tanstack/react-query
+
+            import { useQuery } from '@tanstack/react-query';
+            import axios from 'axios';
+
+            function Users() {
+            const { data, isLoading, isError } = useQuery({
+                queryKey: ['users'],
+                queryFn: () => axios.get('https://api.example.com/users').then(res => res.data),
+            });
+
+            if (isLoading) return <p>Loading...</p>;
+            if (isError) return <p>Error fetching data</p>;
+
+            return (
+                <ul>
+                {data.map(user => <li key={user.id}>{user.name}</li>)}
+                </ul>
+            );
+            }
+
+
+                                     
+what are useReducer ? 
+
+            is react hook that is used to manage complex state logic inside components.
+            it is an alternative to useState hook.
+
+
+          initialization
+
+            count is a example
+
+            =>const [state, dispatch] = useReducer(reducer, {count: 0})
+
+              .state => is current value of state(like useState)
+              .dispatch => is a function to send actions (like setState , but more powerfull)
+              .reducer => a function that define how state should change.
+
+                how exactly this reducer?
+                  reducer is just a nrmal js function 
+
+                    function reducer(currentState, action){
+                      //logic to decide how t oupdate state 
+                      return newState
+                    }
+
+            
+              how it works?
+
+                    useReducer give 2 things 
+
+                      state - current state vlaue thet react stores for this component instance
+                      dispatch - a stable function that call with a action object .
+
+                        react take that action, call the reducer function, get a new state, storeit, the re-render the component
+
+                       1) The one-line summary
+
+                          useReducer gives you two things:
+
+                          state — the current state value that React stores for this component instance.
+
+                          dispatch — a stable function you call with an action object. React takes that action, calls your reducer(state, action), gets a new state, stores it, then re-renders the component.
+
+                          2) Your code again (short)
+                          const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+                          <button onClick={() => dispatch({ type: "inc" })}>+</button>
+                          <button onClick={() => dispatch({ type: "dec" })}>-</button>
+
+                        
+                          { count: 0 } is the initial state stored by React for this component.
+
+                          { type: "inc" } or { type: "dec" } is the action you send to tell the reducer what to do.
+
+                          3) What happens when the component first renders
+
+                          React sees your component and runs it.
+
+                          useReducer(reducer, { count: 0 }) tells React: “create a hook slot for this component and store { count: 0 } as the current state value.”
+
+                          React returns the current state and a dispatch function to your component.
+
+                          state is { count: 0 }
+
+                          dispatch is a function that React created (and it stays the same between renders).
+
+                          React renders the UI using state.count (so you see COUNTER 0).
+
+                          4) What happens when you click the + button
+
+                          Sequence:
+
+                          The click handler runs: dispatch({ type: "inc" }).
+
+                          dispatch calls React’s internal scheduler and tells React: “I have an action for this component.”
+
+                          React calls your reducer: newState = reducer(currentState, action).
+
+                          currentState is what React stored earlier (e.g. { count: 0 }).
+
+                          action is { type: "inc" }.
+
+                          Your reducer runs and returns a brand new object: { count: state.count + 1 } → { count: 1 }.
+
+                          Important: reducer returns a new object. We do not mutate the old state.
+
+                          React stores that new object as the component’s state.
+
+                          React schedules a re-render of the component.
+
+                          When the component re-runs, useReducer returns the updated state ({ count: 1 }) and the same dispatch function.
+
+                          The UI reads state.count and now shows COUNTER 1.
+
+                          5) Why is it safe to read state.count in render?
+
+                          Because React stores state between renders. Each render gets the current state value from React’s internal store. The state variable in your function is just a snapshot of that stored state at the time of render.
+
+                          6) Where is the state actually stored? (behind the scenes)
+
+                          React keeps a list of hooks for each component instance.
+
+                          Each hook slot holds the state value and associated data (for useReducer, it stores reducer, current state, and a queue of updates).
+
+                          When the component mounts, React allocates that slot and stores the initial state.
+
+                          On updates, React updates that slot, and re-runs the component with the new values.
+
+                          So state is not a global variable — it’s stored inside React and tied to that specific component instance.
+
+                          7) Why do we return a new object in reducer?
+
+                          Reducers should be pure and immutable:
+
+                          You return a new state object so React can compare references and know something changed.
+
+                          If you mutated and returned the same object, React might not re-render because the reference didn’t change.
+
+                          Good reducer pattern:
+
+                          // correct
+                          return { count: state.count + 1 };
+
+
+                          Bad (mutating) pattern:
+
+                          state.count += 1;
+                          return state; // DO NOT DO THIS
+
+                          8) Why dispatch is stable (same function each render)
+
+                          React returns the same dispatch function every render. That’s why you can pass it into handlers without recreating handlers or worrying about its identity changing.
+
+                          9) What if several dispatches happen quickly?
+
+                          React queues them. Each dispatch runs the reducer with the current state at that point. If multiple dispatches happen before a re-render, React will apply them in order when processing updates.
+
+                          10) Extra useful details & tips
+
+                          Reducer is a function you declare. It can live inside or outside the component. If inside, it’s recreated each render, but React still uses it correctly.
+
+                          You can pass an initialiser: useReducer(reducer, initialArg, init) for expensive initial state.
+
+                          useReducer vs useState:
+
+                          useState is simpler for single values.
+
+                          useReducer is clearer when updates are complex or one action changes many fields.
+
+                          For debugging: add console.log inside your reducer to see when it runs and with what state and action.
+
+                          Example with logs:
+
+                          function reducer(state, action) {
+                            console.log("reducer called, state:", state, "action:", action);
+                            switch (action.type) {
+                              case "inc": return { count: state.count + 1 };
+                              case "dec": return { count: state.count - 1 };
+                              default: return state;
+                            }
+                          }
+
+                          11) Tiny visual timeline (click + once)
+                          Render 1:
+                            React stores state = {count: 0}
+                            UI shows COUNTER 0
+
+                          Click +:
+                            dispatch({type: 'inc'})
+                            React: newState = reducer({count:0}, {type:'inc'}) => {count:1}
+                            React stores state = {count:1}
+                            React re-renders component
+
+                          Render 2:
+                            useReducer returns state = {count:1}
+                            UI shows COUNTER 1
+
+                          12) Common confusions
+
+                          “Where does count live?” → Inside React’s hook storage, returned to you as state.
+
+                          “How does dispatch know the current state?” → React passes the latest stored state into the reducer when handling the action.
+
+                          “Is state shared between components?” → No. Each component instance has its own stored state. 
+                                                      
+
+                
+
+                                                                                                 
