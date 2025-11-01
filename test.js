@@ -28,6 +28,8 @@
 //     document.getElementById('result').innerHTML='result : ' + result
 // }
 
+       
+
 //without modulus function
 
 // let calculate=()=>{

@@ -91,4 +91,604 @@ what is REPL?
 is there WINDOW in node.js?
     no because there in no browser so there is not WINDOW object
 
-              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                                                      
+
+
+
+//NOTES FROM PROJECT 
+--------------------
+
+while start a Project
+
+ => import express from "express"
+    import dotenv from "dotenv"
+
+    dotenv.config
+
+    const app = express();
+    app.use(express.json());  
+
+    const PORT = 5000;
+    app.listen(PORT, () => console.log(`server running on port ${PORT}`))
+
+
+
+BEHID THE SCENES
+=>
+    .Express initially uses NODES core http module.
+    .when we call epress(), it create an app object that act as :
+        ->.A function to handle HTTP requests.
+        ->.A mini-server that orginizes routes, middleware, etc.
+
+    => app.use(express.json())
+        -> Express looks at every incoming HTTP request.
+        -> if the Content-Type is in json , it read row data streem 
+        -> convert it from JSON strin into a JS object.
+         
+
+=>dotenv.config(); 
+
+    -> dotenv read your .env file using Node's built-in fs(file system) module.
+    ->parse each line like KEY = VALUE
+    ->it attchach them to process.env, which is an object that Nodes uses to store 
+    environemnet variables.
+
+    process.env = {
+    PORT: "5000",
+    MONGO_URI: "mongodb+srv://...",
+    PATH: "...",
+    HOME: "..."
+    }
+
+BASE NOTES ---must know
+
+=>related to TCP, OS,TCP Socket
+
+    -> OS => manages network interfaces and TCP/IP stacks.
+
+    -> TCP Socket => an endpoin created by OS to accept connentions to a particular port and IP
+        (IP (Internet Protocol) is a set of rules that defines how data is sent and received over the Internet.)
+
+        [
+            TCP scoket  is two-way comminication link between 2 devices using TCP( Transmission Control Protoco l).
+
+            think like a phone call between 2 computers:
+                
+                .both sides connects (handshake),
+                .talk (send/recives data),
+                .Thne hang up (close the connection)
+
+            🔹 TCP — Transmission Control Protocol
+
+                TCP ensures:
+
+                Reliable — data is delivered correctly and in order.
+
+                Connection-oriented — a connection must be established before sending data.
+
+                Error-checked — detects lost packets and resends them.
+
+                It’s part of the TCP/IP suite (the foundation of the Internet).
+
+            🔹 Socket — The Communication Endpoint
+
+                A socket is like a doorway through which data flows in and out of your computer program.
+
+                Every socket has:
+
+                An IP address (like 192.168.1.10)
+
+                A Port number (like 80 for HTTP)
+
+                Together they form a socket address:
+
+            Raw means => pure form
+        ]
+
+    -> Node.js net & http modules => net handles the TCP sockets, http bulits HTTP parsing on top of net .
+
+    -> IncomingMessage (req) & ServerResponse (res) — Node objects that represent the HTTP request and response.
+
+
+
+=> app.listen(PORT, () => console.log(...)) //// important
+
+    .when we call app.listen 
+
+        1. express call http.createServer(app) initernally.
+            app is actual a function , which express sets up to process requests.
+
+        2. it then call server.listen(port, host, backlog, callback) on that http server.
+            this ask OS to :
+                .allocate  a socket bound to the chosen IP address and PORT.
+                .start listerning of incoming TCP connection requests on that socket
+        
+        3. OS will accepts connection requests ( after TCP handshake ) hand a socket to Node process
+        
+        4.Node receives raw bytes on that socket. The http module parses the bytes into an HTTP request: method, path, header, body (streamed)
+
+        to understnad //
+        [
+            1. ->a client(browser) sends a request
+
+                    http://localhost:3000/
+
+                -> borwser sends this message over the internet:
+                    GET / HTTP/1.1
+                    Host: localhost:3000
+                    User-Agent: Chrome
+                    Accept: text/html
+
+                these are raw bytes of data - just atext sent through a TCP connection.
+
+            2. ->  Nodes'OS socket receives those bytes 
+               ->  Node server was already listerning on port 3000.
+               
+               [
+                    Node.js runs on top of Opertaing System (OS)
+
+                        1.-> Node dosn't directly manage network connections.
+                        . it depend on OS's kernal to do all the heavy networking tasks.
+                            (kernal -> is core part o OS , it like the brain connets your hardware and software)
+                        
+                            -> OS provides:
+                                .Network stack (TCP, UDP, IP layers)
+                                .File system
+                                .Process schedulling
+                                .Memory management
+                                .I/O interfaces
+                        2. Node.js usese a C++ library called libuv
+                            This is heart of Nodes's non-blocking I/O system
+
+                            libuv handles:
+
+                                TCP sockets
+                                UDP sockets
+                                File I/O
+                                Timers
+                                Threads
+                                Asynchronous event loop
+
+                            -> Node tells libuv -> please ask OS to open a TCP soket on port 3000.
+
+                            ->OS create that socket and gives Node a file descriptor.
+
+                            ->Node adds it to event loop so it can react whn data comes in.
+               ]
+               
+            
+        ]
+
+
+        5. Express middleware and route handlers run, use req/res, and eventually call res.end() to send bytes back over the socket to the client.
+
+        6. The socket may be closed or kept alive (HTTP keep-alive) depending on headers.
+        
+
+
+How express handles  a request?
+
+    when a client  sends a request to your Express server:
+
+         => Client -> Node HTTP Server -> express middleware stack -> Router -> Router Handler -> Response
+
+            . at every steps express runs special function these are 
+                - middleware, routes and route handlers  
+
+
+⚙️ 2️⃣ The Express App — What app Actually Is
+
+    When you write:
+
+    import express from "express";
+    const app = express();
+
+
+    👉 express() creates a function that can handle HTTP requests:
+
+    app(req, res, next)
+
+
+    Internally, this app function holds:
+
+        => .A stack (array) of all middleware and routes you define using app.use() or app.get() etc.
+
+    Each layer in that stack is an object with:
+
+        .path → URL path it applies to
+
+        .method → HTTP method (GET, POST, etc.) or undefined for middleware
+
+        .handler → the function to call ((req, res, next) => {})
+
+    So, Express literally builds a to-do list (stack) of things to run for each request.
+
+
+
+What is middleWare?
+
+    middleware functions are like filters or steps that modify or check request/respone.
+
+    structure:
+        app.use((req, res, next) => {
+            console.log("Incoming request: ",)})
+            next(); // move to next layer in stack.
+        })
+
+    
+    if next() is called, request stops  here.
+    if you don't call next(), request stopa here.
+    
+    ✅ Middleware can:
+
+        Read/modify req (like add req.user)
+        Read/modify res
+        Send response directly
+        Call next() to move on.
+
+
+    Let’s simplify what Express internally does (pseudocode):
+
+        function handleRequest(req, res) {
+        let index = 0; // start at first middleware
+
+        function next(err) {
+            const layer = stack[index++]; // get next middleware/route
+
+            if (!layer) return; // no more layers
+
+            // If there was an error and this layer is not an error handler, skip
+            if (err && layer.handler.length !== 4) return next(err);
+
+            // If it's an error handler and there is an error, call it
+            if (err && layer.handler.length === 4) return layer.handler(err, req, res, next);
+
+            // If the URL matches and method matches, call it
+            if (matches(req, layer)) {
+            try {
+                layer.handler(req, res, next);
+            } catch (error) {
+                next(error); // pass error down
+            }
+            } else {
+            next(); // skip to next layer
+            }
+        }
+
+
+what are router ?
+    router are like mini express that you can plug into your main app.
+
+
+    import express from "express"
+    const router = express.Router();
+
+    router.get("/list", (req, res) => res.send("food list"))
+    router.get("/add", (req, res) => res.send("Foof added"))
+
+    app.use("/food", router);
+
+                        
+How exactly Express matches routes internally ?
+        
+    when a request arrives:
+        1. express iterates through all layers in order.
+
+        2. For each:
+            . if later.path matches URL(or is /)
+            . if method matches the requests http method 
+            . then execute handler(req, res, next)
+
+
+
+⚡ 12️⃣ Real Behind-the-Scenes Flow (visualized)
+HTTP Request (from browser)
+        │
+        ▼
+Node.js http module
+        │
+        ▼
+Express app
+        │
+        ▼
+Middleware stack (app.use)
+        │
+        ▼
+Mounted routers (/user, /food)
+        │
+        ▼
+Router-level middleware (auth, validation)
+        │
+        ▼
+Route handler (GET/POST)
+        │
+        ▼
+Send response (res.send / res.json)
+        │
+        ▼
+Express ends request cycle
+
+
+
+//
+
+mongo db
+
+connection
+    import mongoose from "mongoose";
+    import dotenv from "dotenv"
+
+    dotenv.config()
+
+    const connectDB = async () => {
+        try{
+            await mongoose.connect(process.env.MONGO_URL);
+            console.log("Data base is connected")
+        }catch(error){
+            console.error("erron in database connection",error)
+        }
+    }
+
+    export default connectDB
+     
+                                     
+
+model
+    import mongoose from "mongoose";
+
+    const userSchema = mongoose.Schema({
+        name: {type: String, require: true},
+        email: {type: String, require: true},
+        password: {type: String, require: true},
+        role: {type: String, enum: ["admin", "user"], default: "user"}
+    })
+
+
+    export default mongoose.model("User", userSchema)
+
+
+    //=> enum : [valu1, val2] ,default: "user"
+
+
+  
+                                 
+whhat is pre- sav hook in mongodb?
+
+
+⚙️ 3. Pre-Save Hook — userSchema.pre("save")
+
+This is where the magic happens. 👇
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+
+Let’s explain this carefully:
+
+🔹 What is a “pre-save hook”?
+
+A Mongoose middleware function that runs before saving a document to MongoDB.
+
+It allows you to perform operations like:
+
+Hashing passwords
+
+Generating timestamps
+
+Validating extra logic
+
+Cleaning or transforming data before saving
+
+So this function runs automatically whenever you call:
+
+await User.save()
+await User.create({...})
+
+🔹 Step-by-Step Explanation
+
+this → Refers to the current document being saved (the user).
+
+this.isModified("password") →
+Checks whether the password field was changed.
+
+If you’re just updating name/email (not password), it won’t re-hash it.
+
+This prevents double-hashing.
+
+await bcrypt.hash(this.password, 10) →
+Hashes the password with 10 salt rounds (a randomization step to make it harder to crack).
+
+this.password = ... →
+Replaces the plain password with its hashed version.
+
+next() →
+Calls the next middleware or proceeds with saving to MongoDB.
+
+
+🧩 1. What next actually is
+
+In Mongoose middleware, the function signature:
+
+userSchema.pre("save", function (next) { ... })
+
+
+tells Mongoose:
+
+“Before saving a document, run this function.
+I’ll call next() when I’m done — that means you can continue saving.”
+
+So, next is a callback function that Mongoose automatically passes into your middleware.
+
+You don’t create it — Mongoose gives it to you.
+
+⚙️ 2. Why Mongoose gives you next
+
+Mongoose uses a middleware system (like a conveyor belt 🧱).
+Each middleware runs one after another in sequence.
+
+So when you call:
+
+await user.save()
+
+
+Mongoose internally goes through a process like this:
+
+“Any pre("save") middlewares to run?” ✅ Yes → run them.
+
+“Wait for each one to finish — only move on when it calls next().”
+
+Once all pre-middlewares are done → save the user to MongoDB.
+
+After saving → run any post("save") middlewares (like logs, emails, etc.).
+
+So, calling next() tells Mongoose:
+
+“I’m finished with my work here, you can continue to the next middleware or save step.”
+
+If you forget to call next(), Mongoose stops there — it thinks the middleware is still running, and the save operation never completes.
+Your code just hangs ⏳ forever.
+
+🧠 3. The Full Flow Example
+
+Imagine this code:
+
+userSchema.pre("save", async function (next) {
+  console.log("1️⃣ Pre-save started");
+  if (!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password, 10);
+  console.log("2️⃣ Password hashed");
+
+  next();
+  console.log("3️⃣ next() called, moving on...");
+});
+
+
+Then you run:
+
+await User.create({ name: "John", email: "john@gmail.com", password: "12345" });
+
+
+🧩 Behind the scenes:
+
+1️⃣ Mongoose creates a new document from your data.
+2️⃣ It sees you have a pre("save") middleware.
+3️⃣ Mongoose runs that middleware, passing in a next function.
+4️⃣ Inside your middleware:
+
+You hash the password.
+
+You call next() when done.
+5️⃣ Mongoose sees next() called — continues saving to MongoDB.
+6️⃣ Save completes ✅
+
+If you never call next(), Mongoose is stuck at step 4 forever.
+
+🧩 4. Real analogy — Restaurant kitchen 🍽️
+
+Think of Mongoose as a kitchen:
+
+A “save” request is an order from a customer.
+
+pre("save") middlewares are chefs who prepare ingredients before serving.
+
+Each chef must say “Next!” before the dish moves to the next chef.
+
+If one chef never says “Next!”, the food never reaches the table.
+
+That’s why next() is so important — it keeps the workflow moving.
+
+⚙️ 5. What if you forget next()?
+
+Example:
+
+userSchema.pre("save", async function () {
+  await bcrypt.hash(this.password, 10);
+  // ❌ Forgot next()
+});
+
+
+Then you call:
+
+await user.save();
+
+
+Result → your app hangs forever, no errors — just waiting for that “next” that never came.
+
+⚙️ 6. When using async, is next() still needed?
+
+Good question! 👇
+Technically, if your middleware is async, Mongoose can detect when it finishes (when the Promise resolves).
+So in modern code, you can omit next() safely if you return or finish the async function properly.
+
+✅ Works fine:
+
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 10);
+});
+
+
+Here, Mongoose waits for your async function to complete automatically — no need for next().
+
+However, including next() is still a good habit when learning, especially for non-async middleware or more complex chains.
+
+
+what are jwt ?
+    jwt = json web token
+
+    => JWT are most commonly used for stateless authentication and API authorization.
+    => Ther are 2 familes:
+        .JWS (signed) -- the common "JWT" you see: JSON claims          
+        
+
+
+
+
+                                                                                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
