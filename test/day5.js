@@ -26,8 +26,3 @@ const AddToMatrix = (arr1, arr2) => {
 
 console.log(AddToMatrix([[1, 2],[3, 4]], [[5, 6],[7, 8]]))
 
-ldfdfgd kfjg dkfjgnkdjf dk
-lskfskdjfsdfsf
-kjhfkdjggfdgjdf
-jsdhfksdfjksdfhjksdfksdhfksdjhfsk kjdshfsfjsfssf
-jkdfdkjfhkdf    
