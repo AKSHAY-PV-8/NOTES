@@ -49,5 +49,21 @@ function palindrome(string){
     return true
 
 }
-console.log(palindrome("  madam"))
+
+function MaximumInArray(arr){
+
+    if(!Array.isArray(arr) || arr === null) return undefined;
+    if(arr.length === 0) return undefined;
+
+    let Max = 0
+    for(let i of arr){
+        if(i > Max){
+            Max = i
+        }
+    }
+    return Max
+
+}
+
+console.log(MaximumInArray([3, 7, 2, 9, 5])
 
