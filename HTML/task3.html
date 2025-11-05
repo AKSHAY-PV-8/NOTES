@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .bulb {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+        }
+
+        #btn {
+            border-radius: 20px;
+            margin: 10px;
+        }
+
+        #btn:hover {
+            transform: scale(1.1);
+        }
+
+        .card-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        img {
+            position: relative;
+            border-radius: 20px;
+        }
+        .img-container{
+            position: relative;
+        }
+        .img-container:hover .view{
+            opacity: 1;
+        }
+        .img-container:hover{
+            transform: scale(1.1);
+        }
+        .view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: 500;
+            color: white;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bulb" id="bulb">Bulb is off</div>
+    <button id="btn">OFF</button>
+
+
+    <h1>Flexbox card Layour</h1>
+
+    <div class="card-container">
+        <div class="card">
+            <div class="img-container">
+                <img src="https://picsum.photos/250?1" alt="">
+                <div class="view">View Details</div>
+            </div>
+
+            <div class="card-content">
+                <h3>Card One</h3>
+                <button>View</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/250?2" alt="">
+            <div class="card-content">
+                <h3>Card Two</h3>
+                <button>View</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/250?3" alt="">
+            <div class="card-content">
+                <h3>Card Three</h3>
+                <button>View</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/250?4" alt="">
+            <div class="card-content">
+                <h3>Card Four</h3>
+                <button>View</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const bulb = document.getElementById("bulb");
+        const btn = document.getElementById("btn");
+        let status = false;
+
+        btn.addEventListener("click", () => {
+            if (!status) {
+                btn.textContent = "ON"
+                bulb.style.background = "yellow"
+                status = true
+            } else {
+                btn.textContent = "OFF";
+                bulb.style.background = "white"
+                status = false
+            }
+        })
+    </script>
+
+</body>
+
+</html>
