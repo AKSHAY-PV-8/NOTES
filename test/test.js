@@ -65,5 +65,18 @@ function MaximumInArray(arr){
 
 }
 
-console.log(MaximumInArray([3, 7, 2, 9, 5])
+function Occurrences(string){
+    if(typeof string !== "string") return undefined;
+    if(string.length === 0) return "";
+    
+    let lookup = {}
+    for(let char of string){
+        if(char !== " "){
+            lookup[char] = (lookup[char] || 0) + 1
+        }
+    }
 
+    return lookup
+}
+
+console.log(Occurrences("hello world hy"))
