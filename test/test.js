@@ -27,4 +27,27 @@ function reverse(string){
     return revers
 
 }
-console.log(reverse("hello"))
+
+function palindrome(string){
+
+    if(typeof string !== "string") return undefined;
+    if(string.length === 0) return undefined;
+
+
+    let left = 0;
+    let right = string.length-1;
+
+    while(string[left] === " ") left ++;
+    while(string[right] === " ") right --;
+
+    while(left< right){
+        if(string[left] !== string[right]) return false;
+        left ++;
+        right --;
+    }
+
+    return true
+
+}
+console.log(palindrome("  madam"))
+
