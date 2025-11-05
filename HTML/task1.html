@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>to-do list</h1>
+    <form action="" id="form">
+        <input type="text" id="task" placeholder="enter task">
+        <button type="submit">add</button>
+    </form>
+
+    <div class="" id="list"></div>
+
+    <div class="" id="status"></div>
+
+
+
+</body>
+
+</html>
+
+<script>
+    const form = document.getElementById("form");
+    const task = document.getElementById("task");
+    const list = document.getElementById("list");
+    const success = document.getElementById("status");
+    // const done = document.getElementById("done")
+    // const remove = document.getElementById("remove")
+
+    const addedTask = []
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        addedTask.push(task.value)
+        task.value = ""
+
+        console.log(addedTask)
+
+        list.innerHTML = addedTask.map((t, index )=> `
+        <div class="">
+            <div class="">${t}</div>
+            <button class="done" value="${index}">done</button>
+        </div>
+
+    `).join("")
+    })
+
+    list.addEventListener("click", (e) => {
+        if(e.target.classList.contains("done")){
+            const index = e.target.value
+            success.innerHTML = `<div class="">${addedTask[index]} done....</div>`
+        }
+    })
+
+</script>

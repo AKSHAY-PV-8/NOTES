@@ -216,23 +216,145 @@ console.log(Occurrence(null))
 
 //Find Second Largest Number.
 
-const SecondLargest = (array) => {
 
-    if(!Array.isArray(array) || array === null) return undefined
-    if(array.length === 0) return ""
-    let larget = 0;
-    let secondLaget = 0;
-    for(let item of array){
-        if(item >= larget ){
-            larget = item
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+
+    getParent(i){return Math.floor((i-1) /2)};
+    getLeftChild(i){return (2 * i +1)}
+    getRightChild(i){return (2 * i +2)}
+
+    swap(i,j){
+        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]]
+    }
+
+    insert(value){
+        this.heap.push(value)
+        this.heapifyUp()
+    }
+
+    remove(){
+        if(this.heap.length === 1) return this.heap.pop()
+
+        const root = this.heap[0]
+        this.heap[0] = this.heap.pop()
+        this.heapifyDown();
+        return root;
+    }
+
+    heapifyUp(){
+        let i = this.heap.length - 1;
+        while(i > 0 && this.heap[this.getParent(i)] > this.heap[i]){
+            this.swap(i, this.getParent(i))
+            i = this.getParent(i);
         }
-        if(item < larget){
-            secondLaget = item;
+    }
+                              
+    heapifyDown(){
+        let index = 0;
+        const length = this.heap.length;
+
+        while(true){
+            const left = this.getLeftChild(index);
+            const right = this.getRightChild(index);
+
+            let smallest = index;
+
+            if(left < length && this.heap[left] < this.heap[smallest]) smallest= left;
+            if(right < length && this.heap[right] < this.heap[smallest]) smallest = right;
+            
+            if(smallest != index){
+                this.swap(smallest, index)
+                index = smallest
+            }else break
         }
     }
 
-    return secondLaget
-          
-}
-console.log(SecondLargest([10, 5, 20, 8, 15]))
+    peek(){
+        return this.heap[0];
+    }
 
+   
+}
+
+const SecondLargest = (array, n) => {
+
+
+    const heap = new MinHeap()
+
+    for(let i of array){
+        heap.insert(i)
+        if(heap.heap.length > n) heap.remove();
+    }
+
+    return heap.peek()
+          
+}             
+console.log(SecondLargest([10, 5, 20, 8, 15], 4))
+
+
+//Remove Duplicates from array;
+
+const removeDuplicates = (array) => {
+    if(!Array.isArray(array)) return undefined;
+    if(array.length === 0) return []
+
+    return [...new Set(array)]
+}
+
+console.log(removeDuplicates([1,1,1,1]));
+
+                 
+// Sum of digits 
+
+const SumOfDigits = (number) => {
+
+   if(number === null || number === undefined) return undefined;
+   
+   let num = typeof number === "string" ? Number(number) : number
+
+   if(isNaN(num)) return undefined;
+
+   num = Math.floor(num);
+
+   let sum = 0;
+
+   while(num > 0){
+    const digit = num % 10
+    sum += digit;
+    num = Math.floor(num / 10)
+   }
+   return sum
+}
+console.log(SumOfDigits("2834"))
+                                                                                                                                             
+//Anagram
+
+
+const anagram = (str1, str2) => {
+
+    
+        let array = Array(26).fill(0)
+        
+        for(let i of str1){
+            const index = i.charCodeAt(0) - 97;
+            array[index] ++
+        }
+
+        for(let i of str2){
+            const index = i.charCodeAt(0) - 97;
+            array[index] --
+        }
+
+        for(let i = 0; i < 26; i++){
+            if(array[i] !== 0) return false
+        }
+        
+        return true
+}
+
+console.log(anagram("listen", "silent"))
+                                                                           
+                                                                                        

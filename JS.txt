@@ -94,11 +94,11 @@ how js runs ?
                         for recursion  
                             there will be nested execution context inside the global execution context
         
-        what is call stack ?
+what is call stack ?
 
                 call stack is a stack ds that is used by js to store the order of execution context , once the function invocation is completed the function will be removed form the call stack
                 
-        what is hoisting in js ?
+what is hoisting in js ?
 
                 it is the feature of js that enable us to access the variable (that are declared using var keyword) or function even before defining it .
                 function are fully hoisted means we can call the function way before initialisation and it works just fine 
@@ -107,12 +107,12 @@ how js runs ?
                 like for function we can invoke the funtion way before it definition but it only work with proper function using normal synatax like this function <name>(){}
                 for arrow function it initially create  variable in the memory context and its value will be undefined , so if i try to call the function before definition and it  is stored in a variable  it will throw an error saying that variable can't be called 
 
-        how function works in js ?
+how function works in js ?
 
                 remember one thing each function has its own execution context. variable decalred inside the function will not affect the global variable even though both may have the same name , because js create diff memory for these two because it has diff execution context
                 and the execution context will removed once the function execution is completed
 
-        Dot notation vs Bracket notation in object 
+Dot notation vs Bracket notation in object ?
 
             see the code
                 
@@ -161,7 +161,7 @@ how js runs ?
                 ->when we use dot , it look for the label name 
 
         
-        what is window object and this keyword in js ?
+what is window object and this keyword in js ?
 
             window object is a global object that is created by the js along with the global execution context at the start of the execution of the program eventhough we have an empty js file . this windows object will be created automatically by the js engine at the start ,
             all the global variable are stored in this windows object and can be obtained using window.variableName.
@@ -171,7 +171,7 @@ how js runs ?
             these global object and execution context will be created by all the js engines in browser that global object is window and in node js it is called "global"  
             the global variable that are declared using var will be attached to the window object by js and the global variable that are decalred using let or const wont be added
 
-        what is global object? 
+what is global object? 
             it is a top level object that provide all inbuilt functions, consstanst and also hold global variables  
 
         undefined vs not defined
@@ -179,7 +179,7 @@ how js runs ?
             undefined means the variable is defined and it has its own memory in the memory context but it is not assigned a value yet so by default js assign  its value to be undefined kinda like a placeholder
             in other hand not defined means that variable is not defined or it is absent in the memory context           
         
-        Scope chain in js
+Scope chain in js?
 
             whenever an execution context is created a local memory (where the variable inside that code or function will be stored ,that memory address) and a lexical enviroment is created
             by saying lexical environment it means that a refernce to the parent's lexical environment , for the outer most or the global execution context this lexical enviroment point to null
@@ -190,28 +190,28 @@ how js runs ?
 
 
 
-        are let and const variables are hoisted or not
+are let and const variables are hoisted or not?
 
             yes but they live in a place called dead temoral zone 
 
-        what is dead temporal zone in js
+what is dead temporal zone in js
 
             it is the time period from when a let or const variable is hoisted to when it is assigned a value. that time period or time gap is called a temporal dead zone
             and when we try to accesss a variable inside a temporal dead zone it gives us referenceError.
    
 
-        var vs let and const
+var vs let and const?
             variable that are declared using var can be redeclared within in the same scope 
             but cant do with let or const variables
 
 
-        what is a block in js ?
+what is a block in js ?
             simply -> it is the set of statement that are written inside a pair of {}
             block is used to combine multiple statement together and to use it where js except only one .
             block scope : means what all the functions and variables that we can access within a block.
             variables declared using let and const are block scoped and are only accessible within a block
     
-        what is shadowing in js ?
+what is shadowing in js ?
 
             when we redeclare a variable that is declared using var keyword the previous value of the variable will be replaced with this new value adn this is known as shadowing. 
             happens when a variable declared in inner scope has same name as a variable declared in the outer scope then the inner one shadows the outer one   
@@ -247,7 +247,7 @@ how js runs ?
 
 
 
-        what is closure ?
+what is closure ?
 
             closure means a function bundles with it lexical parent or lexicals scope 
             here 
@@ -266,11 +266,74 @@ how js runs ?
 
                 closure are created every time a function is declared inside another function and returned or used later
 
-        some use cases of closure 
-            closure are used in
-                module design pattern
-                    The Module Pattern is a way to organize code by keeping some parts private and exposing only what is necessary.
+?Encapulation is feature of closure , but we can use block also for that so why we use closures?
 
+    in block it hide the value inside a but it 
+        -> Exists only while the block executes
+
+            means example:
+
+                {
+                    let count = 0;
+                    count ++;
+                    console.log(count) // count
+                }
+
+                console.log(count) // ❌ Error — count is not defined
+
+
+        ✅ The variable is hidden — it cannot be accessed outside the block.
+        ❌ But the value is gone forever once the block ends.
+
+    But in closure
+
+        finction createCounter(){
+            let count = 0;
+
+            return function(){
+                count ++;
+                console.log(count);
+            }
+        }
+
+        const counter = createCounter();
+
+        counter() //1
+        counter() //2
+        counter() //3
+            
+        ✅ The variable count is hidden (like a block).
+        ✅ But also  it remembers its old value value after function finished.
+        👉 That’s the unique power of a closure.
+
+  
+=> How it works ?
+
+    1. when we create a  createCounter function 
+        =>it stores in memory
+
+    2. when call the createrCounter function, a new exection context is created inside the memory.
+        inside that executioncontext:
+            .The variable count is created and set to 0.
+            . function inner ins defined (but not executed yet).
+
+    3. the createCounter function finished
+
+        normally when fuction finishes, ites local variables(count) should be removed fom memory.
+
+        BUT — here’s the key point 🔥
+
+        the retrun function(inner) still needs acces to count .
+
+        So JavaScript does not destroy that variable.
+        Instead, it keeps it inside a special place called the "closure" — connected to that inner function.
+
+                                                            
+?some use cases of closure 
+
+            closure are used in
+    => module design pattern
+                    The Module Pattern is a way to organize code by keeping some parts private and exposing only what is necessary.
                     const text = (function(){
                         let count = 0;
 
@@ -280,14 +343,14 @@ how js runs ?
                                 console.log(count)
                             }
                         }
-
+                                                                                                                                                                                                                            
                     })()
 
                     text.inc() -> returns result 
                     console.log(text.count) -> undifined → cannot access private variable
 
-
-                currying => used to break function multiple arguments into sequence funtion each take one argument at a time.
+                                                                
+    => currying => used to break function multiple arguments into sequence funtion each take one argument at a time.
                     eg: function sum1(a){
                         function sum2(b){
                             return a+b; 
@@ -309,11 +372,8 @@ how js runs ?
 
                     cosnt gst = calculatTax(0.18);
                     console.log(gst(1000));
-
-
-
-                        
-                function like once => those are function that are desiged to run only once       
+              
+        =>function like once => those are function that are desiged to run only once       
                 memoization => to imporve performance by caching the result 
                 maintiaining state in async world
                 iteration
@@ -355,7 +415,32 @@ how js runs ?
                 - closed variables are veriable that are remember by inner function , even after outerfunction is finished or closed.
                 closure consume memory since it retain the refernce of the outer variables.
 
-        how setTimeout Works ?
+what are the real use of curring?
+
+     1. reuse a preconfigured function
+
+        suppose ypu want to add tax without curring
+
+            function addTax(rate, price){
+                return price + price * rate;
+            }
+            
+            console.log(addTax(0.1, 100)); // 110
+            console.log(addTax(0.1, 200)); // 220
+
+
+        using curring
+            function addTax(rate) {
+            return function(price) {
+                return price + price * rate;
+            };
+            }
+
+            const addGST = addTax(0.1);  // fix rate once!
+            console.log(addGST(100)); // 110
+            console.log(addGST(200)); // 220
+
+ how setTimeout Works ?
             in setTimeout the callback is taken out and get attched that timer and it will be placed somehere other than callstack ( placed in web API or timer queue) and rest of the code will continue execution and when this timer exceeds, the setTimeout will take that callback function and append it to the call stack
  
         setTimeout and closure / printing numbers from 1 to 10 after each second using setTImeout  ?
@@ -398,14 +483,44 @@ how js runs ?
                 inner(i)
             }
 
+                                     
+
             here this one will also print numbers from 0 to 4 , even though  the variable is global scoped when we pass it to that function it recieve its own individual variable and it print that variable instead to referencing tha global variable
 
-        what is garbage collector in js means ?
+            =>var creates one shared variable i for the whole loop; the callbacks run later (after the loop finished) and therefore all see the final goes of i (which is 4).
+
+            =>let creates a new i for each iteration, so each callback sees the value for its own iteration.
+
+
+
+Why var behaves this way (the technical reason)?
+
+        var is function-scoped (or global if not inside a function). There is one i variable for the entire loop.
+
+        Each callback forms a closure that closes over the environment where i lives — but closures keep a reference to the variable, not a frozen copy of its value.
+
+        By the time the callbacks run, the single i has value 4.
+
+        Important: closures remember variables (their lexical environment), not a snapshot of the value at the moment the closure was created.
+
+        How let fixes it (why 1 2 3)
+        for (let i = 1; i <= 3; i++) {
+        setTimeout(function () {
+            console.log(i);
+        }, 1000);
+        }
+
+
+        let is block-scoped and, in loops, JavaScript creates a new binding of i for each iteration.
+
+        Each callback closes over its own distinct i, so when the callbacks run later, they each see the value that belonged to their iteration: 1, 2, 3.
+
+ what is garbage collector in js means ?
 
             garbage collectors are programs in js engine or the browser that help us to free memory by removing unused variable from the program
             since js is a high level program, garbage collection is done by the engine itself but for programs like c , programers has the duty to allocate and disallocate memory
 
-        what are high level languages ?
+what are high level languages ?
 
             languages that are easily understandable by humans rather than low level porgrams like 0s & 1s
  
@@ -426,7 +541,7 @@ how js runs ?
             here even though we are not using the variable inside the b() it still wrap the variable in the closure of b()
             but the smart garbage collector will only wrap the variable x into the funtion b() since y is not using
 
-        what do u mean by pure function in js ?
+what do u mean by pure function in js ?
 
             pure function are function whose output completely depend on its input and it wont change or affect any external variables .
             pure function are easily isolatable and easy to test
@@ -447,26 +562,26 @@ how js runs ?
                 console.log(msg); // I/O = side effect
                 }
   
-        what is function statements/function definition in js ?
+what is function statements/function definition in js ?
             function statement is the way we create a function 
             A function statement is the standard way to define a function using the function keyword
 
-        what is function expresssion in js ?
+what is function expresssion in js ?
             it is the method of assigning a function to a variable and here the function acts like a value .
 
-        what are the diff between the function statement and function expression 
+what are the diff between the function statement and function expression 
 
             the main diff is hoisting, function statements are fully hoisted and the function expresssion are not , beacuse here the variable name is only hoisted and create a error if we try to invoke it since that variable is initialised with undefined
 
-        what do u mean by anonymous functions in js ?
+what do u mean by anonymous functions in js ?
 
             in js, funtions with no names are called as anonymous functions 
             we cannnot create anonymous function statement because the ES6 syntax wont allow it. but we can create anonymous functions using function expressions
 
             eg : const add=(a,b)=>return a+b;  here the function has no name
-        what is arrow functions ?
+what is arrow functions ?
 
-        what do u mean by named function expressions ?
+what do u mean by named function expressions ?
             named function expression are function expession which have a local name for those functions and will be accessible by the name only inside that function itself.
             useful for creating function expression that requires recursion
 
@@ -477,7 +592,8 @@ how js runs ?
                                 }
                 we cant do this using anonymous function expressions 
                 and that function fact is only accessible for that function itself and we cant use it using by calling fact();
-        what is parameter and arguments in a function ?
+
+what is parameter and arguments in a function ?
 
             parameters are the placeholder/variable that we used while defining the function .
 
@@ -487,7 +603,7 @@ how js runs ?
             parmeters are the value that getting passed to funtions
             inside the functions the arguments that are passed to a function is called as parameter and we cannot access that value outside that functions
 
-        what are first class functions or first class citizens ?
+what are first class functions or first class citizens ?
 
             the ability of function to be passed as a value or as an argument to another function or to be returned from a function .
             these ability of a function is called as first class functions it is not unique to js it is a programming lnaguage concept and many language(like ) has this ability .
@@ -499,7 +615,7 @@ how js runs ?
                                 returned from a functions 
 
 
-        what are callbacks ?  
+what are callbacks ?  
 
             callbacks are functions that are passed as an argument to another function and callback functions are the ones that enables us to do async operations inside js   
 
