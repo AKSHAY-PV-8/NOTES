@@ -44,10 +44,28 @@ function CountVowels(string) {
 console.log(CountVowels("Hello world"));
 
 function TwoArrayAreEqul(arr1, arr2) {
-
-
 }
 console.log(TwoArrayAreEqul([1, 2, 3], [1, 2, 3]))
+
+function SumOfDigits(num) {
+
+    if(num === null )return undefined
+    if(typeof num !== "number"){
+        num = Number(num);
+        if(isNaN(num)) return undefined
+    }
+
+    num = Math.abs(Math.floor(num))
+    let sum = 0
+    while (num > 0){
+        let lastDigit = Math.floor(num % 10)
+        sum += lastDigit
+        num = Math.floor(num / 10)
+    }
+    return sum
+
+}
+console.log(SumOfDigits(1234))
 
 
 

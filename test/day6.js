@@ -251,7 +251,7 @@ class MinHeap {
             this.swap(i, this.getParent(i))
             i = this.getParent(i);
         }
-    }
+    }       
                               
     heapifyDown(){
         let index = 0;
@@ -265,7 +265,7 @@ class MinHeap {
 
             if(left < length && this.heap[left] < this.heap[smallest]) smallest= left;
             if(right < length && this.heap[right] < this.heap[smallest]) smallest = right;
-            
+                                               
             if(smallest != index){
                 this.swap(smallest, index)
                 index = smallest

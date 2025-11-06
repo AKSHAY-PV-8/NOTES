@@ -120,7 +120,7 @@ what is type coersion in js?
 
         '5' > 2        // true ('5' → number 5)
         '12' > '2'     // false (string comparison → lexicographical)
-        true > false   // true (1 > 0)
+        true > false    // true (1 > 0)
 
 
         IMP///////
