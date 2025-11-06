@@ -21,10 +21,9 @@ function logestWord(string) {
             currentWord = "";
             currLen = 0;
         }
-
+     
     }
     return longest
-
 }
 // console.log(logestWord("I love programming in JavaScript"))
 
@@ -42,8 +41,14 @@ function CountVowels(string) {
 // console.log(CountVowels("Hello world"));
 
 function TwoArrayAreEqul(arr1, arr2) {
+    if(arr1.length !== arr2.length){
+        for(let i = 0; i <= arr1.length; i++ ){
+            if(arr1[i] !== arr2[i]) return false
+        }
+    }
+    return true
 }
-// console.log(TwoArrayAreEqul([1, 2, 3], [1, 2, 3]))
+console.log(TwoArrayAreEqul([1, 2, 3], [1, 2, 3]))
 
 function SumOfDigits(num) {
 
@@ -63,5 +68,6 @@ function SumOfDigits(num) {
     return sum
 
 }
-// console.log(SumOfDigits(1234))
+// console.log(SumOfDigits(1234)) 
+                                
 
