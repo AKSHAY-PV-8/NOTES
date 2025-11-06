@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .Options{
+            display: none;
+            flex-direction: column;
+        }
+        .Options a{
+            text-decoration: none;
+            padding: 4px;
+            margin: 4px;
+        }
+        .menu-btn{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav"></div>
+    <div class="menu-btn" id="menu-btn">☰</div>
+    <div class="Options" id="option">
+        <a href="">Home</a>
+        <a href="">about</a>
+        <a href="">project</a>
+        <a href="">Contact</a>
+    </div>
+
+
+    <script>
+        const menu = document.getElementById("menu-btn")
+        const option = document.getElementById("option")
+
+        let show = false;
+
+        menu.addEventListener("click" , () => {
+            if(!show){
+                option.style.display = "flex"
+                show = true;
+            }else{
+                option.style.display = "none"
+                show = false;
+            }
+        })
+    </script>
+</body>
+
+</html>
