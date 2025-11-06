@@ -2,8 +2,6 @@ function logestWord(string) {
     if (typeof string !== "string" || string === null) return undefined;
     if (String.length === 0) return "";
 
-
-    let words = []
     let currentWord = ""
     let longest = "";
     let currLen = 0;
@@ -28,7 +26,7 @@ function logestWord(string) {
     return longest
 
 }
-console.log(logestWord("I love programming in JavaScript"))
+// console.log(logestWord("I love programming in JavaScript"))
 
 function CountVowels(string) {
     const vowels = { a: true, e: true, i: true, o: true, u: true }
@@ -41,11 +39,11 @@ function CountVowels(string) {
     }
     return count
 }
-console.log(CountVowels("Hello world"));
+// console.log(CountVowels("Hello world"));
 
 function TwoArrayAreEqul(arr1, arr2) {
 }
-console.log(TwoArrayAreEqul([1, 2, 3], [1, 2, 3]))
+// console.log(TwoArrayAreEqul([1, 2, 3], [1, 2, 3]))
 
 function SumOfDigits(num) {
 
@@ -65,7 +63,5 @@ function SumOfDigits(num) {
     return sum
 
 }
-console.log(SumOfDigits(1234))
-
-
+// console.log(SumOfDigits(1234))
 

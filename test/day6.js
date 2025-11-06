@@ -357,5 +357,111 @@ const anagram = (str1, str2) => {
 }
 
 console.log(anagram("listen", "silent"))
+
+
+function Factorial(num){
+
+        if(num === 0 || num ===  1){
+           return 1
+        }else{
+            return num * Factorial(num - 1)
+        }
+                                                                                   
+}
+console.log(Factorial(5))
+
+/*
+🧠 First, what happens in recursion
+
+When a function calls itself, JavaScript doesn’t “jump back” immediately.
+Each function call is stored in the call stack — a special memory structure.
+
+Each new call creates a new function frame (a copy of local variables, parameters, and return addresses).
+
+When that call finishes, it’s popped off the stack and returns a value to the previous one.
+
+🔍 Step-by-step for Factorial(5)
+
+Let’s simulate exactly what happens in memory:
+
+🧩 Step 1: Initial Call
+
+You call:
+
+Factorial(5)
+
+
+Since 5 !== 0 && 5 !== 1,
+JS executes:
+
+return 5 * Factorial(4)
+
+
+👉 It pauses Factorial(5) and calls a new function Factorial(4).
+
+🧩 Step 2: Stack grows
+
+Now stack looks like this:
+
+| Factorial(5) waiting for Factorial(4) |
+| Factorial(4) waiting for Factorial(3) |
+
+
+And it keeps going:
+
+Factorial(3)
+Factorial(2)
+Factorial(1)
+
+🧩 Step 3: Base case reached
+
+When Factorial(1) runs:
+
+if (num === 0 || num === 1) return 1;
+
+
+So it returns 1 immediately.
+Now the stack begins to unwind (come back upward).
+
+🧩 Step 4: Stack unwinds (returning values)
+
+Now each waiting function multiplies and returns:
+
+Function Call	What Happens	Returned Value
+Factorial(1)	returns 1	1
+Factorial(2)	2 * 1	2
+Factorial(3)	3 * 2	6
+Factorial(4)	4 * 6	24
+Factorial(5)	5 * 24	120
+🧠 In memory (call stack movement)
+Before base case:
+[Top of Stack]
+Factorial(1)
+Factorial(2)
+Factorial(3)
+Factorial(4)
+Factorial(5)
+[Bottom]
+
+After returning:
+
+Each frame returns and gets removed:
+
+Factorial(1) → returns 1
+Factorial(2) → returns 2
+Factorial(3) → returns 6
+Factorial(4) → returns 24
+Factorial(5) → returns 120
+
+
+Stack becomes empty again ✅
+
+🧩 Final Output:
+console.log(Factorial(5)); // 120
+*/
+
+
+
+
                                                                            
                                                                                         
