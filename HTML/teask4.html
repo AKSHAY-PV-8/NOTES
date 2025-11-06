@@ -19,7 +19,18 @@
         .menu-btn{
             cursor: pointer;
         }
+        .question{
+            margin: 10px;
+        }
+        .answer{
+            display: none;
+        }
+        .item.active .answer{
+            display: block;
+        }
     </style>
+
+    
 </head>
 
 <body>
@@ -33,9 +44,29 @@
     </div>
 
 
+    <h1>FAQ Section</h1>
+    <div class="quns" id="qstnContaner">
+        <div class="item active">
+            <div class="question" id="qstn">What is HTML?</div>
+            <div class="answer">HTML stands for Hyper Text Markup Language used to structure web pages.</div>
+        </div>
+
+        <div class="item active">
+            <div class="question" id="qstn">What is CSS?</div>
+            <div class="answer">CSS is used to style and layout web pages</div>
+        </div>
+
+        <div class="item active">
+            <div class="question" id="qstn">What is JS?</div>
+            <div class="answer">JavaScript makes web pages interactive abd dynamic.</div>
+        </div>
+    </div>
+
+
     <script>
         const menu = document.getElementById("menu-btn")
         const option = document.getElementById("option")
+        const qns = document.querySelectorAll(".question")
 
         let show = false;
 
@@ -47,6 +78,17 @@
                 option.style.display = "none"
                 show = false;
             }
+        })
+
+        qns.forEach(q => {
+            q.addEventListener("click", () => {
+                const item = q.parentElement;
+
+                document.querySelectorAll(".item").forEach(i => {
+                    if(i !== item) i.classList.remove('active')
+                })
+                item.classList.toggle('active')
+            })
         })
     </script>
 </body>
