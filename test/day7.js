@@ -69,5 +69,17 @@ function SumOfDigits(num) {
 
 }
 // console.log(SumOfDigits(1234)) 
-                                
+
+function Flattern(array){
+    if(!Array.isArray(array)) return array;
+
+    let result = [];
+    
+    
+
+
+
+}
+
+console.log(Flattern([1, [2, [3, 4]], 5]))
 
