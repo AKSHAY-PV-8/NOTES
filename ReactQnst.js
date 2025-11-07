@@ -105,6 +105,18 @@ function Counter() {
 📘 Normal variables don’t trigger re-render.
 ✅ useState() variables do.
 
+Questions related to props and states ?
+
+          🧠 10. Interview-Level Summary
+                Question	Key Answer
+                What are props in React?	Data passed from parent to child; read-only.
+                What is state in React?	Data managed internally by a component.
+                How does React know when to re-render?	When props or state change (shallow diffing).
+                Where does React store state?	In a linked list of hooks (fiber.memoizedState).
+                Are state updates synchronous?	No — React batches updates and re-renders later.
+                Why can’t you use hooks conditionally?	React tracks hooks by call order, not name.
+                How are props and state stored in Fiber?	memoizedProps and memoizedState fields of the Fiber node.
+
 6️⃣ What are Props?
 
 Answer:

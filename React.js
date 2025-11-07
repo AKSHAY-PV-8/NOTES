@@ -577,10 +577,73 @@ class components -> DATA FLOW ///////////
                                           [count , setCount] = [1, dispatchFunction]
                                     6. Now react compare old virtual DOM and new virtual DOM
                                         updates only that part of DOM
-                            
+
+            sub) How React tracks mulitiple states (mulitple useState calls)   
+
+                              if we write:
+
+                                  function Example() {
+                                    const [count, setCount] = useState(0);
+                                    const [name, setName] = useState("Akshay");
+                                  }
+
+                              =>React doesn't tracks them by variable name --- it tracks them by order of hook calls.
+                              =>that's whywe must never call hook conditionally
+
+                                  internally:
+                                      fiber.memoizedState -> Hook1 -> Hook2 -> null
+                                      
+                                      .Hook1 = count
+                                      .Hook2 = name
+                                      .Each hook has { memoizedSate, queue, next }
+                                    
+                                    during updates, React walks this linked list of hooks attached to the fiber.
 
 
+                sub) what is relation between Props, State snd Fiber ?
 
+                                all storder inside a fiber node is like :
+                                    FiberNode = {
+                                      type: Counter,
+                                      memoizedProps: { /* current props */ },
+                                      memoizedState: { /* linked list of hooks */ },
+                                      alternate: { /* old fiber for diffing */ },
+                                      updateQueue: { /* side effects */ },
+                                      ...
+                                    }
+
+
+                                    Field	               Purpose
+                                    .memoizedProps	     The current props passed into the component
+                                    .memoizedState	     The component’s internal state (hooks)
+                                    .alternate	         The previous version of this fiber (used during reconciliation)
+
+                                    When you update props or state:
+
+                                      .React builds a work-in-progress fiber (new version)
+                                      .Compares it to the alternate fiber (old version)
+                                      .Updates only what changed
+
+                  IMP
+                  => state Updadates are asynchronous
+                        Whwn we call setState or setCount, thevalue doesn't change immediately.
+
+                        React batches updates together to optimize rendering.
+
+                                    example:
+
+                                        setCount(count + 1);
+                                        setCount(count + 1);
+                                        console.log(count); // still old value
+
+                                        React schedules both updates, then processes them together before the next render.
+
+                                      =>This is why we sometimes use functional updates:
+
+                                          setCount(prev => prev + 1);
+                                          
+                                        This ensures React always uses the latest value, no matter when the update runs.
+                    
 desturcturing props
 --------------------
 
