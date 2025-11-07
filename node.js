@@ -80,7 +80,7 @@ notes
             => V8 engine does't handle async => asyncis coordinated by libuv + Node internals.
 
 3. What is libuv ? 
-            
+
             -> a C library that handles asynchronous I/O opertaions.
 
             => it provise:
@@ -100,11 +100,11 @@ notes
 
 
     sub) what is a Thread?
-
+                          
             -> A thread is path of execution in a program -- like a worker that runs code.
 
             🧠 Example Analogy
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
                 =>Imagine you have one worker doing everything:
                     .Reading files
                     .Making network calls
@@ -167,8 +167,25 @@ notes
 
 4. what is C++ Bindings ?
         C++ bindings are glue code connection V8 with C/C++ libraries 
-                        
+ 
+        
+5. what is event Loop ?
+      =>event loop is the core mechanism inside libuv that keeps Node.js running non-block and asynchronous even 
+        js code runs on a single thread.
+        
+        JavaScript (in V8) is single-threaded — it can only execute one thing at a time.
+        ->But Node wants to handle many operations:
+            .File reads
+            .Network requests
+            .Timers
+            .Database queries
 
+            To do that without blocking, Node uses:
+                .libuv’s thread pool for background tasks
+                .Event Loop to know when each task is done and which callback to run next
+
+
+                
 working
 -------
             🧩 Step 1 — Your Code Enters the V8 Engine
@@ -796,34 +813,3 @@ what are jwt ?
     => JWT are most commonly used for stateless authentication and API authorization.
     => Ther are 2 familes:
         .JWS (signed) -- the common "JWT" you see: JSON claims          
-        
-
-
-
-
-                                                                                               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
