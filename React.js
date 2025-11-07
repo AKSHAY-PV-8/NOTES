@@ -328,22 +328,55 @@ REACT
 
           setCount() → a function that tells React “update this value and re-render the UI”
 
+
+
+what is components?
+
+          A components in react is just a function or class that returns UI (JSX)
+
+          we can think of it as a resuable, isolated piece of interface -- like buttun, navbar, sidebar , etc
+
+          function Button() {
+            return <button> Click me <button/>
+          }
+
+      sub) Why component exist ?
           
+            ->without component, a webpage would be one gaint file of HTML --- impossoble to manage
+            ->react breaks UI into independent, reusable, and testable units.
 
-=> COMPONENT Types
-----------------
-****************************************
+                <App>
+                  <Navbar />
+                  <ProductList />
+                  <Footer />
+                </App>
 
-1. stateless function components :- function welcome(prop) {
-                                        return <h1>hello, {props.name} </h1>
-                                    }
 
-2. stateful classs components :- class welcome extends React.Component {
-                                        render(){
-                                        retrun <h1> hellow </h1>}
-                                    }
+                                                                
+
+      sub)Types of components?
+
+              1. stateless function components :- function welcome(prop) {
+                                                      return <h1>hello, {props.name} </h1>
+                                                  }
+
+              2. stateful classs components :- class welcome extends React.Component {
+                                                      render(){
+                                                      retrun <h1> hellow </h1>}
+                                                  }
+
+      sub) what is the difference between React Elements and components ?
+                
+                =>components :- The function or class definition (like function Button() {})
+                =>Element :- The object React creates when we use <Button/>
+                =>DOM node:- the actual thing rendered in browser
+
+             
+
+                                                              
 import/Export things
 ---------------------
+
 
 .if we use => export default Component -> we can import like
                                         import Components from './components'
