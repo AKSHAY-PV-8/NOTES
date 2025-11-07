@@ -349,10 +349,7 @@ what is components?
                   <Navbar />
                   <ProductList />
                   <Footer />
-                </App>
-
-
-                                                                
+                </App>                                       
 
       sub)Types of components?
 
@@ -371,8 +368,13 @@ what is components?
                 =>Element :- The object React creates when we use <Button/>
                 =>DOM node:- the actual thing rendered in browser
 
-             
+      sub) what is Component lifecycle (Functional)
 
+                .Mounting => Component is created and added to DOM.
+                .Updating => Component's  props/state changes, and React re-renders it
+                .Unmounting => Components is removed form the DOM
+
+                
                                                               
 import/Export things
 ---------------------
@@ -393,35 +395,31 @@ import/Export things
 ->its also receives pops and return html , but it maintaine orivet internal state
 
 
-ADVATAGES
----------
-
 functional components ->DATA FLOW ///////////////
-******************************************************************************
 
-function hello(props) => {
-        return <h1> hello {props.name} </h1>
-    }
+        function hello(props) => {
+                return <h1> hello {props.name} </h1>
+            }
 
-when we create a function component like above 
+        when we create a function component like above 
 
-1. function return a jsx like => helloe({name: "amal"});
-2. browser dont understand jsx only understand plan js 
-   - babel conver jsx to react.createElement("h1", null, "hello amal") ;
-   -------
-3. reconciler figures out what changes are occres
-    ---------
+        1. function return a jsx like => helloe({name: "amal"});
+        2. browser dont understand jsx only understand plan js 
+          - babel conver jsx to react.createElement("h1", null, "hello amal") ;
+          -------
+        3. reconciler figures out what changes are occres
+            ---------
 
-    reconciler => . is react's decision maker
-                  . it compare old virtual DOM vs new virtual DOM
-                  . then figures out minimal changes 
+            reconciler => . is react's decision maker
+                          . it compare old virtual DOM vs new virtual DOM
+                          . then figures out minimal changes 
 
-4.react renderer update real DOM efficiantly
-  --------------
+        4.react renderer update real DOM efficiantly
+          --------------
 
-    react renderer => . the builder 
-                      . when the reconciler decides what should change ,
-                        renderer update the actual screen
+            react renderer => . the builder 
+                              . when the reconciler decides what should change ,
+                                renderer update the actual screen
 
 virtual DOM(aditional topic)
 ----------------------------
@@ -433,25 +431,24 @@ virtual DOM(aditional topic)
 
 
 class components -> DATA FLOW ///////////
-***************************************************************
 
-class hello extends React.Component{
-    render(){
-        retrun <h1>hello {this.props.name} <h1>
-    }
-}
+            class hello extends React.Component{
+                render(){
+                    retrun <h1>hello {this.props.name} <h1>
+                }
+            }
 
-1. when react see a <h1>hello {this.props.name} <h1>
+            1. when react see a <h1>hello {this.props.name} <h1>
 
-    creat a new instance -> instance is unusable object created from class (bluePrint)
-    
-    const instance = new hello({name: "amal"});
+                creat a new instance -> instance is unusable object created from class (bluePrint)
+                
+                const instance = new hello({name: "amal"});
 
-2. hello extends react.Component, the constructor from react.compontent runs ->
-   which setUp this.props and this.state
-                -----------------------
+            2. hello extends react.Component, the constructor from react.compontent runs ->
+              which setUp this.props and this.state
+                            -----------------------
 
-3. class render() it returns jsx -> compiled to React.createElement
+            3. class render() it returns jsx -> compiled to React.createElement
 
 
 PROPS
