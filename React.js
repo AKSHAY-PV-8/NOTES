@@ -330,7 +330,7 @@ REACT
 
 
 
-what is components?
+11. what is components?
 
           A components in react is just a function or class that returns UI (JSX)
 
@@ -374,7 +374,7 @@ what is components?
                 .Updating => Component's  props/state changes, and React re-renders it
                 .Unmounting => Components is removed form the DOM
 
-                
+
                                                               
 import/Export things
 ---------------------
@@ -451,38 +451,104 @@ class components -> DATA FLOW ///////////
             3. class render() it returns jsx -> compiled to React.createElement
 
 
-PROPS
-******
-props is just an object that contains the attributes and its value pased for its parent component
 
-child component receives it as argument
+12. what ara props and state?
+
+            props:- props is just an object that contains the attributes and its value pased for its parent component
+                    child component receives it as argument
+
+            state:- internal date of a component
+
+            what are setState?
+                  setState = tells react update the UI
+
+              in class component
+              -> this.state => holds the date 
+              -> this.setState() => updates it
+
+              props                               |  state 
+              ------------------------------------|------------------------------------
+              .props get passed to component      |.state is managed with in component
+              .function parameters                |.variables declared in function body
+              .props are can't make change by     |.state can be changed
+              childercomponent                    | 
+                                                  |
+              props                               | useState Hook 
+
+              =========================================================================
+
+            Feature	              Props	                        State
+            Who owns it?	        Parent component	            The component itself
+            Mutable?	❌         Immutable (read-only)	        ✅ Mutable (can change using setState / useState)
+            Source of data	      Passed into a component	        Managed inside a component
+            Triggers re-render?	  Yes (if new props differ)	      Yes (when state changes)
+            Example	              <Greeting name="Akshay" />	    const [count, setCount] = useState(0)
 
 
-=> componte => <Greed name="arun" age="14"/> (parent component)
+    sub) What actually happends when you use props ?
+
+            In react data alwaysfloe down thecomponents tree, form parent -> child.
+
+              This means:
+
+                  =>  A parent passes props down to a child.
+                  =>  A child never directly modifies its props.
+                  =>  A child can update its own state, but not its parent’s.
 
 
-=> const Greed = props => {
-            console.log(props)   (in console it shows an object with 
-                                  details from aprents)
+                  example:
 
-            return <h1>hello {props.name} age is {props.age} </h1>
-        }
-    export default Greed; 
+                      function Greeting({ name }) {
+                        return <h1>Hello, {name}</h1>;
+                      }
+
+                      function App() {
+                        return <Greeting name="Akshay" />;
+                      }
+
+           => Step by step
+
+              1.  App renders => Reacte create a Fiber node (A internal onject) for App.
+              2.  Inside it, sees <Greeting name = "Akshay"/>
+              3.  React create new fiber for Greeting
+              4.  It stores the props in the fiber node
+                      fiber.memoizedProps = {name : "Akshay"}
+              5. react calls the component function:
+                      Greeting({ name: "Akshay"})
+              6. reaturns a virtual DOM <h1>Hello, Akshay</h1>
+
+              when App re-render with a different prop (name = "React"), React compares:
 
 
+      sub) what happend when you use State
 
-what is the difference between props and state?
+                  Example:
 
-props                               |  state 
-------------------------------------|------------------------------------
-.props get passed to component      |.state is managed with in component
-.function parameters                |.variables declared in function body
-.props are can't make change by     |.state can be changed
-childercomponent                    | 
-                                    |
-props                               | useState Hook 
+                      function Counter() {
+                        const [count, setCount] = useState(0);
+                        return <button onClick={() => setCount(count + 1)}>{count}</button>;
+                      }
 
-=========================================================================
+                                                                               
+                   step 1: Mount phase (first render)        
+
+                        when the component first runs:
+                            1. React creates a Fiber noder for Counter.
+                            2. it find that youire calling a Hook (useState)
+                            3. react create a interanal Hook object and attaches it to that fiber:
+                                fiber.memoizedState = {
+                                  memoizedState = 0,
+                                  queue: []
+                                }
+                            4. useState(0) return [0, dispatchFunction]    
+                              that dispatchFunction (setCount) is bounded to same fiber abd hook.                                            
+                    
+                    step 2: Update phase (after setCount)
+
+                    
+                            
+
+
 
 desturcturing props
 --------------------
@@ -500,12 +566,7 @@ STATE & setState
 what are states?
     state = internal date of a component
 
-what are setState?
-    setState = tells react update the UI
 
-in class component
--> this.state => holds the date 
--> this.setState() => updates it
 
 
 Event handlers
