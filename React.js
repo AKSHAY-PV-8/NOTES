@@ -541,11 +541,42 @@ class components -> DATA FLOW ///////////
                                   queue: []
                                 }
                             4. useState(0) return [0, dispatchFunction]    
-                              that dispatchFunction (setCount) is bounded to same fiber abd hook.                                            
-                    
+                              that dispatchFunction (setCount) is bounded to same fiber abd hook.
+
+                                                                                                                                                                
                     step 2: Update phase (after setCount)
 
-                    
+                        when we call:
+                              setCount(count + 1)
+
+                              React does not immediately update the DOM.
+                              Instead:
+                                  1. It creates an update object and pushes it into the hook's queue:
+                                       hook.queue.push({ action: newValue });
+                                  2. Marks the fiber as needing work (fiber.lanes in React's scheduler)
+                                  3. React shedules a new render for that componet
+                                      -after sheduling React begins the next render cycle for this component
+                                      -so during the render react reads queue for each hook
+                                  4. when react runs again, react finds the same Fiber  and same hook list.
+
+                                      React does internally like :
+
+                                        let baseState = hook.memorizedState //0
+                                        for(let update of hook.queue) {
+
+                                          baseState = update.action; // 1
+
+                                        }
+                                        hook.memoizedState = baseState; // 1
+                                        hook.queue = []; // clear queue after applying
+
+                                    5. React calls component again with new state
+                                        but this time React doesn't use 0, it uses the memoizedState stored in hook Object(1)
+
+                                        so return 
+                                          [count , setCount] = [1, dispatchFunction]
+                                    6. Now react compare old virtual DOM and new virtual DOM
+                                        updates only that part of DOM
                             
 
 
