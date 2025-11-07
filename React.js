@@ -328,6 +328,8 @@ REACT
 
           setCount() → a function that tells React “update this value and re-render the UI”
 
+          
+
 => COMPONENT Types
 ----------------
 ****************************************
@@ -460,6 +462,7 @@ const greet = props => {
     retrun (
     <h1>{name} age: {age}</h1>
     )}
+    
 
 
 STATE & setState

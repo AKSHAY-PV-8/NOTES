@@ -1,71 +1,206 @@
-/*what is node js ?
-    node is not a language or framework,
-    it is an runtime environment to for js outside the browser.
+what is node js ?
+        node is not a language or framework,
+        it is an runtime environment to for js outside the browser.
 
-    normally js runs inside browser
-    node.js allow you run js on your computer/server
+        normally js runs inside browser
+        node.js allow you run js on your computer/server
 
 
 what is difference between browser and node.js ?
 
-    main difference is in Node.js there is no access to browser , 
-    there in no dom , there in no fetch etc.
+        main difference is in Node.js there is no access to browser , 
+        there in no dom , there in no fetch etc.
 
-    in node we built server side apps
-        -it consist of pure logic.
+        in node we built server side apps
+            -it consist of pure logic.
 
 
 notes
 ----
 
-    .node built on V8, the same js engine used by Google chrome
-    .it also include c++ library called libuv that handles things like :
-        -file system
-        -networking
-        -thread pool
-        -asynchrounous I/O
+        .node built on V8, the same js engine used by Google chrome
+        .it also include c++ library called libuv that handles things like :
+            -file system
+            -networking
+            -thread pool
+            -asynchrounous I/O
 
 
 
-    V8 Engine -> Compiles JavaScript code into fast machine code.
-    libuv ->Handles async I/O operations and the event loop (written in C++).
-    Event Loop -> Continuously checks for events and executes callbacks.
-    Thread Pool -> Handles background tasks (file read/write, DNS, crypto, etc.).
-    Bindings -> Bridge between JS and C++ code (lets JS talk to OS features).
-    Node APIs -> Built-in modules like fs, http, crypto, etc. built on libuv.
+        V8 Engine -> Compiles JavaScript code into fast machine code.
+        libuv ->Handles async I/O operations and the event loop (written in C++).
+        Event Loop -> Continuously checks for events and executes callbacks.
+        Thread Pool -> Handles background tasks (file read/write, DNS, crypto, etc.).
+        Bindings -> Bridge between JS and C++ code (lets JS talk to OS features).
+        Node APIs -> Built-in modules like fs, http, crypto, etc. built on libuv.
+
+
+                                                                                                  
+1. Core Components inside Node.js ?
+    
+        +--------------------------------------------------+
+        |           Your JavaScript code                   |
+        +--------------------------------------------------+
+        |           Node.js APIs (fs, http, etc.)          |
+        +--------------------------------------------------+
+        |       C++ Bindings (bridge layer)                |
+        +--------------------------------------------------+
+        |       libuv (Thread Pool + Event Loop)           |
+        +--------------------------------------------------+
+        |       V8 Engine (Executes JS Code)               |
+        +--------------------------------------------------+
+        |       OS (System Calls, File I/O, Network)       |
+        +--------------------------------------------------+
+
+
+2. what is V8 Engine ? - "The Brain"
+
+            . Written in C++
+            . developed by chrome
+            . Executes js 
+            .embeds a heap, stack, and JIT compiler.
+
+    sub) How it works in Memory
+
+            when node starts V8 engine allocate.
+
+                .A HEAP -> for object, arrays, closures, etc.
+                .A STACK -> for function call and local variables
+                .A Code Space -> for machine code compiled from JS
+
+             👉 V8 parses the code → converts to bytecode → JIT compiles into machine code → executes it directly on the CPU.
+
+                Key roles of V8:
+
+                    ->Memory allocation & garbage collection
+                    ->Converts JS → optimized machine code
+                    ->Provides core built-in objects (Object, Array, Promise, etc.)    
+                    
+
+            => V8 engine does't handle async => asyncis coordinated by libuv + Node internals.
+
+3. What is libuv ? 
+            
+            -> a C library that handles asynchronous I/O opertaions.
+
+            => it provise:
+                . Event loop
+                . Thread pool
+                . Non-blocking I/O
+                . Timers
+
+    sub) how it work in memory?
+
+            when Nodes starts:            
+                ->libuv creates an event loop in C memory space.
+                ->it also create a thread pool (default: 4 threads) for expensive tasks like:
+                    . file reading/writing
+                    . DNS lookup
+                    . Crypto operations
+
+
+    sub) what is a Thread?
+
+            -> A thread is path of execution in a program -- like a worker that runs code.
+
+            🧠 Example Analogy
+
+                =>Imagine you have one worker doing everything:
+                    .Reading files
+                    .Making network calls
+                    .Printing logs
+                    → He gets tired quickly and blocks others.
+
+                Now, if you have multiple workers (threads):
+                    .One reads files
+                    .One handles network
+                    .One does encryption
+                    → All tasks happen together (concurrently).
+                    That’s what a thread pool helps with — multiple workers ready to handle heavy work
+
+            =>Single-threaded:-	Only one thread executes JS code (Node’s main thread)
+            =>Multi-threaded:-	Multiple threads handle background or I/O tasks (libuv thread pool)   
+            
+    sub) What happend when node starts?
+
+                -> start V8 engine -> executes js code.
+                -> initializes Libuv -> create
+                                            .An Event Loop
+                                            .A Thread Pool (default: 4 threads)
+
+
+                    main thread (V8) -> run JS
+                    libuv thread pool( 4 thread) -> handles async tasks.
+
+    sub) why node uses thread pool (libuv)
+        because some operations take time --- if done one main thread it will block
+
+
+            NOTES////
+                => File Reading / Writing (I/O)
+
+                    What it means:
+
+                    Your hard drive is very slow compared to CPU.
+                    So reading a file takes milliseconds or even seconds.
+
+                => DNS Lookup
+                    What is DNS?
+
+                    DNS (Domain Name System) = Converts domain names into IP addresses.
+                    Example:
+
+                    google.com → 142.250.183.206
+
+                    Why it needs thread pool:
+
+                    When you connect to google.com, Node must ask a DNS server for the IP.
+                    That’s a network operation, which takes time — so libuv runs it in a background thread.
+
+                => Crypto Operations
+                    What is crypto?
+                    Operations like:
+
+                        .Hashing (e.g., passwords)
+                        .Encryption / decryption
+                        .Random number generation
+
+4. what is C++ Bindings ?
+        C++ bindings are glue code connection V8 with C/C++ libraries 
+                        
 
 working
 -------
-🧩 Step 1 — Your Code Enters the V8 Engine
+            🧩 Step 1 — Your Code Enters the V8 Engine
 
-Node passes your JS file to V8, which:
-    .Parses your JS code
-    .Compiles it to machine code
-    .Starts running it line by line
+            Node passes your JS file to V8, which:
+                .Parses your JS code
+                .Compiles it to machine code
+                .Starts running it line by line
 
-🔄 Step 2 — Asynchronous Work Goes to libuv
+            🔄 Step 2 — Asynchronous Work Goes to libuv
 
-Node doesn’t block the main thread.
+            Node doesn’t block the main thread.
 
-Instead:
+            Instead:
 
-.Node delegates the asunchronous function to libuv
-.libuv uses a thread from the thread pool to read the file in the       background
+            .Node delegates the asunchronous function to libuv
+            .libuv uses a thread from the thread pool to read the file in the background
 
-🕓 Step 3 — The Event Loop Takes Over
+            🕓 Step 3 — The Event Loop Takes Over
 
-While libuv completed asynchrouns operation:
+            While libuv completed asynchrouns operation:
 
-.The main JS thread is free to continue executing
-.Once the background operation finishes, the callback is pushed to a callback queue
+            .The main JS thread is free to continue executing
+            .Once the background operation finishes, the callback is pushed to a callback queue
 
-🔁 Step 4 — The Event Loop Checks the Queue
+            🔁 Step 4 — The Event Loop Checks the Queue
 
-The event loop constantly checks:
+            The event loop constantly checks:
 
-“Is the main thread free? Any callback waiting in the queue?”
+            “Is the main thread free? Any callback waiting in the queue?”
 
-When your file read finishes, and the main thread is idle, it runs:
+            When your file read finishes, and the main thread is idle, it runs:
 
 
 
