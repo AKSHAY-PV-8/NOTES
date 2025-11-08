@@ -185,15 +185,9 @@ notes
                 .Event Loop to know when each task is done and which callback to run next
 
 
-                hello world
-                new line 
-                hello hello
+               
 
-                new new
 
-                new new neww new
-
-                
                 
 working
 -------
