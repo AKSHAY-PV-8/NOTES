@@ -186,6 +186,8 @@ notes
 
 
                 hello world
+                new line 
+                hello hello
                 
 working
 -------
