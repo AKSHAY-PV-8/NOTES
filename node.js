@@ -185,14 +185,7 @@ notes
                 .Event Loop to know when each task is done and which callback to run next
 
 
-event loop in very imortant 
-ksefjlejf
-lkejfskdfjsk  lkdsfs ksdfj
-las as 
-ksdjfksdf in to whield 
-ksdjfsdf dfj sdkfj sdf kdf jsdkf 
 
-dfkjgdfgjsdgt ksdfj lkfd sldkf lakf lkd fldksf lksd fksdf jds fjslkflsdkf jldkf
                 
 working
 -------
