@@ -31,7 +31,6 @@ REACT
 5.what is DOM ?
               dom stands for Document Object MOdel.
               => it's a programing inferface() that represents the HTML page as tree of objects
-
                 <html>
                 <body>
                   <h1>Hello</h1>
@@ -69,13 +68,11 @@ REACT
 
                 ➡️ The browser must:
 
-                Rebuild part of the DOM tree
+                .Rebuild part of the DOM tree
+                .Recalculate CSS
+                .Repaint the screen
 
-                Recalculate CSS
-
-                Repaint the screen
-
-                This is slow, especially when many elements or animations are involved.
+              =>This is slow, especially when many elements or       animations are involved.
 
 
 6.what is Virtual Dom?
@@ -174,7 +171,7 @@ REACT
 
             ->it was synchronous and non-interruptible
 
-                        (non-interruptible means :- ones a task start, it must finish completely before React can do anthig else. i cannot pause or be stopped midway.)
+                        (non-interruptible means :- ones a task start, it must finish completely before React can do anthig else. it cannot pause or be stopped midway.)
 
             ->If there is a large component tree (say 5,000 elements), React would:
 
@@ -487,7 +484,7 @@ class components -> DATA FLOW ///////////
 
     sub) What actually happends when you use props ?
 
-            In react data alwaysfloe down thecomponents tree, form parent -> child.
+            In react data alwaysflow down the components tree, form parent -> child.
 
               This means:
 
@@ -626,7 +623,7 @@ class components -> DATA FLOW ///////////
 
                   IMP
                   => state Updadates are asynchronous
-                        Whwn we call setState or setCount, thevalue doesn't change immediately.
+                        When we call setState or setCount, thevalue doesn't change immediately.
 
                         React batches updates together to optimize rendering.
 

@@ -1,3 +1,4 @@
+
 what are function?
     functions are like reusable code of block that does a special task;
     it can define if onces and then call it any times
