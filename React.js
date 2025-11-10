@@ -641,44 +641,49 @@ class components -> DATA FLOW ///////////
                                           
                                         This ensures React always uses the latest value, no matter when the update runs.
                     
-desturcturing props
---------------------
+what is desturcturing props?
 
-const greet = props => {
-    const {name, age} = props
-    retrun (
-    <h1>{name} age: {age}</h1>
-    )}
+          const greet = props => {
+              const {name, age} = props
+              retrun (
+              <h1>{name} age: {age}</h1>
+              )}
     
 
 
-STATE & setState
------------------
-what are states?
-    state = internal date of a component
-
-
-
-
-Event handlers
---------------
-
 what is eventhandler?
-    is just a function that run when an event happends
+        is just a function that run when an event happends
 
-->when use evenhandlers don't use ()
-    ex: <button onClick = {clickHandler}> Click </bttuon>
+      ->when use evenhandlers don't use ()
+          ex: <button onClick = {clickHandler}> Click </bttuon>
 
-    clickHandler is the event handler - don't use ()
+          clickHandler is the event handler - don't use ()
 
-====================================================
+
+RENDERING
+----------
+
+what is rendering ?
+              react calling your component function to figure out what the UI should look like right now.
+
+
 
 what is conditional rendering ?
 
-    show different UI depending on a conditon (true/false, value, state, etc).
+        show different UI depending on a conditon (true/false, value, state, etc).
 
-List
-----
+        So whenever React “renders”:
+            =>It executes the component function (function MyComponent() { ... })
+            =>It returns a React element tree (the “Virtual DOM”)
+            =>It doesn’t immediately update the real DOM — it first compares (diffs) it with the previous one.
+
+
+what is re-rendering ?
+
+              A re-render happens when react decides it need to recalculate a component's output
+              because something it depends on has changed
+
+
 
 why we adding unique key when render list using map()?
     because using the key react can add , delete, etc efficently later if needed.
