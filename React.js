@@ -641,7 +641,7 @@ class components -> DATA FLOW ///////////
                                           
                                         This ensures React always uses the latest value, no matter when the update runs.
                     
-what is desturcturing props?
+13.what is desturcturing props?
 
           const greet = props => {
               const {name, age} = props
@@ -651,7 +651,7 @@ what is desturcturing props?
     
 
 
-what is eventhandler?
+14.what is eventhandler?
         is just a function that run when an event happends
 
       ->when use evenhandlers don't use ()
@@ -663,12 +663,12 @@ what is eventhandler?
 RENDERING
 ----------
 
-what is rendering ?
+15. what is rendering ?
               react calling your component function to figure out what the UI should look like right now.
 
 
 
-what is conditional rendering ?
+16. what is conditional rendering ?
 
         show different UI depending on a conditon (true/false, value, state, etc).
 
@@ -678,10 +678,46 @@ what is conditional rendering ?
             =>It doesn’t immediately update the real DOM — it first compares (diffs) it with the previous one.
 
 
-what is re-rendering ?
+17. what is re-rendering ?
 
               A re-render happens when react decides it need to recalculate a component's output
               because something it depends on has changed
+
+18. when does react render ?
+
+            -> initial render (Mounting phase) happends when a component is created for the first time
+              
+
+              For example:
+
+                    function App() {
+                      return <Greeting name="Akshay" />;
+                    }
+
+
+                    Step-by-step:
+
+                    1.React creates a Fiber node for App.
+                    2.React calls App() → returns <Greeting name="Akshay" />.
+                    3.React creates a Fiber for Greeting.
+                    4.Calls Greeting() → returns <h1>Hello Akshay</h1>.
+                    5.React builds the DOM and attaches it to the page.
+
+                    ✅ This is first render — happens once per component mount.
+
+19. when does react re-render (Update Phase) ?
+
+                    4. When Does React Re-render (Update Phase)?
+
+                      After the component is mounted, React will re-render it only when its inputs change.
+
+                      Those inputs are:
+
+                      1.Props — Data passed from parent.
+                      2.State — Managed internally by the component.
+                      3.Context — If using React context, when value changes.
+                      4.ForceUpdate() — (class components) manual re-render.
+                      5.Parent Re-render — When parent re-renders, child may re-render.
 
 
 
