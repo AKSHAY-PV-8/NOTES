@@ -720,17 +720,6 @@ RENDERING
                       5.Parent Re-render — When parent re-renders, child may re-render.
 
 
-        
-hgffhtghghgibb inthe 
-
-
-thevirtual don make react very fast , in only change the render part 
-
-props: props is like a parameter to component it pass from its parant
-
-ehen ultiple state come react tract them using not by its name or variable they track usinthe order of hook call
-
-
 
 
 why we adding unique key when render list using map()?
