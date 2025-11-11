@@ -726,6 +726,8 @@ hgffhtghghgibb inthe
 
 thevirtual don make react very fast , in only change the render part 
 
+props: props is like a parameter to component it pass from its parant
+
 
 why we adding unique key when render list using map()?
     because using the key react can add , delete, etc efficently later if needed.
