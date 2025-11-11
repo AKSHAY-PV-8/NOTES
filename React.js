@@ -720,6 +720,9 @@ RENDERING
                       5.Parent Re-render — When parent re-renders, child may re-render.
 
 
+        
+hgffhtghghgibb inthe
+
 
 why we adding unique key when render list using map()?
     because using the key react can add , delete, etc efficently later if needed.

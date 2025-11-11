@@ -104,7 +104,7 @@ notes
             -> A thread is path of execution in a program -- like a worker that runs code.
 
             🧠 Example Analogy
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                       
                 =>Imagine you have one worker doing everything:
                     .Reading files
                     .Making network calls
