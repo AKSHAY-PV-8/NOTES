@@ -721,7 +721,10 @@ RENDERING
 
 
         
-hgffhtghghgibb inthe
+hgffhtghghgibb inthe 
+
+
+thevirtual don make react very fast , in only change the render part 
 
 
 why we adding unique key when render list using map()?
