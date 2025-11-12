@@ -52,6 +52,11 @@ function palindrome(str){
     return true
 }
 
-const text = "mom"
 
-console.log(palindrome(text))
+function removeDuplicates(string) {
+    return [...new Set(string)]
+
+}
+
+console.log(removeDuplicates("aakks"))
+
