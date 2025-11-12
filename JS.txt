@@ -806,6 +806,19 @@ what are callbacks ?
                                   in this above example the controll of proceedToPayment funtion in
                                   hands of createOrder funtion;
 
+
+                                  🧩 What problem do Promises solve?
+
+                                        Before Promises, we used callbacks for async work — but callbacks often led to:
+
+                                        Callback Hell (deeply nested callbacks)
+
+                                        Difficult error handling
+
+                                        Hard-to-read code
+
+                                    👉 Promises fix these issues by providing a clean, chainable, and predictable way to handle async results.
+
                             notes///
 
                             => PROMISES

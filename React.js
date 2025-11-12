@@ -686,7 +686,7 @@ RENDERING
 18. when does react render ?
 
             -> initial render (Mounting phase) happends when a component is created for the first time
-              
+                                              
 
               For example:
 
@@ -719,6 +719,57 @@ RENDERING
                       4.ForceUpdate() — (class components) manual re-render.
                       5.Parent Re-render — When parent re-renders, child may re-render.
 
+questions RELATED TO RENDERING
+
+            1. when does a react component re-render?
+
+                      Tricknes: Most say " when state or poprs change" but that's incomplere.
+
+                      a componenet re-render when:
+                        1. its state change (via setState or useState setterr)
+                        2. its parent re-render, and React calls it again with possibly new props 
+                        3. A context value it consumes changes
+                        4. A forceUpdate() or key change occurs ---------------------------
+                        
+            2. If a parent re-renders but child props dont's ChannelMergerNode, will child re-render ? 
+                      
+                        By default , yes --- react re-render the child(calls it's function again). 
+
+                        unless you:
+                          .wrap the child with React.memo()
+                          .or use PureComponent (for class components)
+
+            3. what is difference between "render and commit" phase in React ? 
+                    
+                        => Render phase:
+                            .React calculates what should change (diffing virtual DOM)
+                            .This phase is pure (no side effects) -----------------------
+                            .can be PaymentRequestUpdateEvent, aborted, or resumed (thaks to FIber)
+
+                        => commit phase:
+                            .React applies the changes to the actual DOM. 
+                            .This phase is non-interruptible and side-effect safe. 
+                            .React run useEffect and lifecycle methods here . 
+            4. React re-render all components when state updates? 
+                        => No -- React re-render only:
+                          . The component whose state ChannelMergerNode,
+                          . And its descendants (unless memoized). 
+                        React uses Fiber reconciliation to track which parts of the tree changed.
+
+           ------ 5. What causes unnecessary re-renders and how do you prevent them ? 
+                        => 
+                        1. passing new object/ function references as props each time .
+                        2. unstable dependencies in useEffect. 
+                        3. Using context that changes too often
+                        4. updating global state unnecessarily
+
+                        solutions:
+                          . React.memo()
+                          . useCallback() / useMemo()
+                          . Splitting context
+                          . immutable updates
+
+                                                                                                                                              
 
 
 

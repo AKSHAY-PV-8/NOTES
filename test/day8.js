@@ -67,6 +67,9 @@ function intersection(arr1, arr2){
     return result
     
 }
+// console.log(intersection([1, 2, 3, 4], [3, 4, 5, 6]))
 
-console.log(intersection([1, 2, 3, 4], [3, 4, 5, 6]))
+function primeNumber(){
+    
+}
                                                
