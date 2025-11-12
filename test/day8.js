@@ -47,5 +47,26 @@ function FlatteningWithoutUsingRecursion(arr){
                                                                                                                                         
     return result
 }
-console.log(FlatteningWithoutUsingRecursion([1, [2, [3, 4]], 5]))
+// console.log(FlatteningWithoutUsingRecursion([1, [2, [3, 4]], 5]))
+
+function intersection(arr1, arr2){
+    let lookup = {}
+    let result = []
+
+    for(let char of  arr1){
+        lookup[char] = true
+    }
+
+    for(let char of arr2){
+        if(lookup[char]){
+            result.push(char)
+            lookup[char] = false
+        }
+    }
+
+    return result
+    
+}
+
+console.log(intersection([1, 2, 3, 4], [3, 4, 5, 6]))
                                                
