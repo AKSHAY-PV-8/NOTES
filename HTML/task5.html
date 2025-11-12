@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            justify-content: center;
+        }
+
+        .tool-text{
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: rgb(58, 194, 232);
+            width: 70px;
+            height: 30px;
+            border-radius: 20px;
+        }
+        .tooltip{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tooltip">
+            <button>HTML</button>
+            <span class="tool-text">Hyper text Markup laguage</span>
+        </div>
+
+        <div class="tooltip">
+            <button>CSS</button>
+            <span class="tool-text">used for styleing</span>
+        </div>
+
+        <div class="tooltip">
+            <button id="btn">JS</button>
+            <span class="tool-text">Click me to show tooltip</span>
+        </div>
+    </div>
+
+    <script>
+        const tooltip = document.querySelectorAll(".tool-text")
+
+        tooltip.forEach(t => {
+            const parent = t.parentElement;
+
+            parent.addEventListener("mouseenter", () => {
+                t.style.visibility = "visible"
+            })
+
+            parent.addEventListener("mouseleave", () => {
+                t.style.visibility = "hidden"
+            })
+        })
+    </script>
+
+</body>
+
+</html>
