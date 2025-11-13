@@ -82,5 +82,35 @@ function primeNumber(number){
 
 // console.log(primeNumber(7))
 
+function nonRepeating(str){
+    if (typeof str !== "string" || str.length === 0) return undefined;
 
+    let freq = {};
+
+    for (let char of str){
+        freq[char] = (freq[char] || 0) + 1;
+    }
+
+    for (let char of str){
+        if (freq[char] === 1) return char;
+    }
+
+    return "invalid";
+}
+/*
+when we iterate to the hash map please remember this with normal function
+
+        let set = {a:2, b:2, c:1}
+
+        let keys = Object.keys(set) // ['a', 'b', 'c']
+
+        for(let i = 0 ; i < keys.length; i++){
+                let key = keys[i]
+                console.log(key, set[key]) // a 2
+                                              b 3
+                                              c 1
+            }
+*/
+
+console.log(nonRepeating("aabbcde"))
                                                
