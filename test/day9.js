@@ -39,3 +39,39 @@ function RotateArray(arr, num){
     
 }
 // console.log(RotateArray([1,2,3,4,5], 2))
+
+function ReverseWord(str){
+    if(typeof str !== "string" || str === null) return undefined
+    if(str.length === 0) return " "
+    
+    let array = []
+    let substring = ""
+    for(let char of str){
+        
+        if(char != " "){
+            substring += char
+        }else{
+            array.push(substring)
+            substring = ""
+        }
+    }
+    if(substring) array.push(substring)
+
+    let left = 0, right = array.length - 1;
+
+    while(left < right){
+        [array[left], array[right]] = [array[right], array[left]]
+        left ++;
+        right --;
+    }
+
+    let result = ''
+    
+    for(let word of array){
+        result += ` ${word}`
+    }
+
+    return result
+
+}
+console.log(ReverseWord("I love JavaScript"))
