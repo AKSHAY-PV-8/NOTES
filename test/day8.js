@@ -69,7 +69,18 @@ function intersection(arr1, arr2){
 }
 // console.log(intersection([1, 2, 3, 4], [3, 4, 5, 6]))
 
-function primeNumber(){
+function primeNumber(number){
+    if(number <= 1) return false
+    for(let i = 2; i*i <= number ; i++){
+        if(number % i === 0){
+            return false
+        }
+        return true
+    }
     
 }
+
+// console.log(primeNumber(7))
+
+
                                                
