@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .grid-container{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .card{
+            position: relative;
+            border-radius: 10px;
+            border: 1px solid black;
+            width: 250px;
+            height: 250px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card:hover{
+            background: rgb(15, 193, 248);
+            transform: scale(1.1);
+            color: aliceblue;
+        }
+        .card img{
+            position: absolute;
+            border-radius: 50%;
+            width: 100px;
+            top: 20px;
+        }
+        h3{
+            position: absolute;
+            top: 110px;
+        }
+        p{
+            position: absolute;
+            top: 140px;
+        }
+        .tooltip{
+            background-color: rgb(0, 0, 0, 1);
+            height: 50px;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            opacity: 0;
+        }
+        .card:hover .tooltip{
+            opacity: 1;
+            animation: fadeInTooltip 0.4s ease forwards;
+        }
+        @keyframes fadeInTooltip {
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            100%{
+                opacity: 1;
+                transform: translateY(180px);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
+            <h3>John</h3>
+            <p>Frontend Developer</p>
+            <div class="tooltip">Skilled in React, HTML, and CSS</div>
+        </div>
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="David">
+            <h3>David</h3>
+            <p>Backend Engineer</p>
+            <div class="tooltip">Works with Node.js & MongoDB</div>
+        </div>
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/women/4.jpg" alt="">
+            <h3>Mia</h3>
+            <p>QA Tester</p>
+            <div class="tooltip">Ensures the product is big-free</div>
+        </div>
+    </div>
+</body>
+
+</html>

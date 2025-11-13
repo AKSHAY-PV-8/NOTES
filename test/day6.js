@@ -335,7 +335,6 @@ console.log(SumOfDigits("2834"))
 
 
 const anagram = (str1, str2) => {
-
     
         let array = Array(26).fill(0)
         
@@ -352,7 +351,6 @@ const anagram = (str1, str2) => {
         for(let i = 0; i < 26; i++){
             if(array[i] !== 0) return false
         }
-        
         return true
 }
 
