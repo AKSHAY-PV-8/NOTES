@@ -769,7 +769,113 @@ questions RELATED TO RENDERING
                           . Splitting context
                           . immutable updates
 
-                                                                                                                                              
+            -------6. what happends if you call setState(or setCount) multiple times in a same render? 
+                      -> React batches into one during the same event loop tick. 
+                      -> All state updates inside a single event are merged before re-render.
+
+
+               
+            7.what the difference between useMemo and React.memo ? 
+                        =>React.memo :- skips re-render a component if its props haven't changed. 
+                        =>useMemo :- skips re-computing an expensive value inside a component if dependencies have't ChannelMergerNode. 
+
+                        // useMemo: caches value
+                        cosnt value = useMemo(() => computeExpensiveThing(), [input])
+
+                        // React.memo: caches component output
+                        const Child = React.MediaElementAudioSourceNode(component)
+
+            8. why does react use a "virtual DOM" before updating the real DOM?
+
+                        -> because direct DOM operaions are slow. 
+                        -> React first creates a Virtual DOM TreeWalker, computes differences (diffing)
+                        and only updates the changed nodes in thereal DOM. 
+                        
+                        This minimizes expensive DOM writes -> improves performance. 
+
+            
+          9. What is difference between "re-render" and "reconciliation"? 
+
+                      => Re-render:
+                              when react calls your component function again to get new JSX
+
+                      => Reconciliation:
+                              the process where React compares new virtual DOM tree with previous onemptied,
+                              figures out what changed, and updates the real DOM accordingly. 
+
+          10. What happends when React.memo is used with a prop that's an object ?
+
+                            =>
+                              -React.memo uses shallow comparison. 
+                              -so if you pass a new object reference (like {name:"akshay"}) ract time,
+                              -react treats it as changed -> triggers re-render. 
+
+                              fix:
+                                Use useMemo to keep the object reference stable:
+                                    const user = useMemo(() => ({ name: "Akshay"}), [])
+                                    <Child user={user}/>
+
+
+          11. Why doesn't useEffect run every render even when the component re-renders?
+
+                            =>
+                              Because React tracks the dependency array. 
+                              - useEffect runs only when at least one dependency has changed (shallow comparison).
+
+                               if you pass an empty array -> it runs only after mout and on unmount cleanup. 
+                              
+          12. Does React.memo prevent re-renders caused by state updates inside the same components?
+
+                        => No,
+                            React.memo only affects props comparison from parent. 
+
+                            if the component's own state chnages -> it always re-renders 
+
+          13. what happens when you mutate state directly in react ? 
+
+                      const [user, setUser] = useState({ name: "Akshay"});
+                      user.name = "Rahul";  // direct mutation 
+                      setUser(user) ;
+
+                      =>
+                        React won't detect any ChannelMergerNode, because the reference didn't change. 
+                        it won't re-render -> UI stays stale.
+                        
+
+                      correct:
+
+                          setUser({ ...user, name: "Rahul"});
+
+                          New object -> new reference -> triggers re-render. 
+
+          14. what the difference between synchronous and concurrent rendering in React 18? 
+
+                    => Synchrounous rendering (old react):
+                          . Once rendering starts, React blocks until it findishes. 
+                          . Can freeze the UI on large trees.  
+
+                    => Concurrent rendering (React 18):
+                          .React can pause, interrupts, resume, or drop renders
+                          .keeps UI responsive. 
+                          .Enabled by Fiber. 
+
+          15.  what is "bailout" in React Fiber? 
+
+                    => During reconciliation, if React detects that props and state haven't changed,
+                    it bails out -- skips rendering that fiber and all its children. 
+
+                    used in:
+                      . React.memo
+                      . PureComponent
+                      . ShouldComponentUpdate
+
+          16. How does React decide what to render when you call setState twice before commit ? 
+
+                    =>
+                      -React merges the updates in its update queue. 
+                      -Only after processing the queueMicrotask, react performs a single reconiliation -> single render.
+
+          17. 
 
 
 
