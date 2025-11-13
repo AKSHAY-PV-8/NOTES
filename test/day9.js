@@ -13,5 +13,29 @@ function RemoveAllZero(arr) {
 
     return result;
 }
-
 // console.log(RemoveAllZero([0, 1, 0, 3, 12]))
+
+function RotateArray(arr, num){
+    if(!Array.isArray(arr)) return undefined
+
+    num = num % arr.length;
+    if(num < 0) num += arr.length;
+
+    function reverce(array, star, end){
+        let left = star, right = end;
+        while(left < right){
+            [array[left], array[right]] = [array[right], array[left]]
+            left ++;
+            right --;
+        }
+        return array
+    }
+
+    reverce(arr, 0 , arr.length - 1)
+    reverce(arr, 0, num - 1)
+    reverce(arr, num, arr.length - 1)
+
+    return arr
+    
+}
+// console.log(RotateArray([1,2,3,4,5], 2))
