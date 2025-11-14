@@ -23,6 +23,72 @@
         .arrow.open{
             transform: rotate(0deg)
         }
+
+        .gallery-container{
+            margin: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        @media(max-width: 900px){
+            .gallery-container{
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px){
+            .gallery-container{
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        .card{
+            display: block;
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        .card img{
+            width: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            animation: fadeIn 1s forwards ;
+            transition: transform 0.4s ease;
+        }
+        .overlay-text{
+            position: absolute;
+            color: white;
+            text-transform: uppercase;
+            width: 100%;
+            z-index: 2;
+            background-color: rgb(0, 0, 0,.3);
+            height: 100%;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards ;
+        }
+
+        .card:hover{
+            transform: scale(1.1);
+        }
+
+        .card:hover .overlay-text{
+            display: none;
+        }
+        
+
+        @keyframes fadeIn {
+            from{
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to{
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 
@@ -42,6 +108,71 @@
             <div class="question">What is JS? <span class="arrow">▼</span></div>
             <div class="answer">JS makes your page interactive.</div>
         </div>
+    </div>
+
+    <h1>Gallery</h1>
+    <div class="gallery-container">
+    
+        <div class="card">
+            <img src="https://picsum.photos/300?random=1" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=2" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=3" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=4" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=5" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=6" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=1" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=2" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=3" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=4" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=5" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/300?random=6" alt="">
+            <span class="overlay-text"> View Image</span>
+        </div>
+
     </div>
 
     <script>
