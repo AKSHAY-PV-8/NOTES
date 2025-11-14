@@ -77,7 +77,6 @@ function counter(){
         console.log(count);
     }
 }
-
 const fun = counter()
 
 fun()
