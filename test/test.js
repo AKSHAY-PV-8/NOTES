@@ -67,4 +67,19 @@ function sumDigits(number){
     }
     return sum
 }
-console.log(sumDigits(284))
+// console.log(sumDigits(284))
+
+
+function counter(){
+    let count = 0;
+    return () =>{
+        count ++;
+        console.log(count);
+    }
+}
+
+const fun = counter()
+
+fun()
+fun()
+

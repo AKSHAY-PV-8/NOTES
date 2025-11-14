@@ -43,7 +43,7 @@ function RotateArray(arr, num){
 function ReverseWord(str){
     if(typeof str !== "string" || str === null) return undefined
     if(str.length === 0) return " "
-    
+
     let array = []
     let substring = ""
     for(let char of str){
@@ -74,4 +74,9 @@ function ReverseWord(str){
     return result
 
 }
-console.log(ReverseWord("I love JavaScript"))
+// console.log(ReverseWord("I love JavaScript"))
+
+function CapitalizeChar(str){
+    
+
+}
