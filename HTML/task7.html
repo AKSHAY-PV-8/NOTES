@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
     <style>
-        .item{
+        .item {
             margin: 30px;
         }
-        .answer{
+
+        .answer {
             display: none;
         }
-        .arrow{
+
+        .arrow {
             display: inline-block;
             transform: rotate(-90deg);
+            transition: transform 0.3s ease;
+        }
+        .arrow.open{
+            transform: rotate(0deg)
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="item">
@@ -37,8 +45,26 @@
     </div>
 
     <script>
-        
+        const questions = document.querySelectorAll(".question")
+
+        questions.forEach(qst => {
+            qst.addEventListener("click", () => {
+
+                const parent = qst.parentElement;
+                const answer = parent.querySelector(".answer")
+                const arrow = qst.querySelector(".arrow")
+
+                document.querySelectorAll(".answer").forEach(ans => {
+                    if(ans != answer) ans.style.display = "none"
+                })
+
+                answer.style.display = answer.style.display === "block" ? "none" : "block"
+                arrow.classList.toggle("open");
+
+            })
+        })
     </script>
-    
+
 </body>
+
 </html>
