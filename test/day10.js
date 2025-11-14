@@ -36,7 +36,36 @@ function filter(arr){
 // fun(n => n > 2)
 // filter([1,2,3,4])(n => n > 2) // [3,4]
 
+function ReverseWords(str){
+    let array = [], subString = ""
+    for(let char of str){
+        if(char !== " "){
+            subString += char
+        }else{
+            array.push(subString)
+            subString = ""
+        }
+    }
+    if(subString) array.push(subString)
 
+    let left = 0, right = array.length - 1 
+
+    while(left < right){
+        [array[left], array[right]] = [array[right], array[left]]
+        left ++;
+        right --;
+    }
+
+    let result = ''
+
+    for(let word of array){
+        result += " "+word
+    }
+    return result
+
+}
+
+// console.log(ReverseWords("I love JavaScript"))
 
 
 
