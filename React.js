@@ -731,11 +731,115 @@ questions RELATED TO RENDERING
                         3. A context value it consumes changes
                         4. A forceUpdate() or key change occurs 
 
-                    sub)what is forceUpdate() ?
+                sub)what is forceUpdate() ?
                     
                               ->forceUpdate() is a  method available only for class components, not in functional components
-                              ->Re-render this components even if nothing changed in state or props. 
+                              ->Re-render this components even if nothing changed in state or props.
+
+          sub) what is React.memo ? 
+
+                      =>React.memo is a wrapper that makes a component re-render only when its props change.
+
+              sub)what does React.memo actually doing ? 
                         
+                        => when we wrap with React.memo react does 3 things: 
+
+                            1. Stores the previous props (memoized props)
+                            2. On next render -> shallow compares old props vs new props
+                            3. If props are same -> React skips rendering the component
+
+                            example: 
+
+                                  const Child = React.memo(({ name }) => {
+                                    console.log("Child render");
+                                    return <h1>{name}</h1>;
+                                  });
+
+                          Parent:
+                      
+                                  <Child name="Akshay" />
+
+                              Parent re-renders with the same name:
+
+                                  newProps = { name: "Akshay" }
+                                  oldProps = { name: "Akshay" }
+
+                              React runs:
+
+                                  Are props same? Yes → shallowEqual → true
+                                  So React:
+
+                                  ❌ does NOT call Child() again
+                                  ❌ does NOT generate new VDOM
+                                  ❌ does NOT call reconciliation
+                                  ❌ does NOT update the DOM
+
+                                  ✔️ returns last rendered version
+                                  ✔️ saves performance
+                        
+                sub)when does React.memo Fail (important) ?
+
+                            =>Because object/ array/ functions always have new identity: 
+
+                                   <Child user={{ name: "Akshay" }} /> 
+
+                            =>Every render creates a NEW object:
+
+                                    prev.user !== next.user
+
+                                    So React.memo won’t skip.
+
+                                  =>That’s why we use useMemo and useCallback.
+                
+                sub)If React already re-renders components, then what is the importance of React.memo?
+
+                                  =>when a parent component re-renders: 
+
+                                    all of its children re-render by default
+
+                                      -> so we use React.memo()
+
+                              EXAMPLE: 
+
+                                  function Chils({value}) {
+                                      console.log("Child rendered");
+                                      return <div>{value}</div>
+                                  }
+
+
+                                  function Parent(){
+                                    const [count, setCount] = useState(0);
+
+                                    return (
+                                      <>
+                                        <button onclick={() => setCount(count+1)}>+</button>
+                                        <Child value="AKSHAY"/>
+                                      </>
+                                    )
+                                  }
+
+                            => even though Child receives SAME prop ("AKSHAY"),
+                            it re-renders every time parent updates. 
+
+                            ⭐ 4. WITH React.memo:
+                                  
+                                  const Child = React.memo(function Child({value}){
+                                    console.log("Child rendered");
+                                    return <div>{value}</div>;
+                                  });
+
+              sub) what is memoized ? 
+                                  
+                              Memoized = stored + reused. 
+
+                            =>in React "memoized" means:
+                                  
+                                  React saved the previous result of something(props,state,DOMException, render output, CSSMathValue, calculation)
+                                  so it can reuse it without recomputing. 
+
+                          ---Memoization => remembering the last output and 
+                                          Reuseing it if inputs didn't change. 
+
             2. If a parent re-renders but child props dont's Change , will child re-render ? 
                       
                         By default , yes --- react re-render the child(calls it's function again). 
@@ -744,12 +848,12 @@ questions RELATED TO RENDERING
                           .wrap the child with React.memo()
                           .or use PureComponent (for class components)
 
-                    sub) what is purecomponent ?  
+            sub) what is purecomponent ?  
 
                             -> is special type of component that automatically prevents unnecessary
                                 re-renders by doinga shallow comparison of its props and state
 
-                    sub) what is shallow comparison ?
+            sub) what is shallow comparison ?
 
                             -> it is used bu React.memo, useMemo, useCallback, reconciliation optimization 
 
@@ -777,7 +881,7 @@ questions RELATED TO RENDERING
                                         => Even though content is same → React treats them as DIFFERENT.
 
 
-                                        why shallow comparison matters? 
+                    sub)why shallow comparison matters? 
 
                                             imagine comapring a gaint object :
 
@@ -792,25 +896,64 @@ questions RELATED TO RENDERING
 
                                               => so react chooses shallow compare for speed. 
 
+                                              ❌ React will re-render
+                                              ✔️ Even though content is same
+
+                      sub) why reference matters ? 
+                                              every time you create a new object:
+                                                -react treats it as a NEW value because it sits in a different memory address
 
             3. what is difference between "render and commit" phase in React ? 
                     
-                        => Render phase:
+                  => Render phase:
                             .React calculates what should change (diffing virtual DOM)
-                            .This phase is pure (no side effects) -----------------------
-                            .can be PaymentRequestUpdateEvent, aborted, or resumed (thaks to FIber)
+                            .This phase is pure (no side effects) 
+                            .can be aborted, or reused (thaks to FIber)
 
-                        => commit phase:
+
+                        => in this phase :
+                                  . calls your component functions 
+                                  . Reads props 
+                                  . Reads state 
+                                  . Builds Virtual DOM
+                                  . Decides what need to change 
+                                  . Creates the Fiber tree 
+                              
+                            But it does NOT touch the actual browser DOM yet. 
+
+                        sub)why render phase be pure ?
+
+                                  because React may run the render phase :
+
+                                              .multiple times 
+                                              .paertially 
+                                              .pause it 
+                                              .restart it 
+                                              .throw it away
+                                              .resumlate
+
+                                        if your render logic causes side effects (like API calls, timers, logging, DOM mutations):
+
+                                        ❌ They would run multiple times
+                                        ❌ They may run and then React discards the work
+                                        ❌ They might run in inconsistent order
+                                        ❌ They break predictability
+
+                                  => so render phase is pure
+
+                  => commit phase:
                             .React applies the changes to the actual DOM. 
                             .This phase is non-interruptible and side-effect safe. 
                             .React run useEffect and lifecycle methods here . 
+
+
             4. React re-render all components when state updates? 
                         => No -- React re-render only:
-                          . The component whose state ChannelMergerNode,
+                          . The component whose state chaged,
                           . And its descendants (unless memoized). 
                         React uses Fiber reconciliation to track which parts of the tree changed.
 
-           ------ 5. What causes unnecessary re-renders and how do you prevent them ? 
+           5. What causes unnecessary re-renders and how do you prevent them ? 
                         => 
                         1. passing new object/ function references as props each time .
                         2. unstable dependencies in useEffect. 
@@ -823,7 +966,7 @@ questions RELATED TO RENDERING
                           . Splitting context
                           . immutable updates
 
-            -------6. what happends if you call setState(or setCount) multiple times in a same render? 
+            6. what happends if you call setState(or setCount) multiple times in a same render? 
                       -> React batches into one during the same event loop tick. 
                       -> All state updates inside a single event are merged before re-render.
 
