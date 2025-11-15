@@ -729,15 +729,69 @@ questions RELATED TO RENDERING
                         1. its state change (via setState or useState setterr)
                         2. its parent re-render, and React calls it again with possibly new props 
                         3. A context value it consumes changes
-                        4. A forceUpdate() or key change occurs ---------------------------
+                        4. A forceUpdate() or key change occurs 
+
+                    sub)what is forceUpdate() ?
+                    
+                              ->forceUpdate() is a  method available only for class components, not in functional components
+                              ->Re-render this components even if nothing changed in state or props. 
                         
-            2. If a parent re-renders but child props dont's ChannelMergerNode, will child re-render ? 
+            2. If a parent re-renders but child props dont's Change , will child re-render ? 
                       
                         By default , yes --- react re-render the child(calls it's function again). 
 
                         unless you:
                           .wrap the child with React.memo()
                           .or use PureComponent (for class components)
+
+                    sub) what is purecomponent ?  
+
+                            -> is special type of component that automatically prevents unnecessary
+                                re-renders by doinga shallow comparison of its props and state
+
+                    sub) what is shallow comparison ?
+
+                            -> it is used bu React.memo, useMemo, useCallback, reconciliation optimization 
+
+                            -> React only checks one level deep of props or state to see if something changed. 
+
+                                -it checks promitive values by value
+                                -it checks objects/ arrays/ functions by reference only (NOT by content)
+
+
+                                example:
+
+                                    1 === 1          // true
+                                    "hi" === "hi"    // true
+
+                                    =>If primitives are SAME → React thinks “no change → no re-render”
+
+                                  ---Object/Arraya--
+
+                                      react does not open and inspect object contents. 
+
+                                      it checks only the memory reference, like:
+
+                                        { a: 1 } === { a: 1 }   // false (different memory reference)
+
+                                        => Even though content is same → React treats them as DIFFERENT.
+
+
+                                        why shallow comparison matters? 
+
+                                            imagine comapring a gaint object :
+
+                                              {
+                                                user: [...10000 items],
+                                                config:{...},
+                                                report: [...]
+                                              }
+
+                                              deep comparison = slow
+                                              shallow comparison = instant
+
+                                              => so react chooses shallow compare for speed. 
+
 
             3. what is difference between "render and commit" phase in React ? 
                     
