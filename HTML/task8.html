@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            border: 1px solid black;
+            width: 300px;
+            height: 20px;
+            position: relative;
+        }
+        button{
+            height: 30px;
+            width: 50px;display: inline-block;
+        }
+        .fill{
+            background-color: rgb(255, 0, 0);
+            position: absolute;
+            height: 100%;   
+        }
+
+        @keyframes loading {
+            from{
+                width:  0%;
+            }
+            to{
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Start Progress Button</h1>
+    <div class="container">
+        <div id="fill" class="fill"></div>
+    </div>
+    <button id="btn">start</button>
+    <div id="complete"></div>
+    <div class="">
+
+    </div>
+
+    <script>
+        const button = document.getElementById("btn")
+        const fill = document.getElementById("fill")
+        const complete = document.getElementById("complete")
+
+        button.addEventListener("click", () => {
+            fill.style.animation = "loading 5s forwards linear"
+        })
+
+        fill.addEventListener("animationend", () => {
+            complete.innerHTML = "Completed"
+        })
+    </script>
+</body>
+</html>
