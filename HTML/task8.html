@@ -1,47 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .container{
+        .container {
             border: 1px solid black;
             width: 300px;
             height: 20px;
             position: relative;
         }
-        button{
+
+        button {
             height: 30px;
-            width: 50px;display: inline-block;
+            width: 50px;
         }
-        .fill{
+
+        .fill {
             background-color: rgb(255, 0, 0);
             position: absolute;
-            height: 100%;   
+            height: 100%;
         }
 
         @keyframes loading {
-            from{
-                width:  0%;
+            from {
+                width: 0%;
             }
-            to{
+
+            to {
                 width: 100%;
             }
         }
+        .box{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
 
+        .card{
+            border: 1px solid black;
+            border-radius: 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .features{
+            display: none;
+        }
+        h3{
+            cursor: pointer;
+        }
+        
+        
     </style>
 </head>
-<body>
-    <h1>Start Progress Button</h1>
-    <div class="container">
-        <div id="fill" class="fill"></div>
-    </div>
-    <button id="btn">start</button>
-    <div id="complete"></div>
-    <div class="">
 
-    </div>
+<body>
+            <h1>Start Progress Button</h1>
+            <div class="container">
+                <div id="fill" class="fill"></div>
+                <button id="btn">start</button>
+                <div id="complete"></div>
+                <div class=""></div>
+            </div>
+
+        <h1>Price Cards</h1>
+        <div class="box">
+            <div class="card">
+                <h2>Basic</h2>
+                <p>Price</p>
+                <h3>Feature List</h3>
+                <div class="features">
+                    <p>f1</p>
+                    <p>f2</p>
+                    <p>f3</p>
+                </div>
+
+                <button>Buy Now</button>
+            </div>
+
+            <div class="card">
+                <h2>Standard</h2>
+                <p>Price</p>
+                <h3>Feature List</h3>
+                <div class="features">
+                    <p>f1</p>
+                    <p>f2</p>
+                    <p>f3</p>
+                </div>
+
+                <button>Buy Now</button>
+            </div>
+
+            <div class="card">
+                <h2>Premium</h2>
+                <p>Price</p>
+                <h3>Feature List</h3>
+                <div class="features">
+                    <p>f1</p>
+                    <p>f2</p>
+                    <p>f3</p>
+                </div>
+
+                <button>Buy Now</button>
+            </div>
+        </div>
+
+
 
     <script>
         const button = document.getElementById("btn")
@@ -49,12 +115,20 @@
         const complete = document.getElementById("complete")
 
         button.addEventListener("click", () => {
+            fill.style.animation = "none"
+            complete.innerHTML = ""
+            fill.offsetWidth
             fill.style.animation = "loading 5s forwards linear"
+
+            fill.addEventListener("animationend", () => {
+                complete.innerHTML = "Completed"
+            })
+
+
         })
 
-        fill.addEventListener("animationend", () => {
-            complete.innerHTML = "Completed"
-        })
+
     </script>
 </body>
+
 </html>
