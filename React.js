@@ -1080,6 +1080,29 @@ questions RELATED TO RENDERING
                       user.name = "Rahul";  // direct mutation 
                       setUser(user) ;
 
+
+
+          Why doesn't useEffect run every render even when the component re-renders?
+
+                            =>
+                              Because React tracks the dependency array. 
+                              - useEffect runs only when at least one dependency has changed (shallow comparison).
+
+                               if you pass an empty array -> it runs only after mout and on unmount cleanup. 
+                              
+          12. Does React.memo prevent re-renders caused by state updates inside the same components?
+
+                        => No,
+                            React.memo only affects props comparison from parent. 
+
+                            if the component's own state chnages -> it always re-renders 
+
+          13. what happens when you mutate state directly in react ? 
+
+                      const [user, setUser] = useState({ name: "Akshay"});
+                      user.name = "Rahul";  // direct mutation 
+                      setUser(user) ;
+
                       =>
                         React won't detect any ChannelMergerNode, because the reference didn't change. 
                         it won't re-render -> UI stays stale.
