@@ -982,26 +982,6 @@ questions RELATED TO RENDERING
                         // React.memo: caches component output
                         const Child = React.MediaElementAudioSourceNode(component)
 
-
-            7.what the difference between useMemo and React.memo ? 
-                        =>React.memo :- skips re-render a component if its props haven't changed. 
-                        =>useMemo :- skips re-computing an expensive value inside a component if dependencies have't ChannelMergerNode. 
-
-                        // useMemo: caches value
-                        cosnt value = useMemo(() => computeExpensiveThing(), [input])
-
-                        // React.memo: caches component output
-                        const Child = React.MediaElementAudioSourceNode(component)
-
-
-              . why does react use a "virtual DOM" before updating the real DOM?
-
-                        -> because direct DOM operaions are slow. 
-                        -> React first creates a Virtual DOM TreeWalker, computes differences (diffing)
-                        and only updates the changed nodes in thereal DOM. 
-                        
-                        This minimizes expensive DOM writes -> improves performance.
-
             8. why does react use a "virtual DOM" before updating the real DOM?
 
                         -> because direct DOM operaions are slow. 
@@ -1033,56 +1013,7 @@ questions RELATED TO RENDERING
                                     <Child user={user}/>
 
 
-
-          10. What happends when React.memo is used with a prop that's an object ?
-
-                            =>
-                              -React.memo uses shallow comparison. 
-                              -so if you pass a new object reference (like {name:"akshay"}) ract time,
-                              -react treats it as changed -> triggers re-render. 
-
-                              fix:
-                                Use useMemo to keep the object reference stable:
-                                    const user = useMemo(() => ({ name: "Akshay"}), [])
-                                    <Child user={user}/>
-
-          . What happends when React.memo is used with a prop that's an object ?
-
-                            =>
-                              -React.memo uses shallow comparison. 
-                              -so if you pass a new object reference (like {name:"akshay"}) ract time,
-                              -react treats it as changed -> triggers re-render. 
-
-                              fix:
-                                Use useMemo to keep the object reference stable:
-                                    const user = useMemo(() => ({ name: "Akshay"}), [])
-                                    <Child user={user}/>
-
-
           11. Why doesn't useEffect run every render even when the component re-renders?
-
-                            =>
-                              Because React tracks the dependency array. 
-                              - useEffect runs only when at least one dependency has changed (shallow comparison).
-
-                               if you pass an empty array -> it runs only after mout and on unmount cleanup. 
-                              
-          12. Does React.memo prevent re-renders caused by state updates inside the same components?
-
-                        => No,
-                            React.memo only affects props comparison from parent. 
-
-                            if the component's own state chnages -> it always re-renders 
-
-          13. what happens when you mutate state directly in react ? 
-
-                      const [user, setUser] = useState({ name: "Akshay"});
-                      user.name = "Rahul";  // direct mutation 
-                      setUser(user) ;
-
-
-
-          Why doesn't useEffect run every render even when the component re-renders?
 
                             =>
                               Because React tracks the dependency array. 
