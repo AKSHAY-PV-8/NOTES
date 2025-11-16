@@ -1033,6 +1033,32 @@ questions RELATED TO RENDERING
                                     <Child user={user}/>
 
 
+
+          10. What happends when React.memo is used with a prop that's an object ?
+
+                            =>
+                              -React.memo uses shallow comparison. 
+                              -so if you pass a new object reference (like {name:"akshay"}) ract time,
+                              -react treats it as changed -> triggers re-render. 
+
+                              fix:
+                                Use useMemo to keep the object reference stable:
+                                    const user = useMemo(() => ({ name: "Akshay"}), [])
+                                    <Child user={user}/>
+
+          . What happends when React.memo is used with a prop that's an object ?
+
+                            =>
+                              -React.memo uses shallow comparison. 
+                              -so if you pass a new object reference (like {name:"akshay"}) ract time,
+                              -react treats it as changed -> triggers re-render. 
+
+                              fix:
+                                Use useMemo to keep the object reference stable:
+                                    const user = useMemo(() => ({ name: "Akshay"}), [])
+                                    <Child user={user}/>
+
+
           11. Why doesn't useEffect run every render even when the component re-renders?
 
                             =>
