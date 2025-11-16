@@ -8,15 +8,20 @@ function lengthOfLongestSubstring(s){
             seen.delete(s[left])
             left ++
         }
-
         seen.add(s[right])
 
         maxLen = Math.max(maxLen, right - left + 1)
     }
-
     return maxLen
+}
+// console.log(lengthOfLongestSubstring("abcabcbb"))
+
+function checkAnagram(arr){
+
+   let lenght = arr[0].length
+   let checker = Array(lenght).fill(0)
+   
+
 
 }
-
-
-console.log(lengthOfLongestSubstring("abcabcbb"))
+console.log(checkAnagram(["abc","cba","bca","dca", "cda","cde"]))

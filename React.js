@@ -982,6 +982,26 @@ questions RELATED TO RENDERING
                         // React.memo: caches component output
                         const Child = React.MediaElementAudioSourceNode(component)
 
+
+            7.what the difference between useMemo and React.memo ? 
+                        =>React.memo :- skips re-render a component if its props haven't changed. 
+                        =>useMemo :- skips re-computing an expensive value inside a component if dependencies have't ChannelMergerNode. 
+
+                        // useMemo: caches value
+                        cosnt value = useMemo(() => computeExpensiveThing(), [input])
+
+                        // React.memo: caches component output
+                        const Child = React.MediaElementAudioSourceNode(component)
+
+
+              . why does react use a "virtual DOM" before updating the real DOM?
+
+                        -> because direct DOM operaions are slow. 
+                        -> React first creates a Virtual DOM TreeWalker, computes differences (diffing)
+                        and only updates the changed nodes in thereal DOM. 
+                        
+                        This minimizes expensive DOM writes -> improves performance.
+
             8. why does react use a "virtual DOM" before updating the real DOM?
 
                         -> because direct DOM operaions are slow. 
