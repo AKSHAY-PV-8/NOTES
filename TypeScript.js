@@ -1,3 +1,5 @@
+import { jsx } from "react/jsx-runtime"
+
 Type Script:- DOC(https://www.typescriptlang.org/docs/)
 -----------
 
@@ -66,9 +68,43 @@ Type Script:- DOC(https://www.typescriptlang.org/docs/)
                 => let login = (name: string, email: string, ispaid: boolean = false)
 
 
+in case array?
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        const heroes = ["thor", "spiderman", "ironman"]
+        const heros = [1,2,3]
 
-                                                                                                                                          
+        heros.map((hero) => {
+                return hero
+        })
 
-                            
+        => type script automaticly identify the type inside the array, no no need to seperate datatype 
+
+
+
+        better syntax
+
+                heroes.map((hero): string => {
+                        return 'hero is ${hero}'  // in this output is string so we put like that
+                })
+
+        
+        function consoleError(errmsg: string): void{
+                console.log(errmsg) // in this void means this function return nothing
+        }
+
+
+
+what is "never" type means?
+
+
+                the never type represents values which are never observed. in a return type, this means 
+                the function throws an exeption or terminates execution of prgm
+
+
+                example:
+
+                        fucntion handleError (msg: string) never{
+                                throw new Error(msg)
+                        }
+
+
