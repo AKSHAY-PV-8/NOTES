@@ -1,12 +1,12 @@
-function lengthOfLongestSubstring(s){
+function lengthOfLongestSubstring(s) {
     let seen = new Set()
     let left = 0;
     let maxLen = 0;
 
-    for(let right = 0; right < s.length; right++){
-        while(seen.has(s[right])){
+    for (let right = 0; right < s.length; right++) {
+        while (seen.has(s[right])) {
             seen.delete(s[left])
-            left ++
+            left++
         }
         seen.add(s[right])
 
@@ -16,12 +16,39 @@ function lengthOfLongestSubstring(s){
 }
 // console.log(lengthOfLongestSubstring("abcabcbb"))
 
-function checkAnagram(arr){
+function checkAnagram(arr) {
 
-   let lenght = arr[0].length
-   let checker = Array(lenght).fill(0)
-   
+    let groups = {};
 
+    for (let word of arr) {
+
+        let freq = new Array(26)
+        for (let i = 0; i < 26; i++) {
+            freq[i] = 0
+        }
+
+        for (let i = 0; i < word.length; i++) {
+            let index = word.charCodeAt(i) - 97;
+            freq[index] += 1
+        }
+
+        let key = "";
+
+        for (let i of freq) {
+            key += i + "#"
+        }
+        if (!groups[key]) {
+            groups[key] = []
+        }
+        groups[key].push(word)
+    }
+
+    let result = []
+
+    for (let k in groups) {
+        result.push(groups[k])
+    }
+    return result
 
 }
-console.log(checkAnagram(["abc","cba","bca","dca", "cda","cde"]))
+console.log(checkAnagram(["abc", "cba", "bca", "dca", "cda", "cde"]))
