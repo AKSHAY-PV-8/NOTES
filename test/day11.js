@@ -1,3 +1,5 @@
+const { version } = require("react");
+
 function lengthOfLongestSubstring(s) {
     let seen = new Set()
     let left = 0;
@@ -52,3 +54,6 @@ function checkAnagram(arr) {
 
 }
 console.log(checkAnagram(["abc", "cba", "bca", "dca", "cda", "cde"]))
+
+function longestPalindromicSubstring(s){}
+
