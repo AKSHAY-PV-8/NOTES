@@ -33,6 +33,33 @@ console.log(longestPalindrome("babad")); // "bab" or "aba"
 
 
 
+function ZigZag(s, numRows){
 
+    let rows = []
+    for(let i = 0; i < numRows; i++){
+        rows[i] = "";
+
+        let currentRow = 0;
+        let goingDown = true;
+
+        for(let char of s){
+            rows[currentRow] += char;
+
+            if(currentRow === 0) goingDown = true;
+            else if(currentRow === numRows -1) goingDown = false;
+
+            currentRow += goingDown ? 1 : -1
+        }
+    }
+
+    let result = "";
+    for(let row of rows) result += row;
+
+    return result
+
+} 
+
+
+console.log(ZigZag("PAYPALISHIRING", 3))
 
 
