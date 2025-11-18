@@ -28,9 +28,7 @@ function longestPalindrome(s) {
     }
     return result;
 }
-
 console.log(longestPalindrome("babad")); // "bab" or "aba"
-
 
 
 function ZigZag(s, numRows){
@@ -58,8 +56,27 @@ function ZigZag(s, numRows){
     return result
 
 } 
-
-
 console.log(ZigZag("PAYPALISHIRING", 3))
+
+function TwoSum (nums, target){
+    let seen = {}
+
+    for(let i = 0; i < nums.length; i++){
+        const diff = target - nums[i]
+        console.log("seen", seen)
+        if(seen[diff] !== undefined){
+            return [i, seen[diff]]
+        }
+        seen[nums[i]] = i
+    }
+
+    return null
+}
+console.log(TwoSum([4,6,8,2,7,11,15], 9))
+
+
+
+
+
 
 
