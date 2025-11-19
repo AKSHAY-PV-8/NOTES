@@ -16,7 +16,20 @@ function TwoSum(arr, n){
     return null
 }
 
-console.log(TwoSum([2,7,11,15], 9)) //best way for sorted array
+function twoSumHash(arr, target) {
+    let map = {};
+
+    for (let i = 0; i < arr.length; i++) {
+        let need = target - arr[i];
+        if (map[need] !== undefined) {
+            return [need, arr[i]];
+        }
+        map[arr[i]] = i;
+    }
+    return null;
+}
+
+// console.log(TwoSum([2,7,11,15], 9)) //best way for sorted array
 
 function RemoveDuplicatesWithoutUsingExtraArray (arr){
     let j = 1;
@@ -26,11 +39,40 @@ function RemoveDuplicatesWithoutUsingExtraArray (arr){
             j++
         }
     }
-
     return j
 }
 
-console.log(RemoveDuplicatesWithoutUsingExtraArray([0,1,1,2,2,3]))
+// console.log(RemoveDuplicatesWithoutUsingExtraArray([0,1,1,2,2,3]))
+
+function Palindrome(str) {
+
+    let clean = "";
+
+    for (let i = 0; i < str.length; i++) {
+        let code = str.charCodeAt(i);
+
+        // A-Z → convert to lowercase manually
+        if (code >= 65 && code <= 90) {
+            clean += String.fromCharCode(code + 32);
+        }
+        // a-z → keep
+        else if (code >= 97 && code <= 122) {
+            clean += str[i];
+        }
+    }
+
+    let left = 0, right = clean.length - 1;
+
+    while (left < right) {
+        if (clean[left] !== clean[right]) return false;
+        left++;
+        right--;
+    }
+
+    return true;
+}
+
+console.log(Palaindorm("aba"))
 
 
 
