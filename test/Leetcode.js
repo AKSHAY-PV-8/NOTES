@@ -75,8 +75,3 @@ function TwoSum (nums, target){
 console.log(TwoSum([4,6,8,2,7,11,15], 9))
 
 
-
-
-
-
-
