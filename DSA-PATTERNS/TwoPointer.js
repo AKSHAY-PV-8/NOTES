@@ -92,3 +92,19 @@ function MostWaterContained (arr){
 
 console.log(MostWaterContained([1,8,6,2,5,4,8,3,7]))
 
+function MoveZeroes(arr){
+    let j = 0;
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i] != 0){
+            arr[j] = arr[i]
+            j++
+        }
+    }
+    for(let i = j; i < arr.length; i++){
+        arr[i] = 0
+    }
+    return arr
+}
+
+console.log(MoveZeroes([0,1,0,3,12]))
+
