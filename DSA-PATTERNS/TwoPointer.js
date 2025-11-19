@@ -1,4 +1,4 @@
-function TwoSum(arr, n){ 
+function TwoSum(arr, n){ //best way for sorted array
 
     let left = 0, right = arr.length - 1
 
@@ -15,7 +15,6 @@ function TwoSum(arr, n){
     } 
     return null
 }
-
 function twoSumHash(arr, target) {
     let map = {};
 
@@ -28,8 +27,8 @@ function twoSumHash(arr, target) {
     }
     return null;
 }
-
 // console.log(TwoSum([2,7,11,15], 9)) //best way for sorted array
+
 
 function RemoveDuplicatesWithoutUsingExtraArray (arr){
     let j = 1;
@@ -41,8 +40,8 @@ function RemoveDuplicatesWithoutUsingExtraArray (arr){
     }
     return j
 }
-
 // console.log(RemoveDuplicatesWithoutUsingExtraArray([0,1,1,2,2,3]))
+
 
 function Palindrome(str) {
 
@@ -72,8 +71,24 @@ function Palindrome(str) {
     return true;
 }
 
-console.log(Palaindorm("aba"))
+console.log(Palindrome("aba"))
 
 
+function MostWaterContained (arr){
 
+    let left = 0, right = arr.length - 1
+    let result = 0
+
+    while(left < right){
+        let height = arr[left] < arr[right] ? arr[left] : arr[right]
+        let width = right - left;
+        let area = height * width
+        area > result ? result = area : result
+
+        arr[left] < arr[right] ? left ++ : right-- ;
+    }
+    return result
+}
+
+console.log(MostWaterContained([1,8,6,2,5,4,8,3,7]))
 
