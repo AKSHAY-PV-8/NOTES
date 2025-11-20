@@ -1,19 +1,20 @@
-import { useEffect } from "react"
-import { useForm, useFieldArray } from "react-hook-form"
+import { useForm, useFieldArray,type SubmitHandler } from "react-hook-form"
 
 type DataType = {
     name: string,
     phNumbers: {
         number: string
-    }[]
+    }[],
+    RollNumber: number
 }
 
 const DynamicField = () => {
 
-    const { register, control } = useForm<DataType>({
+    const { register, control, handleSubmit } = useForm<DataType>({
         defaultValues: {
             name: "batman",
-            phNumbers: [{ number: "" }]
+            phNumbers: [{ number: "" }],
+            RollNumber: 0
         }
     })
 
@@ -22,15 +23,14 @@ const DynamicField = () => {
         control
     })
 
-    useEffect(() => {
-        console.log(fields.map(field => field.number))
-    }, [fields])
+    const onSubmit : SubmitHandler<DataType> = (data) => console.log(data)
 
     return (
 
         <>
             <h1>List of numbers</h1>
-            <div className="">
+            <form action="" onSubmit={handleSubmit(onSubmit)}>
+                <div className="">
                 {
                     fields.map((field, index) => {
                         return (
@@ -43,6 +43,19 @@ const DynamicField = () => {
                 }
             </div>
             <button onClick={() => append({number: ""})}>Add number</button>
+            <input type="text" {...register("RollNumber",{
+                required: true,
+                valueAsNumber: true,
+                validate: (fieldValue) => {
+                    return(
+                        fieldValue < 10 || "Enter a different Id"
+                    )
+                }
+        
+            })}/>
+
+            <button type="submit">submit</button>
+            </form>
         </>
 
     )
