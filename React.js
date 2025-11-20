@@ -1076,6 +1076,263 @@ questions RELATED TO RENDERING
 
 
 
+JSX & React.createElement()
+---------------------------
+
+
+
+20. what is JSX ?
+
+        JSX is syntactic sugar for writing UI in a way that look like HTML. 
+
+        -But  browsers cannot understand JSX, so Babel converts it into normal JavaScript
+
+
+21 what Does React.createElement() actually do ?
+
+            it does NOT create a DOM element. 
+
+              -> it creates a React Element object (a plain JS object)
+
+              Example:
+
+                const el = React.createElement("h1", { id: "title" }, "Hello");
+
+            => React creates an object like:
+
+                {
+                  type: "h1",
+                  props: {
+                    id: "title",
+                    children: "Hello"
+                  }
+                }
+
+            => This object is called a Virtual DOM node.
+
+
+
+22. Why React uses createElement instead of creating DOM directly ?
+
+          Because React wants to: 
+
+                . Track changes using Virtual DOM
+                . Compare old vs new tree 
+                . Only update what changed 
+                . Batch updates 
+                . Avoid full DOM re-renders 
+
+          DOM is slow -> React Elements (JS object) are fast.
+
+
+23. Render phase vs commit phase (important)
+
+            Reder Phase 
+
+                  . React calls your components 
+                  . Executes JSX -> createElement() -> virtal DOM tree 
+                  . Pure: NO DOM changes
+                  . Safe to run multiple times 
+
+            Commit Phase 
+
+                  . React takes the diff 
+                  . Updates the real DOM 
+
+          so JSX -> Virtual DOM -> Reconciliation -> DOM update. 
+
+
+24. why is JSX important if createElemnet already exists ?
+
+          JSX is:
+
+                . easier to write 
+                . more readable 
+                . less verbose
+                . similar to HTML
+
+
+        Without JSX:
+            return React.createElement(
+              "div",
+              null,
+              React.createElement("h1", null, "Hi"),
+              React.createElement("p", null, "Welcome")
+            );
+
+        With JSX:
+            return (
+              <div>
+                <h1>Hi</h1>
+                <p>Welcome</p>
+              </div>
+            );
+
+25. is the babel conver the jsx to js using createElement () ?
+
+          => yes, Bable convert jsx into js using react.createElement() (in React 16 and below). 
+
+          => But in react 17+ , Babel converts JSX using a new system called the "JSX transform", which
+          does not explicitly call React.createElement but still does the same job under the hood . 
+
+
+        => After React 17 — New JSX Transform (no need to import React)
+
+            React 17 introduced a new JSX transform. 
+              => now Babel converts JSX into helper function from react/jsx-runtime. 
+
+
+
+    sub)Why React changed this?
+    
+        1️⃣ No need for import React at the top of every file
+
+        Before React 17:
+
+          import React from "react";
+
+        Was required for JSX to work.
+        Not anymore.
+
+        2️⃣ More optimized element creation
+
+          jsx() and jsxs() are faster than React.createElement().
+
+        3️⃣ Smaller bundles in production
+
+          The new transform creates fewer intermediate objects.
+
+
+
+HOOKS
+-----
+
+        useState 
+        ---------
+
+    Core Idea : useState uses an Internal Queue of updates
+    
+            whenever you call:
+
+              setCount(prev => prev + 1);
+
+          => react does not immediately update state.
+            
+          instead: 
+
+          🔥React creates an update object
+              and puts it into a linked list queue inside the component's Fiber node. 
+
+            then during the next render: 
+              . React processes the whole queue 
+              . applies all updates in order 
+              . computes the finsal state
+
+
+
+
+26. what is inside a useState hook in React? 
+
+            => every hook in a component has a hook object stored on the Fiber: 
+
+            stucture (simplified):
+
+                hook = {
+                  memoizedState : <current state>,
+                  queue: {
+                    pending: <circular linked list of updates>
+                  },
+                  next: <next hook> // because hooks form a linked list
+                }
+
+
+        example: 
+
+            const [count, setCount] = useState(0); 
+
+                inside the Fiber:
+
+                    memoizedState = 0;
+                    queue = {pending: null}
+
+          =>When you call setCount()
+
+                Example:
+                   
+                   setCount(prev => prev + 1)
+                
+                => react doesn't update immediately. 
+
+                Instead it creates: 
+
+                    🔸 An update object:
+
+                        update = { 
+                          action: prev => prev + 1,
+                          next: null
+                        }
+
+                    🔸 Pushes this into the update queue:
+
+                        queue.pending -> update -> (points back to queue.pending)
+
+                    =>This queue is a circular linked list.
+
+                    🔄 During the next render: React processes the queue
+
+                        React walks the queue:
+
+                            initialState = memoizedState
+                            for each update in queue:
+                                newState = update.action(previousState)
+                            memoizedState = newState
+
+27.what if you call setCount(count + 1) instead ?
+
+                  => count is stale (example: 0)
+
+                        All three updates become: 1
+
+
+
+28. Why react stores updates in a queue? 
+
+            Because react must support:
+
+                        . batching
+                        . multiple updates before a render 
+                        . prev => prev + 1 function updates
+                        . concurrency (pause/ resume rendering)
+
+                  Without a queue -> React cannot properly merge updates
+
+29. why hooks form a linked list ?
+
+                        Because React does not use hook names. 
+
+                            it uses call order: 
+
+                                useState -> first hook 
+                                useEffect -> second hook 
+                                useMemo -> third hook 
+
+                        => React can find the correct hook state every render. 
+
+
+
+
+
+
+                    
+
+          
+
+
+
+
+
+
+
 why we adding unique key when render list using map()?
     because using the key react can add , delete, etc efficently later if needed.
     
