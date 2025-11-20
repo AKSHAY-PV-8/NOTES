@@ -70,7 +70,6 @@ function Palindrome(str) {
 
     return true;
 }
-
 console.log(Palindrome("aba"))
 
 
@@ -89,8 +88,8 @@ function MostWaterContained (arr){
     }
     return result
 }
-
 console.log(MostWaterContained([1,8,6,2,5,4,8,3,7]))
+
 
 function MoveZeroes(arr){
     let j = 0;
@@ -105,6 +104,7 @@ function MoveZeroes(arr){
     }
     return arr
 }
-
 console.log(MoveZeroes([0,1,0,3,12]))
+
+
 
