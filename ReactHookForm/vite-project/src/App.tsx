@@ -1,7 +1,8 @@
-import Example from "../components/Example"
-import RegisterForm  from "../components/RegisterForm"
-import ApplyValidation from "../components/ApplyValidation"
-import DynamicField from "../components/DynamicField"
+import Example from "./assets/components/Example"
+import RegisterForm  from "./assets/components/RegisterForm"
+import ApplyValidation from "./assets/components/ApplyValidation"
+import DynamicField from "./assets/components/DynamicField"
+
 
 const App = () => {
 

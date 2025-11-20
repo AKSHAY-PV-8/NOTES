@@ -3,10 +3,9 @@ import { useForm, useFieldArray } from "react-hook-form"
 
 type DataType = {
     name: string,
-    phoneNumbers: {
+    phNumbers: {
         number: string
     }[]
-
 }
 
 const DynamicField = () => {
@@ -14,42 +13,38 @@ const DynamicField = () => {
     const { register, control } = useForm<DataType>({
         defaultValues: {
             name: "batman",
-            phoneNumbers: [{ number: "" }]
+            phNumbers: [{ number: "" }]
         }
     })
 
     const { fields, append, remove } = useFieldArray({
-        name: "phoneNumbers",
+        name: "phNumbers",
         control
     })
 
     useEffect(() => {
-        console.log(fields)
+        console.log(fields.map(field => field.number))
     }, [fields])
-    return (
-        <div>
-            <h1>list of phn numbers</h1>
 
+    return (
+
+        <>
+            <h1>List of numbers</h1>
             <div className="">
                 {
                     fields.map((field, index) => {
                         return (
                             <div className="" key={field.id}>
-                                <input type="text" {...register(`phoneNumbers.${index}.number` as const)} />
-                                {
-                                    index > 0 && (
-                                        <button type="button" onClick={()=> remove(index)}>Remove</button>
-                                    )
-                                }
+                                <input type="text" {...register(`phNumbers.${index}.number` as const)} />
+                                <button onClick={() => remove(index)}>Remove</button>
                             </div>
                         )
                     })
                 }
-
-                <button type="button" onClick={()=> append({number: ""})}>Add phone number</button>
             </div>
+            <button onClick={() => append({number: ""})}>Add number</button>
+        </>
 
-        </div>
     )
 }
 
