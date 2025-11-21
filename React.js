@@ -1319,6 +1319,104 @@ HOOKS
                         => React can find the correct hook state every render. 
 
 
+useEffect
+--------- 
+
+
+30. What is useEffect really ? (internally)
+
+                      =>Inside React Fiber, each component has :
+
+                            fiber.updateQueue.effects = [effect1, effect2, effect3 ....]
+
+                      => each useEffect adds an effect object into that list. 
+
+                      Structure (simplified):
+
+                          effect = {
+                            create: () => { . . . }, // function you return inside useEffect 
+                            destroy: () => { . . .}, // cleanup function
+                            deps: [dep1, dep2, ....], //dependency array
+                            tag: EffectTag           // passiveEffect
+
+                          }
+
+                    => so useEffect internally stores:
+                          . your function 
+                          . your cleanup
+                          . your dependecy array 
+
+
+31. When does useEffect run ? 
+
+                        => NOT during render
+                        => after render is committed to the DOM 
+                        => in a separate passive effect phase
+
+                  Render phase → Commit phase → Passive Effects phase
+
+                    useEffect runs in the passive phase, not during commit.
+
+                This means:
+
+                  . your effect never blocks the UI
+                  . React first updates DOM, then runs effects 
+
+        sub) How dependency tracking works 
+
+                          useEffect(() => {
+                            console.log("run")
+                          }, [a, b, c ]);
+
+
+                        => compare new deps with previous deps
+                          - if changed -> effect should run
+
+                        => react use shallow comparison
+
+        sub) How React handles it intenally 
+
+                    -if you effect returns a function: 
+
+                        On next re-render:
+
+                          1. Compares new deps with old deps 
+                          2. if deps changed: 
+                            . react calls the old cleanup function 
+                            . then calls the new effect function 
+
+                        OLD effect cleanup -> NEW effect create
+                          
+                            ON unmount: 
+                                React also calls cleanup. 
+
+
+        sub) Types of effects 
+
+                        ✔ 1) useEffect → Passive effect
+
+                              Runs after the screen is painted.
+
+                        ✔ 2) useLayoutEffect → Synchronous effect
+
+                              Runs before the browser repaints.
+
+                              useLayoutEffect blocks the paint.
+                              useEffect does NOT block anything.
+
+
+  
+
+
+                  
+
+
+
+
+
+                        
+
+
 
 
 
