@@ -218,13 +218,15 @@ Generaics
 
 
 
-const asyncHandler = (fn) => (req, res, next) => {
-  fn(req, res, next).catch(next);
-};
+React -TypeScript
+-----------------
+
+                        
+
+                
 
 
-
-TypeScript SecurityPolicyViolationEvent
+TypeScript 
 
         => whe you write backend code with TS , Node.js cannot run TS FileSystemDirectoryHandle
         node understands only JS
