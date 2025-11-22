@@ -9,6 +9,9 @@ import Input from './components/Input'
 import ObjectType from './components/ObjectType'
 import Style from './components/Style'
 import UnionProp from './components/UnionProp'
+import UseReducer from './components/UseReducer'
+import UseStateTypeScript from './components/useStateTypeScript'
+
 
 function App() {
 
@@ -41,7 +44,11 @@ function App() {
 
       <Style style={{backgroundColor: "blue", padding: "1rem"}}/>
 
+      <UseStateTypeScript/>
 
+      <UseReducer/>
+
+    
     </>
   )
 }

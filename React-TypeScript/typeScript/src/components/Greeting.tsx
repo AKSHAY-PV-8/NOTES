@@ -10,7 +10,7 @@ const Greeting = (prop: propType) => {
         <h2>details</h2>
         <div className="">age: {prop.age}</div>
         logged: {prop.isLogged ? <span>logged</span>: <span>not logged</span>}
-  
+      
     </div>
   )
 }
