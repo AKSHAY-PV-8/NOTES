@@ -7,6 +7,7 @@ import EventProps from './components/EventProps'
 import Greeting from './components/Greeting'
 import Input from './components/Input'
 import ObjectType from './components/ObjectType'
+import Style from './components/Style'
 import UnionProp from './components/UnionProp'
 
 function App() {
@@ -38,7 +39,9 @@ function App() {
 
       <Input value='' handleOnChange={(event) => console.log(event)}/>
 
-      
+      <Style style={{backgroundColor: "blue", padding: "1rem"}}/>
+
+
     </>
   )
 }
