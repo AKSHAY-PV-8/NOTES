@@ -4,6 +4,7 @@ import ArrayType from './components/ArrayType'
 import Box from './components/Box'
 import ChildrenProp from './components/ChildrenProp'
 import ComponetInsideComponent from './components/ComponetInsideComponent'
+import DomcExampl from './components/DomcExampl'
 import EventProps from './components/EventProps'
 import Greeting from './components/Greeting'
 import Input from './components/Input'
@@ -31,7 +32,7 @@ function App() {
   return (
     <>
 
-      <Greeting name="akshay" age={22} />
+      {/* <Greeting name="akshay" age={22} />
       <ObjectType name={personDetials}/>
       <ArrayType hobies={hobies}/>
       <UnionProp status='true'/>
@@ -58,7 +59,9 @@ function App() {
 
       <UserContextProvider>
         <User/>
-      </UserContextProvider>
+      </UserContextProvider> */}
+
+      <DomcExampl/>
 
     
     </>
