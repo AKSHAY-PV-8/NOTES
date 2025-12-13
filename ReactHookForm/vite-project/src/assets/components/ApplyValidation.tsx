@@ -14,7 +14,7 @@ const ApplyValidation = () => {
     } = useForm<Details>()
 
     const onSubmit: SubmitHandler<Details> = (data) => console.log(data)
-    
+   
     return (
         <div>
 

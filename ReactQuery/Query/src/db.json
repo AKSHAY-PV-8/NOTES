@@ -1,0 +1,130 @@
+{
+  "SuperHeros": [
+    {
+      "id": 1,
+      "name": "BatMan",
+      "alterEgo": "Bruce Wayne",
+      "power": "High intelligence, martial arts, advanced gadgets",
+      "origin": "Gotham City",
+      "team": "Justice League",
+      "strengthLevel": 8,
+      "image": "https://i.ibb.co/4FvY1H7/batman.png"
+    },
+    {
+      "id": 2,
+      "name": "SuperMan",
+      "alterEgo": "Clark Kent",
+      "power": "Super strength, flight, x-ray vision, heat vision",
+      "origin": "Krypton",
+      "team": "Justice League",
+      "strengthLevel": 10,
+      "image": "https://i.ibb.co/V3s5w3s/superman.png"
+    },
+    {
+      "id": 3,
+      "name": "SpiderMan",
+      "alterEgo": "Peter Parker",
+      "power": "Wall climbing, spider-sense, super agility",
+      "origin": "New York",
+      "team": "Avengers",
+      "strengthLevel": 7,
+      "image": "https://i.ibb.co/8xZ6s1D/spiderman.png"
+    }
+  ],
+  "Marvel": [
+    {
+      "id": 1,
+      "name": "IronMan",
+      "alterEgo": "Tony Stark",
+      "power": "Powered armor suit, genius intellect",
+      "origin": "New York",
+      "team": "Avengers",
+      "strengthLevel": 8,
+      "image": "https://i.ibb.co/xzQwLrP/ironman.png"
+    },
+    {
+      "id": 2,
+      "name": "Captain America",
+      "alterEgo": "Steve Rogers",
+      "power": "Super soldier serum, enhanced strength, shield combat",
+      "origin": "Brooklyn",
+      "team": "Avengers",
+      "strengthLevel": 7,
+      "image": "https://i.ibb.co/dL1sSfc/captain.png"
+    },
+    {
+      "id": 3,
+      "name": "Thor",
+      "alterEgo": "Thor Odinson",
+      "power": "God of Thunder, Mjolnir, lightning control",
+      "origin": "Asgard",
+      "team": "Avengers",
+      "strengthLevel": 10,
+      "image": "https://i.ibb.co/Hh3d2pG/thor.png"
+    }
+  ],
+  "New": [
+    {
+      "id": 4,
+      "name": "MoonKnight",
+      "alterEgo": "Marc Spector",
+      "power": "Multiple personalities, enhanced strength at night",
+      "origin": "Egypt",
+      "team": "Midnight Sons",
+      "strengthLevel": 7,
+      "image": "https://i.ibb.co/7j6j5Lx/moonknight.png"
+    },
+    {
+      "id": 5,
+      "name": "Shang-chi",
+      "alterEgo": "Shang-Chi",
+      "power": "Master martial artist, chi energy control",
+      "origin": "China",
+      "team": "Avengers",
+      "strengthLevel": 8,
+      "image": "https://i.ibb.co/TL5xD5t/shangchi.png"
+    }
+  ],
+  "Weapons": [
+    {
+      "heroId": 1,
+      "heroName": "BatMan",
+      "weapons": ["Batarang", "Grappling Gun", "Smoke Bombs", "Batmobile"]
+    },
+    {
+      "heroId": 2,
+      "heroName": "SuperMan",
+      "weapons": ["None (Natural Superpowers)"]
+    },
+    {
+      "heroId": 3,
+      "heroName": "SpiderMan",
+      "weapons": ["Web Shooters", "Spider Drones"]
+    },
+    {
+      "heroId": 4,
+      "heroName": "IronMan",
+      "weapons": ["Repulsor Beams", "Nano Missiles", "Uni-Beam"]
+    },
+    {
+      "heroId": 5,
+      "heroName": "Captain America",
+      "weapons": ["Vibranium Shield"]
+    },
+    {
+      "heroId": 6,
+      "heroName": "Thor",
+      "weapons": ["Mjolnir", "Stormbreaker"]
+    },
+    {
+      "heroId": 7,
+      "heroName": "MoonKnight",
+      "weapons": ["Truncheon", "Crescent Darts", "Moon Copter"]
+    },
+    {
+      "heroId": 8,
+      "heroName": "Shang-Chi",
+      "weapons": ["Ten Rings", "Bo Staff"]
+    }
+  ]
+}

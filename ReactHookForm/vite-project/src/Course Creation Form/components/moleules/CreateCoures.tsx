@@ -15,7 +15,7 @@ const CreateCoures = () => {
         <div>
             <h1>Create Coures</h1>
 
-            <form action="" onSubmit={handleSubmit(on)}>
+            <form action="" onSubmit={handleSubmit(onSubmit)}>
                 <input type="text" placeholder="Title" {...register("title")}/>
 
                 <textarea placeholder="Description" {...register("description")}/>
@@ -23,9 +23,10 @@ const CreateCoures = () => {
                 <input type="number" placeholder="Price" {...register("price")}/>
 
                 <button>Create</button>
+
+                ssdfsdf
             </form>
-
-
+            
 
         </div>
     )

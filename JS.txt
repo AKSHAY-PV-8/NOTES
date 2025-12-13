@@ -98,6 +98,55 @@ how js runs ?
 what is call stack ?
 
                 call stack is a stack ds that is used by js to store the order of execution context , once the function invocation is completed the function will be removed form the call stack
+
+
+CASE of creating execution context and memory?
+
+            CASE 1
+
+                fucntion outer(){
+                    console.log("hello);
+                    
+                }
+
+                => this is only function declaration 
+                . memory is allocated 
+                . a function object is created 
+                . reference is stored in memory 
+                . no Execution context is not created 
+
+                ===> in globel execution context store like
+                   . outer => fn reference
+
+            CASE 2
+
+                outer()
+
+            => 1. js sees outer()
+            => 2. Create a new Execution Context 
+            => 3. Pushes it to the Call Stack 
+            => 4. Exection the function 
+            => 5. Pops it after completion 
+
+
+            CASR 3
+
+                return outer
+
+            => thie just 
+                . Return the function reference 
+                . Does NOT execute the function 
+                . Does not Create exectution context 
+
+
+            CASR 4
+
+                return outer()
+
+            => Exection Context is Created 
+            => Because outer() is being called 
+
+sdsdf sdf sdf sdf sdf sdf sdf sd sdfsdfsdfsdf 
                 
 what is hoisting in js ?
 
@@ -172,13 +221,21 @@ what is window object and this keyword in js ?
             these global object and execution context will be created by all the js engines in browser that global object is window and in node js it is called "global"  
             the global variable that are declared using var will be attached to the window object by js and the global variable that are decalred using let or const wont be added
 
+why this keyword is created along with globel exextion context ?
+
+            Because JS is designed to be object-based.
+                -> this always points to the object that is currently executing the code 
+
 what is global object? 
             it is a top level object that provide all inbuilt functions, consstanst and also hold global variables  
 
-        undefined vs not defined
+        undefined vs not defined vs null
 
             undefined means the variable is defined and it has its own memory in the memory context but it is not assigned a value yet so by default js assign  its value to be undefined kinda like a placeholder
-            in other hand not defined means that variable is not defined or it is absent in the memory context           
+
+            in other hand not defined means that variable is not defined or it is absent in the memory context  
+
+            null is used to show thst this variable should have no value right now          
         
 Scope chain in js?
 
@@ -205,6 +262,10 @@ var vs let and const?
             variable that are declared using var can be redeclared within in the same scope 
             but cant do with let or const variables
 
+            var is function scoped 
+
+            let and const are block scoped and 
+            var is function scoped and global scoped 
 
 what is a block in js ?
             simply -> it is the set of statement that are written inside a pair of {}
@@ -329,6 +390,7 @@ what is closure ?
         So JavaScript does not destroy that variable.
         Instead, it keeps it inside a special place called the "closure" — connected to that inner function.
 
+        
                                                             
 ?some use cases of closure 
 
@@ -344,7 +406,6 @@ what is closure ?
                                 console.log(count)
                             }
                         }
-                                                                                                                                                                                                                            
                     })()
 
                     text.inc() -> returns result 
@@ -443,7 +504,7 @@ what are the real use of curring?
 
  how setTimeout Works ?
             in setTimeout the callback is taken out and get attched that timer and it will be placed somehere other than callstack ( placed in web API or timer queue) and rest of the code will continue execution and when this timer exceeds, the setTimeout will take that callback function and append it to the call stack
- 
+
         setTimeout and closure / printing numbers from 1 to 10 after each second using setTImeout  ?
 
             for (var i = 0; i < 5; i++) {
@@ -465,7 +526,6 @@ what are the real use of curring?
             }
 
             in above code 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             var is function-scoped, not block-scoped.
             All 5 timeouts would print 5 after 0,1,2,3,4 seconds, because there’s only one i shared.
             use let instead of var to get corret answer
@@ -490,9 +550,7 @@ what are the real use of curring?
 
             =>var creates one shared variable i for the whole loop; the callbacks run later (after the loop finished) and therefore all see the final goes of i (which is 4).
 
-            =>let creates a new i for each iteration, so each callback sees the value for its own iteration.
-
-
+            =>let creates a new i for each iteration, so each callback sees the value for its own iteration.    
 
 Why var behaves this way (the technical reason)?
 
@@ -847,10 +905,11 @@ what are callbacks ?
 
                                 and
 
+
                                 const promise = createOrder(cart);
                                     
                                     promise.then(funtion (orderId){
-                                    proceedToPayment(orderId);})
+                                    proceedToPayment(orderId);})  
 
                                 =>when we use the first option the callback function is passed to 
                                 createOrder function
