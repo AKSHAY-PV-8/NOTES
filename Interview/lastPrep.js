@@ -102,7 +102,6 @@ function flattening(arr){
         }
     }
     return result
-
 }
 
 function flattening(arr){
@@ -199,8 +198,6 @@ const NthSmalestNumber = (arry, n) => {
     return result
 }
 // console.log(NthSmalestNumber([10, 5, 20, 8, 15], 2))
-
-
 
 class maxHeap{
     constructor(){
