@@ -1,0 +1,1 @@
+char.charCodeAt(0)-97
